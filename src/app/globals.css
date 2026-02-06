@@ -24,6 +24,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Custom font families */
+.font-playfair {
+  font-family: var(--font-playfair), serif;
+}
+
+.font-mono {
+  font-family: var(--font-space-mono), 'Courier New', monospace;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

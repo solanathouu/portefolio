@@ -1,17 +1,11 @@
 import Hero from '@/components/sections/Hero';
+import Projects from '@/components/sections/Projects';
 
 export default function Home() {
   return (
     <main className="min-h-screen">
       <Hero />
-
-      {/* Placeholder sections pour scroll */}
-      <section id="projects" className="min-h-screen flex items-center justify-center bg-background/50">
-        <div className="text-center">
-          <h2 className="text-5xl font-bold mb-4">Projects</h2>
-          <p className="text-xl text-foreground/60">Section à venir</p>
-        </div>
-      </section>
+      <Projects />
 
       <section id="skills" className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">

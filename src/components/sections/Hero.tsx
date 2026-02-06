@@ -12,7 +12,7 @@ export default function Hero() {
       id="hero"
       className="relative"
       style={{
-        minHeight: animationComplete ? '200vh' : '100vh',
+        minHeight: animationComplete ? '120vh' : '100vh',
         backgroundColor: '#303030' // Anthracite
       }}
     >
@@ -32,10 +32,9 @@ export default function Hero() {
               fontSize: 'clamp(8rem, 20vw, 18rem)',
               color: 'transparent',
               WebkitTextStroke: '2px rgba(255, 255, 255, 0.1)',
-              textStroke: '2px rgba(255, 255, 255, 0.1)',
               backdropFilter: 'blur(2px)',
               textShadow: '0 0 40px rgba(255, 255, 255, 0.05)',
-            }}
+            } as React.CSSProperties}
           >
             NATHAN
           </h1>
