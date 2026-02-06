@@ -8,12 +8,12 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-[300vh] bg-gradient-to-b from-background via-background to-background/50"
+      className="relative min-h-[500vh] bg-gradient-to-b from-background via-background to-background/50"
     >
       {/* Sticky container pour l'avatar */}
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center pt-16">
             {/* Texte à gauche */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -61,36 +61,40 @@ export default function Hero() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.3 }}
-              className="relative w-full max-w-lg mx-auto aspect-square"
+              className="relative w-full max-w-md mx-auto"
+              style={{ height: '600px' }}
             >
               <Avatar3D
                 frameCount={173}
                 scrollStart={0}
-                scrollEnd={200}
+                scrollEnd={400}
                 className="w-full h-full"
               />
 
+              {/* Overlay gradient pour fondre l'arrière-plan */}
+              <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/0 to-background pointer-events-none" />
+
               {/* Glow effect derrière l'avatar */}
-              <div className="absolute inset-0 bg-primary/20 blur-[100px] -z-10 rounded-full" />
+              <div className="absolute inset-0 bg-primary/10 blur-[120px] -z-10" />
             </motion.div>
           </div>
         </div>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator - fixé en bas de l'écran */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 z-50"
         >
           <div className="flex flex-col items-center gap-2">
-            <p className="text-sm text-foreground/50">Scrollez pour animer</p>
+            <p className="text-xs text-foreground/50 font-medium">Scrollez pour animer</p>
             <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-6 h-10 border-2 border-foreground/30 rounded-full flex items-start justify-center p-2"
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              className="w-5 h-8 border-2 border-foreground/30 rounded-full flex items-start justify-center p-1.5"
             >
-              <div className="w-1 h-3 bg-foreground/30 rounded-full" />
+              <div className="w-1 h-2 bg-foreground/40 rounded-full" />
             </motion.div>
           </div>
         </motion.div>

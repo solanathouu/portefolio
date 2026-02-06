@@ -45,8 +45,9 @@ export default function Avatar3D({
         <img
           src={imageSrc}
           alt="3D Avatar"
-          className="w-full h-full object-contain"
+          className="w-full h-full object-contain scale-90"
           loading="eager"
+          style={{ imageRendering: 'auto' }}
         />
       </div>
 
