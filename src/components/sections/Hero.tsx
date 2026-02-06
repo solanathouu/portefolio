@@ -71,9 +71,6 @@ export default function Hero() {
                 className="w-full h-full"
               />
 
-              {/* Overlay gradient pour fondre l'arrière-plan */}
-              <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/0 to-background pointer-events-none" />
-
               {/* Glow effect derrière l'avatar */}
               <div className="absolute inset-0 bg-primary/10 blur-[120px] -z-10" />
             </motion.div>
