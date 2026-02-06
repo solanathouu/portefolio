@@ -1,14 +1,18 @@
 'use client';
 
-import Avatar3D from '@/components/avatar/Avatar3D';
+import Avatar3DLocked from '@/components/avatar/Avatar3DLocked';
 import Button from '@/components/ui/Button';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export default function Hero() {
+  const [animationComplete, setAnimationComplete] = useState(false);
+
   return (
     <section
       id="hero"
-      className="relative min-h-[500vh] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
+      className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
+      style={{ minHeight: animationComplete ? '200vh' : '100vh' }}
     >
       {/* Sticky container pour l'avatar */}
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
@@ -64,10 +68,9 @@ export default function Hero() {
               className="relative w-full max-w-md mx-auto"
               style={{ height: '600px' }}
             >
-              <Avatar3D
+              <Avatar3DLocked
                 frameCount={173}
-                scrollStart={0}
-                scrollEnd={400}
+                onAnimationComplete={() => setAnimationComplete(true)}
                 className="w-full h-full"
               />
 
