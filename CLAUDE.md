@@ -184,55 +184,67 @@ portfolio/
 - [x] UI components de base (Button, Badge, RevealOnScroll)
 - [x] Layout components (Header, Footer)
 
-### Phase 1: À venir
-- [ ] Avatar 3D system
-- [ ] Hero section
-- [ ] Projects gallery
-- [ ] Skills section
-- [ ] Contact section
+### Phase 1: Hero + Avatar ✅ COMPLETE
+- [x] Avatar 3D system avec 173 frames PNG (fond transparent)
+- [x] Hero section avec animations Framer Motion
+- [x] Système de scroll bloqué pour rotation 360°
+- [x] Hook useScrollLockAnimation pour contrôle précis
+- [x] Preload intelligent des images
+- [x] Background gradient slate-900 moderne
+- [x] Responsive design (mobile + desktop)
+
+### Phase 2: À venir
+- [ ] Projects gallery (Masonry/Bento grid)
+- [ ] Skills section (animations par catégorie)
+- [ ] Contact section (effets premium)
 - [ ] Optimizations & deployment
 
 ## 📊 Current Project State
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Fondations complètes | 9 fichiers créés, 5 commits |
-| Config | ✅ Prêt | Next.js 16, TypeScript, Tailwind CSS v4 |
-| Tests | 🔄 Pas encore | TDD à implémenter pour les prochaines phases |
-| Git | ✅ Synced | Branch main, pushed to GitHub |
+| Code | ✅ Phase 1 complète | Hero + Avatar 3D fonctionnel |
+| Config | ✅ Optimisé | Colors, scroll behavior, animations |
+| Tests | 🔄 Pas encore | TDD à implémenter |
+| Git | ⚠️ 11 commits ahead | Ready to push to origin |
 
-**Dernière action:** Implémentation complète des fondations (utilities, data, UI components, layout)
+**Dernière action:** Avatar 3D avec scroll bloqué (rotation 360° avant défilement)
 
-**Fichiers créés:**
-- `src/lib/utils/cn.ts` - Utility pour class merging
-- `src/data/projects.ts` - 3 projets avec placeholders
-- `src/data/skills.ts` - 16 compétences
-- `src/data/contact.ts` - 5 liens sociaux
-- `src/components/ui/Button.tsx` - Bouton avec 3 variants
-- `src/components/ui/Badge.tsx` - Badge pour tags
-- `src/components/ui/RevealOnScroll.tsx` - Animation wrapper
-- `src/components/layout/Header.tsx` - Navigation sticky
-- `src/components/layout/Footer.tsx` - Footer minimal
+**Composants Avatar créés:**
+- `src/components/avatar/Avatar3DLocked.tsx` - Avatar avec contrôle scroll
+- `src/lib/hooks/useScrollLockAnimation.ts` - Hook de gestion scroll
+- `src/components/sections/Hero.tsx` - Section Hero complète
+- `public/assets/avatar/` - 173 frames PNG (fond transparent)
+
+**Fonctionnalités implémentées:**
+- ✅ Rotation 360° de l'avatar contrôlée par scroll
+- ✅ Page bloquée jusqu'à fin de rotation
+- ✅ Preload de toutes les images
+- ✅ Sensibilité ajustable (20 pixels/frame)
+- ✅ Support wheel + touch events
+- ✅ Animations Framer Motion sur textes
 
 ## 🎯 Next Immediate Action
 
-**TESTER LES FONDATIONS:**
+**PUSH TO GITHUB & CONTINUER PHASE 2:**
 
-1. **Démarrer le serveur de développement:**
+1. **Push les 11 commits en attente:**
    ```bash
    cd portfolio-new
-   npm run dev
+   git push origin main
    ```
-   Server will start on http://localhost:3000 or http://localhost:3001
 
-2. **Créer une page de test pour visualiser les composants:**
-   - Intégrer Header et Footer dans layout.tsx
-   - Créer une section de demo dans page.tsx avec Button, Badge, RevealOnScroll
-   - Vérifier que tout s'affiche correctement
+2. **Tester l'avatar en production:**
+   - Vérifier que la rotation est fluide
+   - Ajuster `scrollSensitivity` si nécessaire (actuellement: 20)
+   - Test sur mobile et desktop
 
-3. **Après les tests:**
-   - Si OK → Continuer avec Phase 1 (Hero + Avatar system)
-   - Si bugs → Corriger puis retester
+3. **Commencer Phase 2 - Projects Gallery:**
+   - Créer `src/components/sections/Projects.tsx`
+   - Implémenter layout Masonry ou Bento grid
+   - Utiliser les données de `src/data/projects.ts`
+   - Ajouter filtres par technologie
+   - Modal pour détails projet
 
 ## 📝 Next Steps (Après tests)
 
@@ -300,7 +312,30 @@ Or connect GitHub repo to Vercel for automatic deployments.
 - **Performance first:** Smooth animations > Complex animations
 - **Mobile matters:** Test on real devices
 
+## 🔧 Avatar Configuration
+
+Pour ajuster la vitesse de rotation:
+```typescript
+// Dans src/lib/hooks/useScrollLockAnimation.ts
+const scrollSensitivity = 20; // Plus grand = plus lent
+```
+
+Valeurs recommandées:
+- **10-15**: Rotation rapide (5-10 coups de molette)
+- **20-30**: Rotation normale (20-25 coups de molette) ← Actuel
+- **40-50**: Rotation lente (immersive)
+
+## 📊 Technical Decisions
+
+| Decision | Reason |
+|----------|--------|
+| PNG transparent au lieu JPG | Flexibility du background |
+| Scroll bloqué | Expérience immersive forcée |
+| 173 frames | Équilibre qualité/performance |
+| Slate-900 gradient | Moderne, contraste avec avatar |
+| Framer Motion | Animations fluides, DX excellent |
+
 ---
 
-**Last updated:** 2026-02-05
-**Status:** Initial structure ready ✅
+**Last updated:** 2026-02-06
+**Status:** Phase 1 Complete - Avatar 3D Scroll System ✅
