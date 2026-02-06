@@ -50,13 +50,6 @@ export default function Avatar3D({
           style={{ imageRendering: 'auto' }}
         />
       </div>
-
-      {/* Debug info (remove in production) */}
-      {process.env.NODE_ENV === 'development' && isLoaded && (
-        <div className="absolute bottom-4 left-4 bg-black/80 text-white px-3 py-2 rounded text-xs font-mono">
-          Frame: {currentFrame + 1} / {frameCount}
-        </div>
-      )}
     </div>
   );
 }

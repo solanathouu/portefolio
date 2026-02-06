@@ -76,25 +76,6 @@ export default function Hero() {
             </motion.div>
           </div>
         </div>
-
-        {/* Scroll indicator - fixé en bas de l'écran */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.5 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 z-50"
-        >
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-xs text-foreground/50 font-medium">Scrollez pour animer</p>
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="w-5 h-8 border-2 border-foreground/30 rounded-full flex items-start justify-center p-1.5"
-            >
-              <div className="w-1 h-2 bg-foreground/40 rounded-full" />
-            </motion.div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
