@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className="dark">
-      <body className="antialiased bg-black">
+      <body className="antialiased bg-slate-900">
         <Header />
         {children}
         <Footer />

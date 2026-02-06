@@ -24,7 +24,7 @@ export default function Avatar3D({
 
   // Générer le path de l'image actuelle
   const frameNumber = String(currentFrame).padStart(3, '0');
-  const imageSrc = `/assets/avatar/frame_${frameNumber}.jpg`;
+  const imageSrc = `/assets/avatar/frame_${frameNumber}.png`;
 
   return (
     <div className={cn('relative w-full h-full', className)}>

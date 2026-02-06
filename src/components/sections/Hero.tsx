@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-[500vh] bg-gradient-to-b from-background via-background to-background/50"
+      className="relative min-h-[500vh] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
     >
       {/* Sticky container pour l'avatar */}
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
