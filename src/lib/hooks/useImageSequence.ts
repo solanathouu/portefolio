@@ -39,7 +39,7 @@ export function useImageSequence({
       for (let i = 0; i < frameCount; i++) {
         const img = new Image();
         const frameNumber = String(i).padStart(3, '0');
-        img.src = `/assets/avatar/frame_${frameNumber}_delay-0.042s.jpg`;
+        img.src = `/assets/avatar/frame_${frameNumber}.jpg`;
 
         img.onload = () => {
           loadedCount++;
