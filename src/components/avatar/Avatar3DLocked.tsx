@@ -76,15 +76,6 @@ export default function Avatar3DLocked({
           style={{ imageRendering: 'auto' }}
         />
       </div>
-
-      {/* Hint text */}
-      {isLoaded && !isAnimationComplete && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center">
-          <p className="text-sm text-foreground/50">
-            Scrollez pour découvrir ↓
-          </p>
-        </div>
-      )}
     </div>
   );
 }

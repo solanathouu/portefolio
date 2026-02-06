@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className="dark">
-      <body className="antialiased bg-slate-900">
+      <body className="antialiased" style={{ backgroundColor: '#303030' }}>
         <Header />
         {children}
         <Footer />

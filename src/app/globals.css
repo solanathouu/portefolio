@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  /* Force dark mode for avatar background match */
-  --background: #000000;
+  /* Anthracite background */
+  --background: #303030;
   --foreground: #ededed;
   --primary: #3b82f6;
   --primary-foreground: #ffffff;

@@ -1,7 +1,6 @@
 'use client';
 
 import Avatar3DLocked from '@/components/avatar/Avatar3DLocked';
-import Button from '@/components/ui/Button';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -11,74 +10,54 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
-      style={{ minHeight: animationComplete ? '200vh' : '100vh' }}
+      className="relative"
+      style={{
+        minHeight: animationComplete ? '200vh' : '100vh',
+        backgroundColor: '#303030' // Anthracite
+      }}
     >
       {/* Sticky container pour l'avatar */}
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-        <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-center pt-16">
-            {/* Texte à gauche */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="space-y-6 text-center lg:text-left"
-            >
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-5xl md:text-7xl font-bold"
-              >
-                Bonjour, je suis{' '}
-                <span className="text-primary">Votre Nom</span>
-              </motion.h1>
+        {/* Texte NATHAN en arrière-plan avec effet glass */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+          className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
+          style={{ zIndex: 0 }}
+        >
+          <h1
+            className="font-black tracking-tighter"
+            style={{
+              fontSize: 'clamp(8rem, 20vw, 18rem)',
+              color: 'transparent',
+              WebkitTextStroke: '2px rgba(255, 255, 255, 0.1)',
+              textStroke: '2px rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(2px)',
+              textShadow: '0 0 40px rgba(255, 255, 255, 0.05)',
+            }}
+          >
+            NATHAN
+          </h1>
+        </motion.div>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-xl md:text-2xl text-foreground/70"
-              >
-                Développeur Web Full Stack passionné par la création
-                d'expériences digitales innovantes et performantes.
-              </motion.p>
+        {/* Avatar centré */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className="relative w-full max-w-2xl mx-auto px-6"
+          style={{ height: '700px', zIndex: 10 }}
+        >
+          <Avatar3DLocked
+            frameCount={173}
+            onAnimationComplete={() => setAnimationComplete(true)}
+            className="w-full h-full"
+          />
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="flex flex-wrap gap-4 justify-center lg:justify-start"
-              >
-                <Button variant="primary" size="lg">
-                  <a href="#projects">Voir mes projets</a>
-                </Button>
-                <Button variant="secondary" size="lg">
-                  <a href="#contact">Me contacter</a>
-                </Button>
-              </motion.div>
-            </motion.div>
-
-            {/* Avatar à droite */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="relative w-full max-w-md mx-auto"
-              style={{ height: '600px' }}
-            >
-              <Avatar3DLocked
-                frameCount={173}
-                onAnimationComplete={() => setAnimationComplete(true)}
-                className="w-full h-full"
-              />
-
-              {/* Glow effect derrière l'avatar */}
-              <div className="absolute inset-0 bg-primary/10 blur-[120px] -z-10" />
-            </motion.div>
-          </div>
-        </div>
+          {/* Glow effect derrière l'avatar */}
+          <div className="absolute inset-0 bg-primary/10 blur-[120px] -z-10" />
+        </motion.div>
       </div>
     </section>
   );

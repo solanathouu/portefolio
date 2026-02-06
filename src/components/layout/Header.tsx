@@ -33,14 +33,6 @@ export default function Header() {
     >
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <a
-            href="#hero"
-            className="text-2xl font-bold text-foreground hover:text-foreground/80 transition-colors"
-          >
-            Portfolio
-          </a>
-
           {/* Navigation */}
           <ul className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
