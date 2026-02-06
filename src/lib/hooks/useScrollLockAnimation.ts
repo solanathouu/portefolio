@@ -24,7 +24,7 @@ export function useScrollLockAnimation({
   const [currentFrame, setCurrentFrame] = useState(0);
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const accumulatedScrollRef = useRef(0);
-  const scrollSensitivity = 3; // Plus petit = plus sensible
+  const scrollSensitivity = 20; // Plus grand = plus lent (nécessite plus de scroll)
 
   useEffect(() => {
     if (isAnimationComplete) return;
@@ -65,7 +65,7 @@ export function useScrollLockAnimation({
       const touch = e.touches[0];
       const delta = accumulatedScrollRef.current - touch.clientY;
 
-      const scrollPerFrame = scrollSensitivity * 2;
+      const scrollPerFrame = scrollSensitivity * 3;
       const newFrame = Math.min(
         frameCount - 1,
         Math.max(0, Math.floor(Math.abs(delta) / scrollPerFrame))
