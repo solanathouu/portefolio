@@ -8,7 +8,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative min-h-screen py-16 px-6"
+      className="relative min-h-screen py-16 px-8 md:px-12 lg:px-16"
       style={{ backgroundColor: '#303030' }}
     >
       {/* Grain texture overlay */}
@@ -19,7 +19,7 @@ export default function Projects() {
         }}
       />
 
-      <div className="container mx-auto max-w-7xl relative">
+      <div className="mx-auto max-w-7xl relative">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -75,7 +75,7 @@ export default function Projects() {
         </motion.div>
 
         {/* Projects Grid - Asymmetric Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 auto-rows-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto" style={{ gap: '6rem' }}>
           {projects.map((project, index) => (
             <ProjectCard
               key={project.id}

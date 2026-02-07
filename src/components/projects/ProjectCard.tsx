@@ -21,10 +21,7 @@ export default function ProjectCard({ project, index, featured = false }: Projec
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.6, delay: index * 0.15 }}
-      className={`
-        group relative overflow-hidden bg-black/40
-        ${featured ? 'md:col-span-2' : ''}
-      `}
+      className="group relative overflow-hidden bg-black/40 mb-16 md:mb-0"
       style={{
         border: `4px solid ${accentColor}20`,
         boxShadow: `0 0 0 0 ${accentColor}`,
@@ -73,7 +70,7 @@ export default function ProjectCard({ project, index, featured = false }: Projec
       </div>
 
       {/* Content */}
-      <div className="relative p-8 space-y-4" style={{ zIndex: 1 }}>
+      <div className="relative p-10 space-y-5" style={{ zIndex: 1 }}>
         {/* Number Label */}
         <div
           className="inline-block px-3 py-1 font-mono text-xs font-bold"

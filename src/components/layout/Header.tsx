@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils/cn';
+import { useLoading } from '@/lib/contexts/LoadingContext';
 
 const navLinks = [
   { href: '#hero', label: 'Accueil' },
@@ -12,6 +13,7 @@ const navLinks = [
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { isLoading } = useLoading();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +23,8 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  if (isLoading) return null;
 
   return (
     <header

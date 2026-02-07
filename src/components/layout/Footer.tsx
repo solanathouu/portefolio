@@ -1,6 +1,9 @@
+'use client';
+
 import { contactLinks } from '@/data/contact';
 import { HiMail } from 'react-icons/hi';
 import { FaLinkedin, FaGithub, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { useLoading } from '@/lib/contexts/LoadingContext';
 
 const iconMap = {
   HiMail,
@@ -12,6 +15,9 @@ const iconMap = {
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { isLoading } = useLoading();
+
+  if (isLoading) return null;
 
   return (
     <footer className="border-t border-foreground/10 bg-background">

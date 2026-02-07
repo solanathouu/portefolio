@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Playfair_Display, Space_Mono } from 'next/font/google';
+import { LoadingProvider } from '@/lib/contexts/LoadingContext';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -37,9 +38,11 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`dark ${playfair.variable} ${spaceMono.variable}`}>
       <body className="antialiased" style={{ backgroundColor: '#303030' }}>
-        <Header />
-        {children}
-        <Footer />
+        <LoadingProvider>
+          <Header />
+          {children}
+          <Footer />
+        </LoadingProvider>
       </body>
     </html>
   );
