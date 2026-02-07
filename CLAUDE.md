@@ -196,13 +196,15 @@ portfolio/
 ### Phase 2: Projects Gallery ✅ COMPLETE
 - [x] Projects section créée avec design Editorial Neo-Brutalist
 - [x] ProjectCard component avec hover effects premium
-- [x] Grid responsive asymétrique
+- [x] Grid responsive avec espacement amélioré
 - [x] Typographie Space Mono (mono technique)
 - [x] Couleurs électriques (Cyan, Magenta, Lime)
 - [x] Chiffres géants alignés en arrière-plan
 - [x] Animations stagger on scroll
+- [x] Preloader minimaliste avec animation ASCII
+- [x] LoadingContext pour gérer transitions
 
-### Phase 3: À venir
+### Phase 3: À venir (Skills + Contact)
 - [ ] Skills section (animations par catégorie)
 - [ ] Contact section (effets premium)
 - [ ] Optimizations & deployment
@@ -211,53 +213,70 @@ portfolio/
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 2 complète | Hero + Avatar + Projects fonctionnels |
-| Config | ✅ Optimisé | Space Mono font, anthracite theme |
+| Code | ✅ Phase 2 complète | Hero + Avatar + Projects + Preloader fonctionnels |
+| Config | ✅ Optimisé | Space Mono font, anthracite theme, LoadingContext |
 | Tests | 🔄 Pas encore | TDD à implémenter |
-| Git | ⚠️ Uncommitted | Projects section à committer |
+| Git | ✅ Clean | Dernier commit: 13c280d (preloader + layout improvements) |
 | Build | ✅ Passing | TypeScript 0 errors, Next.js build OK |
 
-**Dernière action:** Section Projects finalisée avec design Neo-Brutalist
+**Dernière action:** Preloader minimaliste créé avec animation ASCII + amélioration espacement Projects
 
-**Nouveaux composants créés:**
-- `src/components/sections/Projects.tsx` - Section projects avec grid
-- `src/components/projects/ProjectCard.tsx` - Carte projet avec effets
-- `src/app/layout.tsx` - Fonts Google (Space Mono + Playfair Display)
-- `src/app/globals.css` - Custom font classes
+**Composants ajoutés cette session:**
+- `src/components/sections/Preloader.tsx` - Animation ASCII minimaliste (2.5s)
+- `src/lib/contexts/LoadingContext.tsx` - Context global pour gérer état loading
+- Modified `src/app/layout.tsx` - LoadingProvider wrapper
+- Modified `src/app/page.tsx` - Intégration Preloader + delayed content
+- Modified `src/components/layout/Header.tsx` - Cache pendant loading
+- Modified `src/components/layout/Footer.tsx` - Cache pendant loading
+- Modified `src/components/sections/Projects.tsx` - Espacement latéral amélioré (px-8 md:px-12 lg:px-16)
+- Modified `src/components/projects/ProjectCard.tsx` - Taille uniforme + padding subtil (p-10)
 
-**Design Projects:**
-- ✅ Neo-Brutalist style (borders épais, ombres dures)
-- ✅ Space Mono mono technique (une seule police)
-- ✅ Couleurs électriques : #00f0ff (cyan), #ff00ff (magenta), #ccff00 (lime)
-- ✅ Chiffres géants (01, 02, 03) alignés top-right
-- ✅ Hover: translate + hard shadow 12px
-- ✅ Grid responsive avec gap 20
-- ✅ Hero height réduit (200vh → 120vh) pour rapprocher sections
+**Design Preloader:**
+- ✅ Animation ASCII minimaliste centrée : `--=-=++=--=-` (12 frames)
+- ✅ Fond anthracite (#303030) - identique au site
+- ✅ z-index 99999 - couvre tout (Header/Footer invisibles)
+- ✅ Durée: 2.5s + fade out 0.6s
+- ✅ Transition fluide vers Hero (fade-in 0.8s avec delay)
+
+**Design Projects mis à jour:**
+- ✅ Espacement latéral: 32px (mobile) → 48px (tablet) → 64px (desktop)
+- ✅ Cards uniformes (pas de featured sizing)
+- ✅ Gap entre cartes: 6rem (96px)
+- ✅ Padding cards: 40px au lieu de 32px
 
 ## 🎯 Next Immediate Action
 
-**COMMIT & CONTINUER PHASE 3:**
+**COMMENCER PHASE 3 - Skills Section:**
 
-1. **Committer la section Projects:**
-   ```bash
-   git add .
-   git commit -m "feat: create Projects section with Editorial Neo-Brutalist design"
-   git push origin main
-   ```
-
-2. **Tester en local:**
+1. **Vérifier le site fonctionne:**
    ```bash
    npm run dev
    ```
-   Vérifier hover effects, responsive, alignement chiffres
+   Tester: Preloader → Hero → Projects scroll
 
-3. **Commencer Phase 3 - Skills Section:**
-   - Créer `src/components/sections/Skills.tsx`
-   - Style cohérent avec Projects (mono, couleurs électriques)
-   - Animations par catégories
-   - Utiliser les données de `src/data/projects.ts`
-   - Ajouter filtres par technologie
-   - Modal pour détails projet
+2. **Créer Skills Section:**
+   ```bash
+   # Créer le composant
+   touch src/components/sections/Skills.tsx
+   ```
+
+   **Design à implémenter:**
+   - Style cohérent Neo-Brutalist (borders, ombres dures)
+   - Space Mono font
+   - Couleurs électriques (cyan, magenta, lime) pour catégories
+   - Grid de compétences par catégories:
+     - Frontend (React, Next.js, TypeScript, Tailwind)
+     - Backend (Node.js, PostgreSQL, MongoDB)
+     - Tools (Git, Docker, Figma, VS Code)
+   - Animations stagger on scroll
+   - Hover effects sur skills (glow + lift)
+   - Utiliser données de `src/data/skills.ts`
+
+3. **Intégrer dans page.tsx:**
+   ```tsx
+   import Skills from '@/components/sections/Skills';
+   // Remplacer la section placeholder par <Skills />
+   ```
 
 ## 📝 Next Steps (Après tests)
 
@@ -350,5 +369,6 @@ Valeurs recommandées:
 
 ---
 
-**Last updated:** 2026-02-06
-**Status:** Phase 1 Complete - Avatar 3D Scroll System ✅
+**Last updated:** 2026-02-06 21:15
+**Status:** Phase 2 Complete - Projects + Preloader ✅
+**Next:** Phase 3 - Skills Section
