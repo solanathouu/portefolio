@@ -107,10 +107,11 @@ export default function ProjectCard({ project, index, featured = false }: Projec
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider text-white/80"
+                className="px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider"
                 style={{
                   border: `2px solid ${accentColor}40`,
                   backgroundColor: 'transparent',
+                  color: 'rgba(255, 255, 255, 0.8)',
                 }}
               >
                 {tag}
@@ -121,13 +122,16 @@ export default function ProjectCard({ project, index, featured = false }: Projec
       </Link>
 
       {/* Links - Outside Link to prevent nesting */}
-      <div className="relative px-10 pb-10 flex items-center gap-6 text-white/60" style={{ zIndex: 10 }}>
+      <div className="relative px-10 pb-10 flex items-center gap-6" style={{ zIndex: 10 }}>
         {project.githubUrl && (
           <a
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider hover:text-white transition-colors"
+            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider transition-colors"
+            style={{ color: 'rgba(255, 255, 255, 0.6)' }}
+            onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 1)'}
+            onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)'}
             onClick={(e) => e.stopPropagation()}
           >
             <FiGithub className="w-5 h-5" />
@@ -139,7 +143,10 @@ export default function ProjectCard({ project, index, featured = false }: Projec
             href={project.demoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider hover:text-white transition-colors"
+            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider transition-colors"
+            style={{ color: 'rgba(255, 255, 255, 0.6)' }}
+            onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 1)'}
+            onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)'}
             onClick={(e) => e.stopPropagation()}
           >
             <FiExternalLink className="w-5 h-5" />
