@@ -12,8 +12,7 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, index, featured = false }: ProjectCardProps) {
-  const accentColors = ['#00f0ff', '#ff00ff', '#ccff00']; // Cyan, Magenta, Lime
-  const accentColor = accentColors[index % accentColors.length];
+  const accentColor = '#00f0ff'; // Electric Cyan - Unified color for all projects
   const numberDisplay = String(index + 1).padStart(2, '0');
 
   return (

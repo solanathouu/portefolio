@@ -20,6 +20,9 @@ export default function ProjectDetailPage() {
   const currentIndex = projects.findIndex((p) => p.id === projectId);
   const project = projects[currentIndex];
 
+  // Unified electric cyan color for all projects
+  const accentColor = '#00f0ff';
+
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#303030' }}>
@@ -28,7 +31,19 @@ export default function ProjectDetailPage() {
           <p className="text-white/60 font-mono mb-8">Project not found</p>
           <button
             onClick={() => router.push('/#projects')}
-            className="px-6 py-3 border-2 border-cyan-400 text-cyan-400 font-mono hover:bg-cyan-400 hover:text-black transition-all"
+            className="px-6 py-3 font-mono transition-all"
+            style={{
+              border: `3px solid ${accentColor}`,
+              color: accentColor,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = accentColor;
+              e.currentTarget.style.color = '#000';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = accentColor;
+            }}
           >
             Back to Projects
           </button>
@@ -36,9 +51,6 @@ export default function ProjectDetailPage() {
       </div>
     );
   }
-
-  const accentColors = ['#00f0ff', '#ff00ff', '#ccff00']; // Cyan, Magenta, Lime
-  const accentColor = accentColors[currentIndex % accentColors.length];
 
   const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
   const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
@@ -377,23 +389,18 @@ export default function ProjectDetailPage() {
                   onClick={() => router.push(`/projects/${prevProject.id}`)}
                   className="group flex items-center gap-4 p-6 flex-1 min-w-[250px] transition-all"
                   style={{
-                    border: `3px solid ${accentColors[currentIndex - 1 % accentColors.length]}30`,
+                    border: `3px solid ${accentColor}30`,
                   }}
                   onMouseEnter={(e) => {
-                    const prevColor = accentColors[(currentIndex - 1) % accentColors.length];
-                    e.currentTarget.style.borderColor = prevColor;
-                    e.currentTarget.style.backgroundColor = `${prevColor}10`;
+                    e.currentTarget.style.borderColor = accentColor;
+                    e.currentTarget.style.backgroundColor = `${accentColor}10`;
                   }}
                   onMouseLeave={(e) => {
-                    const prevColor = accentColors[(currentIndex - 1) % accentColors.length];
-                    e.currentTarget.style.borderColor = `${prevColor}30`;
+                    e.currentTarget.style.borderColor = `${accentColor}30`;
                     e.currentTarget.style.backgroundColor = 'transparent';
                   }}
                 >
-                  <FiArrowLeft
-                    className="w-6 h-6"
-                    style={{ color: accentColors[(currentIndex - 1) % accentColors.length] }}
-                  />
+                  <FiArrowLeft className="w-6 h-6" style={{ color: accentColor }} />
                   <div className="text-left">
                     <div className="text-xs font-mono uppercase tracking-widest mb-1 text-white/40">Previous</div>
                     <div className="font-mono text-lg text-white">{prevProject.title}</div>
@@ -408,16 +415,14 @@ export default function ProjectDetailPage() {
                   onClick={() => router.push(`/projects/${nextProject.id}`)}
                   className="group flex items-center gap-4 p-6 flex-1 min-w-[250px] justify-end text-right transition-all"
                   style={{
-                    border: `3px solid ${accentColors[(currentIndex + 1) % accentColors.length]}30`,
+                    border: `3px solid ${accentColor}30`,
                   }}
                   onMouseEnter={(e) => {
-                    const nextColor = accentColors[(currentIndex + 1) % accentColors.length];
-                    e.currentTarget.style.borderColor = nextColor;
-                    e.currentTarget.style.backgroundColor = `${nextColor}10`;
+                    e.currentTarget.style.borderColor = accentColor;
+                    e.currentTarget.style.backgroundColor = `${accentColor}10`;
                   }}
                   onMouseLeave={(e) => {
-                    const nextColor = accentColors[(currentIndex + 1) % accentColors.length];
-                    e.currentTarget.style.borderColor = `${nextColor}30`;
+                    e.currentTarget.style.borderColor = `${accentColor}30`;
                     e.currentTarget.style.backgroundColor = 'transparent';
                   }}
                 >
@@ -425,10 +430,7 @@ export default function ProjectDetailPage() {
                     <div className="text-xs font-mono uppercase tracking-widest mb-1 text-white/40">Next</div>
                     <div className="font-mono text-lg text-white">{nextProject.title}</div>
                   </div>
-                  <FiArrowRight
-                    className="w-6 h-6"
-                    style={{ color: accentColors[(currentIndex + 1) % accentColors.length] }}
-                  />
+                  <FiArrowRight className="w-6 h-6" style={{ color: accentColor }} />
                 </button>
               ) : (
                 <div className="flex-1 min-w-[250px]" />

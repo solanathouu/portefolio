@@ -222,14 +222,12 @@ portfolio/
 | Git | ✅ Clean | Dernier commit: 13c280d (preloader + layout improvements) |
 | Build | ✅ Passing | TypeScript 0 errors, Next.js build OK |
 
-**Dernière action:** Système de pages détaillées de projets créé avec design éditorial Neo-Brutalist
+**Dernière action:** Uniformisation couleur Cyan électrique (#00f0ff) pour tous les projets
 
-**Composants ajoutés cette session:**
-- `src/app/projects/[id]/page.tsx` - Page dynamique de détails projet (Hero, Gallery, Tech Stack, Challenges/Outcomes, Navigation)
-- `src/app/projects/CLAUDE.md` - Documentation du système de pages projets
-- Modified `src/data/projects.ts` - Interface enrichie avec longDescription, technologies, challenges, outcomes
-- Modified `src/components/projects/ProjectCard.tsx` - Cards cliquables avec Link vers pages détails
-- Updated 3 projets avec données complètes (Portfolio, E-commerce, Task Manager)
+**Composants modifiés cette session:**
+- Modified `src/components/projects/ProjectCard.tsx` - Couleur unique Cyan au lieu de rotation (Cyan/Magenta/Lime)
+- Modified `src/app/projects/[id]/page.tsx` - Uniformisation Cyan pour titres, borders, badges, navigation
+- Design épuré et cohérent avec identité visuelle forte
 
 **Design Preloader:**
 - ✅ Animation ASCII minimaliste centrée : `--=-=++=--=-` (12 frames)
@@ -243,6 +241,7 @@ portfolio/
 - ✅ Cards uniformes (pas de featured sizing)
 - ✅ Gap entre cartes: 6rem (96px)
 - ✅ Padding cards: 40px au lieu de 32px
+- ✅ Couleur unique: Electric Cyan (#00f0ff) pour identité visuelle cohérente
 
 ## 🎯 Next Immediate Action
 
