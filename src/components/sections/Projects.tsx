@@ -35,8 +35,7 @@ export default function Projects() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-sm font-mono uppercase tracking-widest mb-4"
-                style={{ color: '#00f0ff' }}
+                className="text-sm font-mono uppercase tracking-widest mb-4 text-white/40"
               >
                 // Portfolio
               </motion.div>
@@ -44,7 +43,7 @@ export default function Projects() {
               <h2 className="text-6xl md:text-8xl font-bold leading-none font-mono uppercase text-white">
                 Selected
                 <br />
-                <span style={{ color: '#ff00ff' }}>Works</span>
+                Works
               </h2>
             </div>
 
@@ -66,11 +65,7 @@ export default function Projects() {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="mt-12 h-1 origin-left"
-            style={{
-              background: 'linear-gradient(90deg, #00f0ff 0%, #ff00ff 50%, #ccff00 100%)',
-              opacity: 0.3,
-            }}
+            className="mt-12 h-1 origin-left bg-white/20"
           />
         </motion.div>
 
@@ -100,8 +95,7 @@ export default function Projects() {
               href="https://github.com/yourusername"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:no-underline transition-all"
-              style={{ color: '#00f0ff' }}
+              className="text-white/50 underline hover:text-white hover:no-underline transition-all"
             >
               GitHub
             </a>

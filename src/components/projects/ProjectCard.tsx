@@ -40,13 +40,12 @@ export default function ProjectCard({ project, index, featured = false }: Projec
     >
       {/* Giant Number Background */}
       <div
-        className="absolute pointer-events-none select-none font-black leading-none font-mono"
+        className="absolute pointer-events-none select-none font-black leading-none font-mono text-white"
         style={{
           top: '10px',
           right: '20px',
           fontSize: '10rem',
-          color: accentColor,
-          opacity: 0.12,
+          opacity: 0.08,
           zIndex: 1,
           lineHeight: '1',
         }}
