@@ -111,7 +111,8 @@ export default function ProjectCard({ project, index, featured = false }: Projec
                 style={{
                   border: `2px solid ${accentColor}40`,
                   backgroundColor: 'transparent',
-                  color: 'rgba(255, 255, 255, 0.8)',
+                  color: '#ffffff',
+                  opacity: 0.8,
                 }}
               >
                 {tag}
@@ -128,14 +129,18 @@ export default function ProjectCard({ project, index, featured = false }: Projec
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider transition-colors"
-            style={{ color: 'rgba(255, 255, 255, 0.6)' }}
-            onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 1)'}
-            onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)'}
+            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider transition-opacity group/link"
+            style={{
+              color: '#ffffff',
+              opacity: 0.6,
+              textDecoration: 'none'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+            onMouseLeave={(e) => e.currentTarget.style.opacity = '0.6'}
             onClick={(e) => e.stopPropagation()}
           >
-            <FiGithub className="w-5 h-5" />
-            <span>Code</span>
+            <FiGithub className="w-5 h-5" style={{ color: 'inherit' }} />
+            <span style={{ color: 'inherit' }}>Code</span>
           </a>
         )}
         {project.demoUrl && (
@@ -143,14 +148,18 @@ export default function ProjectCard({ project, index, featured = false }: Projec
             href={project.demoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider transition-colors"
-            style={{ color: 'rgba(255, 255, 255, 0.6)' }}
-            onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 1)'}
-            onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)'}
+            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider transition-opacity group/link"
+            style={{
+              color: '#ffffff',
+              opacity: 0.6,
+              textDecoration: 'none'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+            onMouseLeave={(e) => e.currentTarget.style.opacity = '0.6'}
             onClick={(e) => e.stopPropagation()}
           >
-            <FiExternalLink className="w-5 h-5" />
-            <span>Live</span>
+            <FiExternalLink className="w-5 h-5" style={{ color: 'inherit' }} />
+            <span style={{ color: 'inherit' }}>Live</span>
           </a>
         )}
       </div>
