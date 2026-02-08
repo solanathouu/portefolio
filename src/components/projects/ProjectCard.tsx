@@ -108,10 +108,9 @@ export default function ProjectCard({ project, index, featured = false }: Projec
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider"
+                className="px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider text-white/80"
                 style={{
                   border: `2px solid ${accentColor}40`,
-                  color: accentColor,
                   backgroundColor: 'transparent',
                 }}
               >
@@ -123,14 +122,13 @@ export default function ProjectCard({ project, index, featured = false }: Projec
       </Link>
 
       {/* Links - Outside Link to prevent nesting */}
-      <div className="relative px-10 pb-10 flex items-center gap-6" style={{ zIndex: 10 }}>
+      <div className="relative px-10 pb-10 flex items-center gap-6 text-white/60" style={{ zIndex: 10 }}>
         {project.githubUrl && (
           <a
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider hover:opacity-70 transition-opacity"
-            style={{ color: accentColor }}
+            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider hover:text-white transition-colors"
             onClick={(e) => e.stopPropagation()}
           >
             <FiGithub className="w-5 h-5" />
@@ -142,8 +140,7 @@ export default function ProjectCard({ project, index, featured = false }: Projec
             href={project.demoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider hover:opacity-70 transition-opacity"
-            style={{ color: accentColor }}
+            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider hover:text-white transition-colors"
             onClick={(e) => e.stopPropagation()}
           >
             <FiExternalLink className="w-5 h-5" />
