@@ -203,6 +203,9 @@ portfolio/
 - [x] Animations stagger on scroll
 - [x] Preloader minimaliste avec animation ASCII
 - [x] LoadingContext pour gérer transitions
+- [x] Pages détaillées de projets (/projects/[id])
+- [x] Navigation prev/next entre projets
+- [x] Data structure enrichie (longDescription, technologies, challenges, outcomes)
 
 ### Phase 3: À venir (Skills + Contact)
 - [ ] Skills section (animations par catégorie)
@@ -219,17 +222,14 @@ portfolio/
 | Git | ✅ Clean | Dernier commit: 13c280d (preloader + layout improvements) |
 | Build | ✅ Passing | TypeScript 0 errors, Next.js build OK |
 
-**Dernière action:** Preloader minimaliste créé avec animation ASCII + amélioration espacement Projects
+**Dernière action:** Système de pages détaillées de projets créé avec design éditorial Neo-Brutalist
 
 **Composants ajoutés cette session:**
-- `src/components/sections/Preloader.tsx` - Animation ASCII minimaliste (2.5s)
-- `src/lib/contexts/LoadingContext.tsx` - Context global pour gérer état loading
-- Modified `src/app/layout.tsx` - LoadingProvider wrapper
-- Modified `src/app/page.tsx` - Intégration Preloader + delayed content
-- Modified `src/components/layout/Header.tsx` - Cache pendant loading
-- Modified `src/components/layout/Footer.tsx` - Cache pendant loading
-- Modified `src/components/sections/Projects.tsx` - Espacement latéral amélioré (px-8 md:px-12 lg:px-16)
-- Modified `src/components/projects/ProjectCard.tsx` - Taille uniforme + padding subtil (p-10)
+- `src/app/projects/[id]/page.tsx` - Page dynamique de détails projet (Hero, Gallery, Tech Stack, Challenges/Outcomes, Navigation)
+- `src/app/projects/CLAUDE.md` - Documentation du système de pages projets
+- Modified `src/data/projects.ts` - Interface enrichie avec longDescription, technologies, challenges, outcomes
+- Modified `src/components/projects/ProjectCard.tsx` - Cards cliquables avec Link vers pages détails
+- Updated 3 projets avec données complètes (Portfolio, E-commerce, Task Manager)
 
 **Design Preloader:**
 - ✅ Animation ASCII minimaliste centrée : `--=-=++=--=-` (12 frames)

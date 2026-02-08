@@ -2,7 +2,8 @@
 
 import { Project } from '@/data/projects';
 import { motion } from 'framer-motion';
-import { FiGithub, FiExternalLink } from 'react-icons/fi';
+import { FiGithub, FiExternalLink, FiArrowRight } from 'react-icons/fi';
+import Link from 'next/link';
 
 interface ProjectCardProps {
   project: Project;
@@ -21,7 +22,7 @@ export default function ProjectCard({ project, index, featured = false }: Projec
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.6, delay: index * 0.15 }}
-      className="group relative overflow-hidden bg-black/40 mb-16 md:mb-0"
+      className="group relative overflow-hidden bg-black/40 mb-16 md:mb-0 cursor-pointer"
       style={{
         border: `4px solid ${accentColor}20`,
         boxShadow: `0 0 0 0 ${accentColor}`,
@@ -54,88 +55,102 @@ export default function ProjectCard({ project, index, featured = false }: Projec
         {numberDisplay}
       </div>
 
-      {/* Image Placeholder */}
-      <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-neutral-800 to-neutral-900">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-8xl opacity-20">📁</span>
-        </div>
+      {/* Image Placeholder - Clickable */}
+      <Link href={`/projects/${project.id}`} className="block">
+        <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-neutral-800 to-neutral-900">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-8xl opacity-20">📁</span>
+          </div>
 
-        {/* Grain overlay */}
-        <div
-          className="absolute inset-0 opacity-30 mix-blend-overlay pointer-events-none"
-          style={{
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
-          }}
-        />
-      </div>
+          {/* Grain overlay */}
+          <div
+            className="absolute inset-0 opacity-30 mix-blend-overlay pointer-events-none"
+            style={{
+              backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulance type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+            }}
+          />
+
+          {/* View Details Overlay on Hover */}
+          <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <div className="flex items-center gap-3 text-white font-mono text-sm uppercase tracking-wider">
+              <span>View Details</span>
+              <FiArrowRight className="w-5 h-5" />
+            </div>
+          </div>
+        </div>
+      </Link>
 
       {/* Content */}
-      <div className="relative p-10 space-y-5" style={{ zIndex: 1 }}>
-        {/* Number Label */}
-        <div
-          className="inline-block px-3 py-1 font-mono text-xs font-bold"
-          style={{
-            backgroundColor: accentColor,
-            color: '#000',
-          }}
-        >
-          {numberDisplay}
+      <Link href={`/projects/${project.id}`} className="block">
+        <div className="relative p-10 space-y-5" style={{ zIndex: 1 }}>
+          {/* Number Label */}
+          <div
+            className="inline-block px-3 py-1 font-mono text-xs font-bold"
+            style={{
+              backgroundColor: accentColor,
+              color: '#000',
+            }}
+          >
+            {numberDisplay}
+          </div>
+
+          {/* Title */}
+          <h3 className="text-2xl md:text-3xl font-bold leading-tight font-mono text-white uppercase tracking-tight group-hover:translate-x-1 transition-transform">
+            {project.title}
+          </h3>
+
+          {/* Description */}
+          <p className="text-sm text-white/70 leading-relaxed line-clamp-2 font-mono">
+            {project.description}
+          </p>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 pt-2">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider"
+                style={{
+                  border: `2px solid ${accentColor}40`,
+                  color: accentColor,
+                  backgroundColor: 'transparent',
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
+      </Link>
 
-        {/* Title */}
-        <h3 className="text-2xl md:text-3xl font-bold leading-tight font-mono text-white uppercase tracking-tight">
-          {project.title}
-        </h3>
-
-        {/* Description */}
-        <p className="text-sm text-white/70 leading-relaxed line-clamp-2 font-mono">
-          {project.description}
-        </p>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 pt-2">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider"
-              style={{
-                border: `2px solid ${accentColor}40`,
-                color: accentColor,
-                backgroundColor: 'transparent',
-              }}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {/* Links */}
-        <div className="flex items-center gap-6 pt-4">
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider hover:opacity-70 transition-opacity"
-              style={{ color: accentColor }}
-            >
-              <FiGithub className="w-5 h-5" />
-              <span>Code</span>
-            </a>
-          )}
-          {project.demoUrl && (
-            <a
-              href={project.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider hover:opacity-70 transition-opacity"
-              style={{ color: accentColor }}
-            >
-              <FiExternalLink className="w-5 h-5" />
-              <span>Live</span>
-            </a>
-          )}
-        </div>
+      {/* Links - Outside Link to prevent nesting */}
+      <div className="relative px-10 pb-10 flex items-center gap-6" style={{ zIndex: 10 }}>
+        {project.githubUrl && (
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider hover:opacity-70 transition-opacity"
+            style={{ color: accentColor }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <FiGithub className="w-5 h-5" />
+            <span>Code</span>
+          </a>
+        )}
+        {project.demoUrl && (
+          <a
+            href={project.demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider hover:opacity-70 transition-opacity"
+            style={{ color: accentColor }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <FiExternalLink className="w-5 h-5" />
+            <span>Live</span>
+          </a>
+        )}
       </div>
 
       {/* Featured Badge */}
