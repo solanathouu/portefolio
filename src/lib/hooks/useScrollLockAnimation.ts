@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useRef, useCallback } from 'react';
 
-const STORAGE_KEY = 'avatar-rotation-done';
+// Module-level flag: survives client-side navigation, resets on hard refresh
+let rotationDone = false;
 
 interface UseScrollLockAnimationProps {
   frameCount: number;
@@ -15,10 +16,6 @@ interface UseScrollLockAnimationReturn {
   progress: number;
 }
 
-/**
- * Hook pour bloquer le scroll et contrôler une animation de frames.
- * Le 360° ne se fait qu'une seule fois par session.
- */
 export function useScrollLockAnimation({
   frameCount,
   onComplete,
@@ -29,9 +26,9 @@ export function useScrollLockAnimation({
   const heroRef = useRef<HTMLElement | null>(null);
   const scrollSensitivity = 20;
 
-  // Check if rotation was already completed this session
+  // Skip rotation if already done this page load
   useEffect(() => {
-    if (sessionStorage.getItem(STORAGE_KEY) === 'true') {
+    if (rotationDone) {
       setCurrentFrame(frameCount - 1);
       setIsAnimationComplete(true);
       onComplete?.();
@@ -40,20 +37,20 @@ export function useScrollLockAnimation({
 
   const markComplete = useCallback(() => {
     setIsAnimationComplete(true);
-    sessionStorage.setItem(STORAGE_KEY, 'true');
+    rotationDone = true;
     onComplete?.();
   }, [onComplete]);
 
   useEffect(() => {
     if (isAnimationComplete) return;
 
-    heroRef.current = document.getElementById('hero');
-
     const isHeroVisible = () => {
+      if (!heroRef.current) {
+        heroRef.current = document.getElementById('hero');
+      }
       const hero = heroRef.current;
       if (!hero) return false;
       const rect = hero.getBoundingClientRect();
-      // Hero is considered visible if its top half is in view
       return rect.top < window.innerHeight / 2 && rect.bottom > 0;
     };
 
@@ -64,10 +61,9 @@ export function useScrollLockAnimation({
 
       accumulatedScrollRef.current += e.deltaY;
 
-      const scrollPerFrame = scrollSensitivity;
       const newFrame = Math.min(
         frameCount - 1,
-        Math.max(0, Math.floor(accumulatedScrollRef.current / scrollPerFrame))
+        Math.max(0, Math.floor(accumulatedScrollRef.current / scrollSensitivity))
       );
 
       setCurrentFrame(newFrame);
@@ -90,10 +86,9 @@ export function useScrollLockAnimation({
       const touch = e.touches[0];
       const delta = accumulatedScrollRef.current - touch.clientY;
 
-      const scrollPerFrame = scrollSensitivity * 3;
       const newFrame = Math.min(
         frameCount - 1,
-        Math.max(0, Math.floor(Math.abs(delta) / scrollPerFrame))
+        Math.max(0, Math.floor(Math.abs(delta) / (scrollSensitivity * 3)))
       );
 
       setCurrentFrame(newFrame);
