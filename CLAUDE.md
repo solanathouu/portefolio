@@ -143,15 +143,17 @@ portfolio/
 │   │   └── globals.css        # Global styles
 │   │
 │   ├── components/
-│   │   ├── layout/            # Header, Footer, CustomCursor
+│   │   ├── layout/            # Header, Footer
 │   │   ├── sections/          # Preloader, Hero, Projects, Skills, Contact
 │   │   ├── avatar/            # Avatar 3D system
-│   │   ├── projects/          # Project components
+│   │   ├── projects/          # ProjectCard
+│   │   ├── skills/            # SkillCard
 │   │   └── ui/                # Reusable UI (Button, Card, Badge, etc.)
 │   │
 │   ├── lib/
-│   │   ├── hooks/             # Custom hooks
-│   │   └── utils/             # Pure utilities
+│   │   ├── hooks/             # Custom hooks (useScrollLockAnimation)
+│   │   ├── contexts/          # LoadingContext
+│   │   └── utils/             # Pure utilities (cn, skillIcons, contactIcons)
 │   │
 │   ├── data/                  # Content data
 │   │   ├── projects.ts
@@ -207,92 +209,66 @@ portfolio/
 - [x] Navigation prev/next entre projets
 - [x] Data structure enrichie (longDescription, technologies, challenges, outcomes)
 
-### Phase 3: À venir (Skills + Contact)
-- [ ] Skills section (animations par catégorie)
-- [ ] Contact section (effets premium)
-- [ ] Optimizations & deployment
+### Phase 3: Skills + Contact ✅ COMPLETE
+- [x] Skills section avec 3 catégories (Frontend/Backend/Tools) et SkillCard animées
+- [x] Contact section avec liens (Email, LinkedIn, GitHub)
+- [x] Icon mapping utilities (skillIcons.tsx, contactIcons.tsx)
+- [x] Scrollbars cachées (X + Y)
+- [x] Hamburger menu placeholder supprimé
+- [x] Preloader lié au vrai chargement (window.load) au lieu d'un timer fixe
+- [x] Avatar scroll lock : ne bloque que devant le hero, 1 seule fois par session (sessionStorage)
+- [x] Espacement réduit entre project cards
 
 ## 📊 Current Project State
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 2 complète | Hero + Avatar + Projects + Preloader fonctionnels |
+| Code | ✅ Phase 3 complète | Hero + Avatar + Projects + Skills + Contact fonctionnels |
 | Config | ✅ Optimisé | Space Mono font, anthracite theme, LoadingContext |
 | Tests | 🔄 Pas encore | TDD à implémenter |
-| Git | ✅ Clean | Dernier commit: 13c280d (preloader + layout improvements) |
+| Git | ✅ Clean | Dernier commit: 6dab53a (Skills & Contact sections) |
 | Build | ✅ Passing | TypeScript 0 errors, Next.js build OK |
+| Deploy | 🔄 Pas encore | Prêt pour Vercel |
 
-**Dernière action:** Uniformisation couleur Cyan électrique (#00f0ff) pour tous les projets
+**Dernière action:** Phase 3 complète — Skills + Contact sections + bugfixes UI
 
-**Composants modifiés cette session:**
-- Modified `src/components/projects/ProjectCard.tsx` - Couleur unique Cyan au lieu de rotation (Cyan/Magenta/Lime)
-- Modified `src/app/projects/[id]/page.tsx` - Uniformisation Cyan pour titres, borders, badges, navigation
-- Design épuré et cohérent avec identité visuelle forte
+**Contact data (réel):**
+- Email: skwarek.nathan@gmail.com
+- LinkedIn: https://www.linkedin.com/in/nathan-skwarek-8a3723252/
+- GitHub: https://github.com/solanathouu
 
-**Design Preloader:**
-- ✅ Animation ASCII minimaliste centrée : `--=-=++=--=-` (12 frames)
-- ✅ Fond anthracite (#303030) - identique au site
-- ✅ z-index 99999 - couvre tout (Header/Footer invisibles)
-- ✅ Durée: 2.5s + fade out 0.6s
-- ✅ Transition fluide vers Hero (fade-in 0.8s avec delay)
-
-**Design Projects mis à jour:**
-- ✅ Espacement latéral: 32px (mobile) → 48px (tablet) → 64px (desktop)
-- ✅ Cards uniformes (pas de featured sizing)
-- ✅ Gap entre cartes: 6rem (96px)
-- ✅ Padding cards: 40px au lieu de 32px
-- ✅ Couleur unique: Electric Cyan (#00f0ff) pour identité visuelle cohérente
+**Design cohérent Neo-Brutalist:**
+- Background anthracite (#303030), accent Electric Cyan (#00f0ff)
+- Space Mono font, uppercase, tracking-widest
+- Hover: border color + box-shadow offset + translate
+- Grain texture overlay sur toutes les sections
+- Scrollbars cachées, scroll fonctionnel
+- Preloader lié au vrai window.load (min 800ms)
+- Avatar rotation 360° une seule fois par session (sessionStorage)
 
 ## 🎯 Next Immediate Action
 
-**COMMENCER PHASE 3 - Skills Section:**
+**PHASE 4 - Polish & Deployment:**
 
-1. **Vérifier le site fonctionne:**
+1. **Ajouter les vrais assets:**
+   - Images de projets dans `public/projects/` (remplacer placeholders 📁)
+   - Mettre à jour `src/data/projects.ts` avec vrais projets
+   - Mettre à jour GitHub username dans Projects footer
+
+2. **Mobile menu:**
+   - Le hamburger menu a été supprimé (placeholder)
+   - Implémenter un vrai menu mobile si nécessaire
+
+3. **Optimisations:**
+   - Ajouter `loading.tsx` pour transitions entre pages projet
+   - Tester responsive mobile/tablet
+   - Performance audit (Lighthouse)
+
+4. **Déployer sur Vercel:**
    ```bash
-   npm run dev
+   npm i -g vercel && vercel
    ```
-   Tester: Preloader → Hero → Projects scroll
-
-2. **Créer Skills Section:**
-   ```bash
-   # Créer le composant
-   touch src/components/sections/Skills.tsx
-   ```
-
-   **Design à implémenter:**
-   - Style cohérent Neo-Brutalist (borders, ombres dures)
-   - Space Mono font
-   - Couleurs électriques (cyan, magenta, lime) pour catégories
-   - Grid de compétences par catégories:
-     - Frontend (React, Next.js, TypeScript, Tailwind)
-     - Backend (Node.js, PostgreSQL, MongoDB)
-     - Tools (Git, Docker, Figma, VS Code)
-   - Animations stagger on scroll
-   - Hover effects sur skills (glow + lift)
-   - Utiliser données de `src/data/skills.ts`
-
-3. **Intégrer dans page.tsx:**
-   ```tsx
-   import Skills from '@/components/sections/Skills';
-   // Remplacer la section placeholder par <Skills />
-   ```
-
-## 📝 Next Steps (Après tests)
-
-1. **Préparer les assets:**
-   - 200 images JPG pour avatar dans `src/assets/avatar/`
-   - Format: `frame_001.jpg` to `frame_200.jpg`
-   - Images de projets dans `public/projects/`
-
-3. **Follow implementation plan:**
-   - See `docs/plans/2026-02-05-portfolio-implementation.md`
-   - Execute with `@superpowers:executing-plans` or `@superpowers:subagent-driven-development`
-
-4. **Update content:**
-   - Edit `src/data/projects.ts` with your projects
-   - Edit `src/data/skills.ts` with your skills
-   - Edit `src/data/contact.ts` with your links
-   - Update name in `src/app/page.tsx`
+   Ou connecter le repo GitHub https://github.com/solanathouu/portefolio.git
 
 ## 🔧 Performance Guidelines
 
@@ -368,6 +344,6 @@ Valeurs recommandées:
 
 ---
 
-**Last updated:** 2026-02-06 21:15
-**Status:** Phase 2 Complete - Projects + Preloader ✅
-**Next:** Phase 3 - Skills Section
+**Last updated:** 2026-02-11
+**Status:** Phase 3 Complete - Skills + Contact ✅
+**Next:** Phase 4 - Polish, real assets & deployment
