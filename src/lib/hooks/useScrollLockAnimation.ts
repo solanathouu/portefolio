@@ -1,6 +1,8 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
+
+const STORAGE_KEY = 'avatar-rotation-done';
 
 interface UseScrollLockAnimationProps {
   frameCount: number;
@@ -14,8 +16,8 @@ interface UseScrollLockAnimationReturn {
 }
 
 /**
- * Hook pour bloquer le scroll et contrôler une animation de frames
- * Le scroll est bloqué jusqu'à ce que toutes les frames aient été affichées
+ * Hook pour bloquer le scroll et contrôler une animation de frames.
+ * Le 360° ne se fait qu'une seule fois par session.
  */
 export function useScrollLockAnimation({
   frameCount,
@@ -24,19 +26,44 @@ export function useScrollLockAnimation({
   const [currentFrame, setCurrentFrame] = useState(0);
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const accumulatedScrollRef = useRef(0);
-  const scrollSensitivity = 20; // Plus grand = plus lent (nécessite plus de scroll)
+  const heroRef = useRef<HTMLElement | null>(null);
+  const scrollSensitivity = 20;
+
+  // Check if rotation was already completed this session
+  useEffect(() => {
+    if (sessionStorage.getItem(STORAGE_KEY) === 'true') {
+      setCurrentFrame(frameCount - 1);
+      setIsAnimationComplete(true);
+      onComplete?.();
+    }
+  }, [frameCount, onComplete]);
+
+  const markComplete = useCallback(() => {
+    setIsAnimationComplete(true);
+    sessionStorage.setItem(STORAGE_KEY, 'true');
+    onComplete?.();
+  }, [onComplete]);
 
   useEffect(() => {
     if (isAnimationComplete) return;
 
+    heroRef.current = document.getElementById('hero');
+
+    const isHeroVisible = () => {
+      const hero = heroRef.current;
+      if (!hero) return false;
+      const rect = hero.getBoundingClientRect();
+      // Hero is considered visible if its top half is in view
+      return rect.top < window.innerHeight / 2 && rect.bottom > 0;
+    };
+
     const handleWheel = (e: WheelEvent) => {
-      // Bloquer le scroll par défaut
+      if (!isHeroVisible()) return;
+
       e.preventDefault();
 
-      // Accumuler le scroll
       accumulatedScrollRef.current += e.deltaY;
 
-      // Calculer la frame actuelle basée sur le scroll accumulé
       const scrollPerFrame = scrollSensitivity;
       const newFrame = Math.min(
         frameCount - 1,
@@ -45,21 +72,19 @@ export function useScrollLockAnimation({
 
       setCurrentFrame(newFrame);
 
-      // Si on a atteint la dernière frame, débloquer le scroll
       if (newFrame >= frameCount - 1) {
-        setIsAnimationComplete(true);
-        onComplete?.();
+        markComplete();
       }
     };
 
     const handleTouchStart = (e: TouchEvent) => {
-      if (isAnimationComplete) return;
+      if (!isHeroVisible()) return;
       const touch = e.touches[0];
       accumulatedScrollRef.current = touch.clientY;
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (isAnimationComplete) return;
+      if (!isHeroVisible()) return;
 
       e.preventDefault();
       const touch = e.touches[0];
@@ -74,12 +99,10 @@ export function useScrollLockAnimation({
       setCurrentFrame(newFrame);
 
       if (newFrame >= frameCount - 1) {
-        setIsAnimationComplete(true);
-        onComplete?.();
+        markComplete();
       }
     };
 
-    // Ajouter les listeners avec passive: false pour permettre preventDefault
     window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('touchstart', handleTouchStart, { passive: false });
     window.addEventListener('touchmove', handleTouchMove, { passive: false });
@@ -89,7 +112,7 @@ export function useScrollLockAnimation({
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [frameCount, isAnimationComplete, onComplete]);
+  }, [frameCount, isAnimationComplete, markComplete]);
 
   const progress = currentFrame / (frameCount - 1);
 

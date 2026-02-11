@@ -26,16 +26,16 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-24"
+          className="mb-16"
         >
-          <div className="flex items-end justify-between flex-wrap gap-8">
+          <div className="flex items-end justify-between flex-wrap gap-4">
             <div>
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-sm font-mono uppercase tracking-widest mb-4 text-white/40"
+                className="text-sm font-mono uppercase tracking-widest mb-2 text-white/40"
               >
                 // Portfolio
               </motion.div>
@@ -65,12 +65,12 @@ export default function Projects() {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="mt-12 h-1 origin-left bg-white/20"
+            className="mt-8 h-1 origin-left bg-white/20"
           />
         </motion.div>
 
         {/* Projects Grid - Asymmetric Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto" style={{ gap: '6rem' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto" style={{ gap: '3.5rem' }}>
           {projects.map((project, index) => (
             <ProjectCard
               key={project.id}

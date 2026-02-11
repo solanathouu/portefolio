@@ -91,7 +91,7 @@ export const skills: Skill[] = [
   },
   {
     name: 'VS Code',
-    icon: 'SiVisualstudiocode',
+    icon: 'VscVscode',
     category: 'tools',
     color: '#007ACC',
   },

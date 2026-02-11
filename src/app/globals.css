@@ -41,6 +41,12 @@ body {
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
 }
 
 /* Force links to inherit color instead of default blue */

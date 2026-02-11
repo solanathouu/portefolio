@@ -1,7 +1,24 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+
+const LOADER_FRAMES = [
+  '--=-=++=--=-',
+  '-=--=++=--=-',
+  '=--=-++=--=-',
+  '=--=++=--=--',
+  '--=-++=--=-=',
+  '--=++=--=-=-',
+  '-=++=--=-=--',
+  '=++=--=-=--=',
+  '++=--=-=--=-',
+  '+=--=-=--=+',
+  '=--=-=--=++',
+  '--=-=--=++=',
+];
+
+const MIN_DISPLAY_MS = 800;
 
 interface PreloaderProps {
   onLoadComplete: () => void;
@@ -10,40 +27,35 @@ interface PreloaderProps {
 export default function Preloader({ onLoadComplete }: PreloaderProps) {
   const [loaderFrame, setLoaderFrame] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
-
-  // ASCII loader frames
-  const loaderFrames = [
-    '--=-=++=--=-',
-    '-=--=++=--=-',
-    '=--=-++=--=-',
-    '=--=++=--=--',
-    '--=-++=--=-=',
-    '--=++=--=-=-',
-    '-=++=--=-=--',
-    '=++=--=-=--=',
-    '++=--=-=--=-',
-    '+=--=-=--=+',
-    '=--=-=--=++',
-    '--=-=--=++=',
-  ];
+  const startTime = useRef(Date.now());
 
   useEffect(() => {
-    // Animate the loader
     const frameInterval = setInterval(() => {
-      setLoaderFrame((prev) => (prev + 1) % loaderFrames.length);
+      setLoaderFrame((prev) => (prev + 1) % LOADER_FRAMES.length);
     }, 100);
 
-    // Complete loading after 2.5 seconds
-    const loadingTimeout = setTimeout(() => {
-      setIsExiting(true);
-      setTimeout(onLoadComplete, 600);
-    }, 2500);
+    const exit = () => {
+      const elapsed = Date.now() - startTime.current;
+      const remaining = Math.max(0, MIN_DISPLAY_MS - elapsed);
+
+      setTimeout(() => {
+        setIsExiting(true);
+        setTimeout(onLoadComplete, 600);
+      }, remaining);
+    };
+
+    // If already loaded, exit after minimum display time
+    if (document.readyState === 'complete') {
+      exit();
+    } else {
+      window.addEventListener('load', exit);
+    }
 
     return () => {
       clearInterval(frameInterval);
-      clearTimeout(loadingTimeout);
+      window.removeEventListener('load', exit);
     };
-  }, [onLoadComplete, loaderFrames.length]);
+  }, [onLoadComplete]);
 
   return (
     <AnimatePresence mode="wait">
@@ -67,7 +79,6 @@ export default function Preloader({ onLoadComplete }: PreloaderProps) {
             justifyContent: 'center',
           }}
         >
-          {/* Minimalist ASCII Loader */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -86,7 +97,7 @@ export default function Preloader({ onLoadComplete }: PreloaderProps) {
                 letterSpacing: '0.3em',
               }}
             >
-              {loaderFrames[loaderFrame]}
+              {LOADER_FRAMES[loaderFrame]}
             </div>
           </motion.div>
         </motion.div>
