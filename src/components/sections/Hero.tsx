@@ -13,7 +13,6 @@ export default function Hero() {
       className="relative"
       style={{
         minHeight: animationComplete ? '120vh' : '100vh',
-        backgroundColor: '#303030' // Anthracite
       }}
     >
       {/* Sticky container pour l'avatar */}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ParticleBackground from "@/components/layout/ParticleBackground";
 import { Playfair_Display, Space_Mono } from 'next/font/google';
 import { LoadingProvider } from '@/lib/contexts/LoadingContext';
 
@@ -38,10 +39,13 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`dark ${playfair.variable} ${spaceMono.variable}`}>
       <body className="antialiased" style={{ backgroundColor: '#303030' }}>
+        <ParticleBackground />
         <LoadingProvider>
-          <Header />
-          {children}
-          <Footer />
+          <div className="relative z-[1]">
+            <Header />
+            {children}
+            <Footer />
+          </div>
         </LoadingProvider>
       </body>
     </html>

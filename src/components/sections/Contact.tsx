@@ -9,7 +9,6 @@ export default function Contact() {
     <section
       id="contact"
       className="relative py-16 px-8 md:px-12 lg:px-16"
-      style={{ backgroundColor: '#303030' }}
     >
       {/* Grain texture overlay */}
       <div
