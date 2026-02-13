@@ -143,7 +143,7 @@ portfolio/
 │   │   └── globals.css        # Global styles
 │   │
 │   ├── components/
-│   │   ├── layout/            # Header, Footer
+│   │   ├── layout/            # Header, Footer, ParticleBackground
 │   │   ├── sections/          # Preloader, Hero, Projects, Skills, Contact
 │   │   ├── avatar/            # Avatar 3D system
 │   │   ├── projects/          # ProjectCard
@@ -219,18 +219,28 @@ portfolio/
 - [x] Avatar scroll lock : ne bloque que devant le hero, 1 seule fois par session (sessionStorage)
 - [x] Espacement réduit entre project cards
 
+### Phase 3.5: Particle Background ✅ COMPLETE
+- [x] Canvas HTML5 custom (zero dependance) — `ParticleBackground.tsx`
+- [x] 200 micro-particules blanches avec opacite subtile (0.1-0.4)
+- [x] Mouvement de derive naturel + scintillement (pulse opacity)
+- [x] Repulsion souris : particules fuient le curseur (rayon 80px, force douce)
+- [x] Friction pour ralentissement fluide apres repulsion
+- [x] Fixed canvas z-0, contenu z-1 — sections transparentes (pas de backgroundColor)
+- [x] Parametres documentes inline pour tweaking facile
+- [x] Responsive (resize), cleanup propre, pointer-events: none
+
 ## 📊 Current Project State
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 3 complète | Hero + Avatar + Projects + Skills + Contact fonctionnels |
+| Code | ✅ Phase 3.5 complète | Hero + Avatar + Projects + Skills + Contact + Particules |
 | Config | ✅ Optimisé | Space Mono font, anthracite theme, LoadingContext |
 | Tests | 🔄 Pas encore | TDD à implémenter |
-| Git | ✅ Clean | Dernier commit: 6dab53a (Skills & Contact sections) |
+| Git | ✅ Clean | Dernier commit: 38d0d0d (particle mouse repulsion + docs) |
 | Build | ✅ Passing | TypeScript 0 errors, Next.js build OK |
 | Deploy | 🔄 Pas encore | Prêt pour Vercel |
 
-**Dernière action:** Phase 3 complète — Skills + Contact sections + bugfixes UI
+**Dernière action:** Phase 3.5 — Particules canvas en arriere-plan avec repulsion souris
 
 **Contact data (réel):**
 - Email: skwarek.nathan@gmail.com
@@ -242,6 +252,8 @@ portfolio/
 - Space Mono font, uppercase, tracking-widest
 - Hover: border color + box-shadow offset + translate
 - Grain texture overlay sur toutes les sections
+- Particules canvas en arriere-plan (200, repulsion souris, params dans ParticleBackground.tsx)
+- Sections sans backgroundColor (transparent) pour laisser voir les particules
 - Scrollbars cachées, scroll fonctionnel
 - Preloader lié au vrai window.load (min 800ms)
 - Avatar rotation 360° une seule fois par session (sessionStorage)
@@ -341,9 +353,11 @@ Valeurs recommandées:
 | 173 frames | Équilibre qualité/performance |
 | Slate-900 gradient | Moderne, contraste avec avatar |
 | Framer Motion | Animations fluides, DX excellent |
+| Canvas custom vs tsparticles | Zero dependance, plus leger, suffisant pour dust effect |
+| Sections sans backgroundColor | Transparent pour laisser voir le canvas particules fixe |
 
 ---
 
-**Last updated:** 2026-02-11
-**Status:** Phase 3 Complete - Skills + Contact ✅
+**Last updated:** 2026-02-13
+**Status:** Phase 3.5 Complete - Particle Background ✅
 **Next:** Phase 4 - Polish, real assets & deployment
