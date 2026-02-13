@@ -61,41 +61,41 @@ export default function ProjectDetailPage() {
 
   return (
     <main className="min-h-screen" style={{ backgroundColor: '#303030' }}>
-      {/* Back Navigation */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="fixed top-24 left-8 z-50"
-      >
-        <button
-          onClick={() => router.push('/#projects')}
-          className="flex items-center gap-3 px-5 py-3 font-mono text-sm uppercase tracking-wider transition-all group"
-          style={{
-            border: `3px solid ${accentColor}`,
-            color: accentColor,
-            backgroundColor: 'rgba(0,0,0,0.5)',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = accentColor;
-            e.currentTarget.style.color = '#000';
-            e.currentTarget.style.transform = 'translate(-4px, -4px)';
-            e.currentTarget.style.boxShadow = `6px 6px 0 0 ${accentColor}80`;
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.5)';
-            e.currentTarget.style.color = accentColor;
-            e.currentTarget.style.transform = 'translate(0, 0)';
-            e.currentTarget.style.boxShadow = 'none';
-          }}
-        >
-          <FiArrowLeft className="w-4 h-4" />
-          <span>Back</span>
-        </button>
-      </motion.div>
-
-      <div className="px-8 md:px-12 lg:px-20 pt-32 pb-20">
+      <div className="px-8 md:px-12 lg:px-20 pt-12 pb-20">
         <div className="max-w-7xl mx-auto">
+          {/* Back Navigation */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-16"
+          >
+            <button
+              onClick={() => router.push('/#projects')}
+              className="flex items-center gap-3 px-5 py-3 font-mono text-sm uppercase tracking-wider transition-all group"
+              style={{
+                border: `3px solid ${accentColor}`,
+                color: accentColor,
+                backgroundColor: 'rgba(0,0,0,0.5)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = accentColor;
+                e.currentTarget.style.color = '#000';
+                e.currentTarget.style.transform = 'translate(-4px, -4px)';
+                e.currentTarget.style.boxShadow = `6px 6px 0 0 ${accentColor}80`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.5)';
+                e.currentTarget.style.color = accentColor;
+                e.currentTarget.style.transform = 'translate(0, 0)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <FiArrowLeft className="w-4 h-4" />
+              <span>Back</span>
+            </button>
+          </motion.div>
+
           {/* Hero Section */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -103,39 +103,14 @@ export default function ProjectDetailPage() {
             transition={{ duration: 0.8 }}
             className="mb-20"
           >
-            {/* Meta Info */}
-            <div className="flex flex-wrap items-center gap-4 mb-8">
-              {project.year && (
-                <span
-                  className="px-4 py-2 font-mono text-xs font-bold uppercase tracking-widest"
-                  style={{
-                    backgroundColor: accentColor,
-                    color: '#000',
-                  }}
-                >
-                  {project.year}
-                </span>
-              )}
-              {project.featured && (
-                <span
-                  className="px-4 py-2 font-mono text-xs font-bold uppercase tracking-widest"
-                  style={{
-                    border: `3px solid ${accentColor}`,
-                    color: accentColor,
-                  }}
-                >
-                  Featured
-                </span>
-              )}
-            </div>
-
-            {/* Title */}
+            {/* Title - Centered */}
             <h1
-              className="text-5xl md:text-7xl lg:text-8xl font-bold leading-none font-mono uppercase mb-8"
+              className="text-5xl md:text-7xl lg:text-8xl font-bold leading-none font-mono uppercase mb-10 text-center"
               style={{ color: accentColor }}
             >
               {project.title}
             </h1>
+
 
             {/* Description */}
             <p className="text-xl md:text-2xl text-white/80 font-mono leading-relaxed max-w-4xl mb-12">
@@ -329,16 +304,16 @@ export default function ProjectDetailPage() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.6, delay: 0.7 + idx * 0.1 }}
-                      className="p-6 flex gap-4"
+                      className="p-6 flex gap-6"
                       style={{
                         border: `3px solid ${accentColor}20`,
                         backgroundColor: 'rgba(0,0,0,0.2)',
                       }}
                     >
-                      <span className="text-2xl font-bold font-mono" style={{ color: accentColor }}>
+                      <span className="text-2xl font-bold font-mono" style={{ color: accentColor, marginRight: '24px', flexShrink: 0 }}>
                         {String(idx + 1).padStart(2, '0')}
                       </span>
-                      <p className="text-white/80 font-mono text-sm leading-relaxed">{challenge}</p>
+                      <p className="text-white/80 font-mono text-sm leading-relaxed" style={{ flex: 1 }}>{challenge}</p>
                     </motion.li>
                   ))}
                 </ul>
