@@ -14,12 +14,41 @@ interface Particle {
   pulseOffset: number;
 }
 
-const PARTICLE_COUNT = 70;
-const MAX_RADIUS = 2;
+// ============================================================
+// PARAMETRES — Modifie ces valeurs pour ajuster l'effet
+// ============================================================
+
+// Nombre total de particules a l'ecran
+// 30-50 = subtil, 70-100 = normal, 150-300 = dense
+const PARTICLE_COUNT = 200;
+
+// Taille des particules (en pixels)
+// MIN = plus petite possible, MAX = plus grosse possible
+// Chaque particule a une taille aleatoire entre les deux
 const MIN_RADIUS = 0.5;
+const MAX_RADIUS = 2;
+
+// Opacite des particules (0 = invisible, 1 = blanc pur)
+// MIN = opacite minimum, MAX = opacite maximum
+// Garder < 0.5 pour un effet subtil "poussiere lumineuse"
 const MIN_OPACITY = 0.1;
 const MAX_OPACITY = 0.4;
-const DRIFT_SPEED = 0.3;
+
+// Vitesse de derive naturelle (mouvement lent aleatoire)
+// 0.1 = quasi immobile, 0.3 = lent, 0.8 = rapide
+const DRIFT_SPEED = 0.8;
+
+// Rayon de repulsion autour du curseur (en pixels)
+// 80 = petit cercle, 120 = moyen, 200 = grande zone d'effet
+const REPEL_RADIUS = 80;
+
+// Force de repulsion quand la souris s'approche
+// 1 = douce, 3 = nette, 6 = violente
+const REPEL_FORCE = 1;
+
+// Friction / ralentissement apres repulsion (0 a 1)
+// 0.90 = freine vite (retour rapide), 0.95 = glisse, 0.99 = flotte longtemps
+const FRICTION = 0.95;
 
 function createParticle(width: number, height: number): Particle {
   const baseOpacity = MIN_OPACITY + Math.random() * (MAX_OPACITY - MIN_OPACITY);
@@ -38,6 +67,7 @@ function createParticle(width: number, height: number): Particle {
 
 export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouseRef = useRef({ x: -9999, y: -9999 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -56,6 +86,16 @@ export default function ParticleBackground() {
       canvas.height = window.innerHeight;
     }
 
+    function onMouseMove(e: MouseEvent) {
+      mouseRef.current.x = e.clientX;
+      mouseRef.current.y = e.clientY;
+    }
+
+    function onMouseLeave() {
+      mouseRef.current.x = -9999;
+      mouseRef.current.y = -9999;
+    }
+
     function init() {
       resize();
       particles = Array.from({ length: PARTICLE_COUNT }, () =>
@@ -69,8 +109,32 @@ export default function ParticleBackground() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       time++;
 
+      const { x: mx, y: my } = mouseRef.current;
+
       for (const p of particles) {
-        // Drift movement
+        // Mouse repulsion
+        const dx = p.x - mx;
+        const dy = p.y - my;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < REPEL_RADIUS && dist > 0) {
+          const force = (1 - dist / REPEL_RADIUS) * REPEL_FORCE;
+          p.vx += (dx / dist) * force;
+          p.vy += (dy / dist) * force;
+        }
+
+        // Apply friction so particles slow down after repulsion
+        p.vx *= FRICTION;
+        p.vy *= FRICTION;
+
+        // Base drift — gently nudge back to natural speed
+        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        if (speed < DRIFT_SPEED * 0.5) {
+          p.vx += (Math.random() - 0.5) * 0.05;
+          p.vy += (Math.random() - 0.5) * 0.05;
+        }
+
+        // Move
         p.x += p.vx;
         p.y += p.vy;
 
@@ -98,10 +162,14 @@ export default function ParticleBackground() {
     animate();
 
     window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseleave', onMouseLeave);
 
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', resize);
+      window.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseleave', onMouseLeave);
     };
   }, []);
 
