@@ -56,6 +56,34 @@ export default function Hero() {
           {/* Glow effect derrière l'avatar */}
           <div className="absolute inset-0 bg-primary/10 blur-[120px] -z-10" />
         </motion.div>
+
+        {/* Scroll indicator - visible des le depart, disparait apres rotation */}
+        {!animationComplete && (
+          <div
+            className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+            style={{ zIndex: 20, bottom: '40px' }}
+          >
+            <span className="font-mono text-xs uppercase tracking-widest text-white/40">
+              Scroll
+            </span>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="text-white/30"
+              >
+                <path d="M12 5v14M19 12l-7 7-7-7" />
+              </svg>
+            </motion.div>
+          </div>
+        )}
       </div>
     </section>
   );

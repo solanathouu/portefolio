@@ -138,33 +138,39 @@ Before committing, check:
 portfolio/
 ├── src/
 │   ├── app/                    # Next.js App Router
-│   │   ├── page.tsx           # Main page
-│   │   ├── layout.tsx         # Root layout
-│   │   └── globals.css        # Global styles
+│   │   ├── page.tsx           # Main page (home)
+│   │   ├── layout.tsx         # Root layout (Header, Particles, LoadingProvider)
+│   │   ├── globals.css        # Global styles
+│   │   ├── not-found.tsx      # Custom 404 page
+│   │   └── projects/[id]/     # Project detail pages
+│   │       ├── page.tsx       # Server component (SSG + metadata)
+│   │       ├── loading.tsx    # Loading state
+│   │       └── not-found.tsx  # Project 404
 │   │
 │   ├── components/
-│   │   ├── layout/            # Header, Footer, ParticleBackground
+│   │   ├── layout/            # Header, ParticleBackground
 │   │   ├── sections/          # Preloader, Hero, Projects, Skills, Contact
-│   │   ├── avatar/            # Avatar 3D system
-│   │   ├── projects/          # ProjectCard
+│   │   ├── avatar/            # Avatar 3D system (Avatar3DLocked)
+│   │   ├── projects/          # ProjectCard, ProjectDetail
 │   │   ├── skills/            # SkillCard
-│   │   └── ui/                # Reusable UI (Button, Card, Badge, etc.)
+│   │   └── ui/                # Reusable UI (Button, Badge, RevealOnScroll)
 │   │
 │   ├── lib/
-│   │   ├── hooks/             # Custom hooks (useScrollLockAnimation)
+│   │   ├── hooks/             # useScrollLockAnimation, useImageSequence
 │   │   ├── contexts/          # LoadingContext
-│   │   └── utils/             # Pure utilities (cn, skillIcons, contactIcons)
+│   │   └── utils/             # cn, skillIcons, contactIcons
 │   │
 │   ├── data/                  # Content data
-│   │   ├── projects.ts
+│   │   ├── projects.ts        # Placeholder projects (à remplacer)
 │   │   ├── skills.ts
 │   │   └── contact.ts
 │   │
 │   └── assets/                # Local assets
-│       └── avatar/            # 200 JPG frames
+│       └── avatar/            # 173 PNG frames (fond transparent)
 │
 ├── public/                    # Static files
-│   ├── projects/              # Project images
+│   ├── assets/avatar/         # Avatar frames served here
+│   ├── projects/              # Project images (à ajouter)
 │   └── icons/                 # Tech logos
 │
 ├── docs/                      # Documentation
@@ -229,18 +235,36 @@ portfolio/
 - [x] Parametres documentes inline pour tweaking facile
 - [x] Responsive (resize), cleanup propre, pointer-events: none
 
+### Phase 4: Polish (squelette) 🔄 EN COURS
+- [x] Metadata SEO : "Nathan Skwarek | Portfolio" + OpenGraph
+- [x] GitHub links corrigés → solanathouu
+- [x] Header : logo "NS.", nav desktop + **mobile hamburger menu** (overlay fullscreen, animated X, stagger)
+- [x] Footer global supprimé (layout.tsx) — pas de footer, design minimaliste
+- [x] Footer "More experiments on GitHub" supprimé de Projects section
+- [x] Project detail page : **server component** avec generateStaticParams (SSG) + generateMetadata
+- [x] ProjectDetail.tsx : client component extrait, bg transparent (particules visibles)
+- [x] Pages 404 custom : globale + par projet (neo-brutalist)
+- [x] loading.tsx pour transitions projet
+- [x] Scroll indicator dans Hero : visible des le debut, disparait apres rotation avatar
+- [x] HeroSimple.tsx supprimé (unused)
+- [ ] Ajouter vrais projets dans `src/data/projects.ts`
+- [ ] Ajouter images projets dans `public/projects/`
+- [ ] Tests responsive mobile/tablet
+- [ ] Lighthouse performance audit
+- [ ] Deployer sur Vercel
+
 ## 📊 Current Project State
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 3.5 complète | Hero + Avatar + Projects + Skills + Contact + Particules |
-| Config | ✅ Optimisé | Space Mono font, anthracite theme, LoadingContext |
+| Code | ✅ Phase 4 en cours | Squelette complet, placeholders pour projets |
+| Config | ✅ Optimisé | Space Mono, anthracite, SSG, SEO metadata |
 | Tests | 🔄 Pas encore | TDD à implémenter |
-| Git | ✅ Clean | Dernier commit: 38d0d0d (particle mouse repulsion + docs) |
-| Build | ✅ Passing | TypeScript 0 errors, Next.js build OK |
+| Git | 🔄 Non committé | Phase 4 polish en cours (15 fichiers modifiés) |
+| Build | ✅ Passing | 0 errors, 3 SSG project pages, custom 404 |
 | Deploy | 🔄 Pas encore | Prêt pour Vercel |
 
-**Dernière action:** Phase 3.5 — Particules canvas en arriere-plan avec repulsion souris
+**Dernière action:** Phase 4 — Polish squelette (mobile menu, SSG, 404, metadata, scroll indicator)
 
 **Contact data (réel):**
 - Email: skwarek.nathan@gmail.com
@@ -256,27 +280,25 @@ portfolio/
 - Sections sans backgroundColor (transparent) pour laisser voir les particules
 - Scrollbars cachées, scroll fonctionnel
 - Preloader lié au vrai window.load (min 800ms)
-- Avatar rotation 360° une seule fois par session (sessionStorage)
+- Avatar rotation 360° une seule fois par page load (module-level flag)
+- Pas de footer — design minimaliste
+- Header : logo "NS." + nav desktop + hamburger mobile
+
+**Scroll indicator (Hero):**
+- Position ajustable dans `src/components/sections/Hero.tsx` ligne ~63
+- Utilise `style={{ bottom: '40px' }}` — modifier la valeur pour ajuster
+- Visible au chargement, disparait apres rotation avatar
 
 ## 🎯 Next Immediate Action
 
-**PHASE 4 - Polish & Deployment:**
+**Finir Phase 4 — ajouter vrais projets puis deployer:**
 
-1. **Ajouter les vrais assets:**
-   - Images de projets dans `public/projects/` (remplacer placeholders 📁)
-   - Mettre à jour `src/data/projects.ts` avec vrais projets
-   - Mettre à jour GitHub username dans Projects footer
+1. **Ajouter les vrais projets:**
+   - Modifier `src/data/projects.ts` avec vrais projets (titre, description, tags, etc.)
+   - Ajouter images dans `public/projects/` et mettre a jour les paths thumbnail/media
+   - Remplacer les emojis placeholders 📁 par de vraies images dans ProjectCard + ProjectDetail
 
-2. **Mobile menu:**
-   - Le hamburger menu a été supprimé (placeholder)
-   - Implémenter un vrai menu mobile si nécessaire
-
-3. **Optimisations:**
-   - Ajouter `loading.tsx` pour transitions entre pages projet
-   - Tester responsive mobile/tablet
-   - Performance audit (Lighthouse)
-
-4. **Déployer sur Vercel:**
+2. **Deployer sur Vercel:**
    ```bash
    npm i -g vercel && vercel
    ```
@@ -359,5 +381,5 @@ Valeurs recommandées:
 ---
 
 **Last updated:** 2026-02-13
-**Status:** Phase 3.5 Complete - Particle Background ✅
-**Next:** Phase 4 - Polish, real assets & deployment
+**Status:** Phase 4 In Progress - Polish squelette ✅, vrais projets restants
+**Next:** Ajouter vrais projets dans projects.ts + images, puis deploy Vercel

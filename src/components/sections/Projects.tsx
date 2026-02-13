@@ -80,27 +80,6 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Footer */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-32 text-center"
-        >
-          <p className="text-white/30 font-mono text-sm">
-            More experiments on{' '}
-            <a
-              href="https://github.com/yourusername"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/50 underline hover:text-white hover:no-underline transition-all"
-            >
-              GitHub
-            </a>
-            {' '}→
-          </p>
-        </motion.div>
       </div>
     </section>
   );
