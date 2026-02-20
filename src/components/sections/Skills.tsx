@@ -5,9 +5,9 @@ import { skillsByCategory } from '@/data/skills';
 import SkillCard from '@/components/skills/SkillCard';
 
 const CATEGORIES = [
-  { key: 'frontend' as const, label: 'Frontend', color: '#00f0ff' },
-  { key: 'backend' as const, label: 'Backend', color: '#ff00e5' },
-  { key: 'tools' as const, label: 'Tools', color: '#a3ff00' },
+  { key: 'languages' as const, label: 'Langages', color: '#00f0ff' },
+  { key: 'data' as const, label: 'Data & Analyse', color: '#ff00e5' },
+  { key: 'tools' as const, label: 'Outils', color: '#a3ff00' },
 ];
 
 export default function Skills() {
@@ -59,8 +59,8 @@ export default function Skills() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-white/60 max-w-md text-base leading-relaxed font-mono"
             >
-              Technologies and tools I use to bring ideas to life,
-              from concept to deployment.
+              Langages, outils data et environnements
+              que j&apos;utilise au quotidien.
             </motion.p>
           </div>
 

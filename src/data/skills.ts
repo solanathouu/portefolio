@@ -1,82 +1,58 @@
-export type SkillCategory = 'frontend' | 'backend' | 'tools';
+export type SkillCategory = 'languages' | 'data' | 'tools';
 
 export interface Skill {
   name: string;
-  icon: string; // Icon name from react-icons (e.g., 'SiReact')
+  icon: string; // Icon name from react-icons
   category: SkillCategory;
   color: string; // Hex color for glow effect
 }
 
 export const skills: Skill[] = [
-  // Frontend Skills
+  // Langages
   {
-    name: 'React',
-    icon: 'SiReact',
-    category: 'frontend',
-    color: '#61DAFB',
+    name: 'Python',
+    icon: 'SiPython',
+    category: 'languages',
+    color: '#3776AB',
   },
   {
-    name: 'Next.js',
-    icon: 'SiNextdotjs',
-    category: 'frontend',
-    color: '#000000',
-  },
-  {
-    name: 'TypeScript',
-    icon: 'SiTypescript',
-    category: 'frontend',
-    color: '#3178C6',
+    name: 'SQL',
+    icon: 'FaDatabase',
+    category: 'languages',
+    color: '#336791',
   },
   {
     name: 'JavaScript',
     icon: 'SiJavascript',
-    category: 'frontend',
+    category: 'languages',
     color: '#F7DF1E',
   },
   {
-    name: 'Tailwind CSS',
-    icon: 'SiTailwindcss',
-    category: 'frontend',
-    color: '#06B6D4',
+    name: 'Anglais',
+    icon: 'FaGlobe',
+    category: 'languages',
+    color: '#E63946',
+  },
+  // Data & Analyse
+  {
+    name: 'Excel',
+    icon: 'FaFileExcel',
+    category: 'data',
+    color: '#217346',
   },
   {
-    name: 'HTML5',
-    icon: 'SiHtml5',
-    category: 'frontend',
-    color: '#E34F26',
+    name: 'Web Scraping',
+    icon: 'FaSpider',
+    category: 'data',
+    color: '#E44D26',
   },
   {
-    name: 'CSS3',
-    icon: 'SiCss3',
-    category: 'frontend',
-    color: '#1572B6',
+    name: 'Dataiku',
+    icon: 'SiDataiku',
+    category: 'data',
+    color: '#2AB1AC',
   },
-  // Backend Skills
-  {
-    name: 'Node.js',
-    icon: 'SiNodedotjs',
-    category: 'backend',
-    color: '#339933',
-  },
-  {
-    name: 'Express',
-    icon: 'SiExpress',
-    category: 'backend',
-    color: '#000000',
-  },
-  {
-    name: 'MongoDB',
-    icon: 'SiMongodb',
-    category: 'backend',
-    color: '#47A248',
-  },
-  {
-    name: 'PostgreSQL',
-    icon: 'SiPostgresql',
-    category: 'backend',
-    color: '#4169E1',
-  },
-  // Tools & Others
+  // Outils
   {
     name: 'Git',
     icon: 'SiGit',
@@ -95,16 +71,10 @@ export const skills: Skill[] = [
     category: 'tools',
     color: '#007ACC',
   },
-  {
-    name: 'Figma',
-    icon: 'SiFigma',
-    category: 'tools',
-    color: '#F24E1E',
-  },
 ];
 
 export const skillsByCategory = {
-  frontend: skills.filter(s => s.category === 'frontend'),
-  backend: skills.filter(s => s.category === 'backend'),
+  languages: skills.filter(s => s.category === 'languages'),
+  data: skills.filter(s => s.category === 'data'),
   tools: skills.filter(s => s.category === 'tools'),
 };

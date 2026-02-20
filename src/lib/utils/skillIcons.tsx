@@ -2,39 +2,26 @@
 
 import { IconType } from 'react-icons';
 import {
-  SiReact,
-  SiNextdotjs,
-  SiTypescript,
+  SiPython,
   SiJavascript,
-  SiTailwindcss,
-  SiHtml5,
-  SiCss3,
-  SiNodedotjs,
-  SiExpress,
-  SiMongodb,
-  SiPostgresql,
   SiGit,
   SiGithub,
-  SiFigma,
+  SiDataiku,
 } from 'react-icons/si';
 import { VscVscode } from 'react-icons/vsc';
+import { FaDatabase, FaSpider, FaFileExcel, FaGlobe } from 'react-icons/fa';
 
 const iconMap: Record<string, IconType> = {
-  SiReact,
-  SiNextdotjs,
-  SiTypescript,
+  SiPython,
   SiJavascript,
-  SiTailwindcss,
-  SiHtml5,
-  SiCss3,
-  SiNodedotjs,
-  SiExpress,
-  SiMongodb,
-  SiPostgresql,
   SiGit,
   SiGithub,
+  SiDataiku,
   VscVscode,
-  SiFigma,
+  FaDatabase,
+  FaSpider,
+  FaFileExcel,
+  FaGlobe,
 };
 
 export function getSkillIcon(name: string): IconType | undefined {

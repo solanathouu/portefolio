@@ -36,7 +36,7 @@ const MAX_OPACITY = 0.4;
 
 // Vitesse de derive naturelle (mouvement lent aleatoire)
 // 0.1 = quasi immobile, 0.3 = lent, 0.8 = rapide
-const DRIFT_SPEED = 0.8;
+const DRIFT_SPEED = 2;
 
 // Rayon de repulsion autour du curseur (en pixels)
 // 80 = petit cercle, 120 = moyen, 200 = grande zone d'effet

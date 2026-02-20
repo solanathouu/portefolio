@@ -216,7 +216,7 @@ portfolio/
 - [x] Data structure enrichie (longDescription, technologies, challenges, outcomes)
 
 ### Phase 3: Skills + Contact ✅ COMPLETE
-- [x] Skills section avec 3 catégories (Frontend/Backend/Tools) et SkillCard animées
+- [x] Skills section avec 3 catégories (Langages/Data & Analyse/Outils) et SkillCard animées
 - [x] Contact section avec liens (Email, LinkedIn, GitHub)
 - [x] Icon mapping utilities (skillIcons.tsx, contactIcons.tsx)
 - [x] Scrollbars cachées (X + Y)
@@ -235,7 +235,7 @@ portfolio/
 - [x] Parametres documentes inline pour tweaking facile
 - [x] Responsive (resize), cleanup propre, pointer-events: none
 
-### Phase 4: Polish (squelette) 🔄 EN COURS
+### Phase 4: Polish + Personalisation 🔄 EN COURS
 - [x] Metadata SEO : "Nathan Skwarek | Portfolio" + OpenGraph
 - [x] GitHub links corrigés → solanathouu
 - [x] Header : logo "NS.", nav desktop + **mobile hamburger menu** (overlay fullscreen, animated X, stagger)
@@ -245,8 +245,11 @@ portfolio/
 - [x] ProjectDetail.tsx : client component extrait, bg transparent (particules visibles)
 - [x] Pages 404 custom : globale + par projet (neo-brutalist)
 - [x] loading.tsx pour transitions projet
-- [x] Scroll indicator dans Hero : visible des le debut, disparait apres rotation avatar
+- [x] Scroll indicator dans Hero : visible des le debut, disparait apres rotation avatar (bottom: 40px)
 - [x] HeroSimple.tsx supprimé (unused)
+- [x] Skills mis a jour avec vrais skills Nathan (Python, SQL, JS, Excel, Scraping, Dataiku, Git, GitHub, VS Code, Anglais)
+- [x] Categories skills renommees : Langages / Data & Analyse / Outils (etait Frontend/Backend/Tools)
+- [x] Icones skills corriges (SiPython, FaDatabase, SiDataiku, FaFileExcel, FaSpider, FaGlobe, etc.)
 - [ ] Ajouter vrais projets dans `src/data/projects.ts`
 - [ ] Ajouter images projets dans `public/projects/`
 - [ ] Tests responsive mobile/tablet
@@ -257,14 +260,19 @@ portfolio/
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 4 en cours | Squelette complet, placeholders pour projets |
+| Code | ✅ Phase 4 en cours | Skills personnalises, projets encore placeholders |
 | Config | ✅ Optimisé | Space Mono, anthracite, SSG, SEO metadata |
 | Tests | 🔄 Pas encore | TDD à implémenter |
-| Git | 🔄 Non committé | Phase 4 polish en cours (15 fichiers modifiés) |
+| Git | ✅ Committé | Checkpoint session skills personnalisation |
 | Build | ✅ Passing | 0 errors, 3 SSG project pages, custom 404 |
 | Deploy | 🔄 Pas encore | Prêt pour Vercel |
 
-**Dernière action:** Phase 4 — Polish squelette (mobile menu, SSG, 404, metadata, scroll indicator)
+**Dernière action:** Personalisation skills — vrais skills Nathan (Python, SQL, JS, Dataiku, Excel, Scraping, Git, Anglais), categories Langages/Data/Outils
+
+**Skills (réels, mis a jour session 2026-02-21):**
+- Langages : Python, SQL, JavaScript, Anglais
+- Data & Analyse : Excel, Web Scraping, Dataiku
+- Outils : Git, GitHub, VS Code
 
 **Contact data (réel):**
 - Email: skwarek.nathan@gmail.com
@@ -380,6 +388,6 @@ Valeurs recommandées:
 
 ---
 
-**Last updated:** 2026-02-13
-**Status:** Phase 4 In Progress - Polish squelette ✅, vrais projets restants
+**Last updated:** 2026-02-21
+**Status:** Phase 4 In Progress - Skills personnalises ✅, vrais projets restants
 **Next:** Ajouter vrais projets dans projects.ts + images, puis deploy Vercel
