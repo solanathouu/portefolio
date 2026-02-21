@@ -250,7 +250,7 @@ portfolio/
 - [x] Skills mis a jour avec vrais skills Nathan (Python, SQL, JS, Excel, Scraping, Dataiku, Git, GitHub, VS Code, Anglais)
 - [x] Categories skills renommees : Langages / Data & Analyse / Outils (etait Frontend/Backend/Tools)
 - [x] Icones skills corriges (SiPython, FaDatabase, SiDataiku, FaFileExcel, FaSpider, FaGlobe, etc.)
-- [ ] Ajouter vrais projets dans `src/data/projects.ts`
+- [x] Vrais projets ajoutés dans `src/data/projects.ts` (LaBonneNote, Tube, Portfolio)
 - [ ] Ajouter images projets dans `public/projects/`
 - [ ] Tests responsive mobile/tablet
 - [ ] Lighthouse performance audit
@@ -260,14 +260,19 @@ portfolio/
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 4 en cours | Skills personnalises, projets encore placeholders |
+| Code | ✅ Phase 4 en cours | Vrais projets (LaBonneNote, Tube, Portfolio), skills personnalises |
 | Config | ✅ Optimisé | Space Mono, anthracite, SSG, SEO metadata |
 | Tests | 🔄 Pas encore | TDD à implémenter |
 | Git | ✅ Committé | Checkpoint session skills personnalisation |
-| Build | ✅ Passing | 0 errors, 3 SSG project pages, custom 404 |
+| Build | ✅ Passing | 0 errors, SSG project pages (labonnenote, tube, portfolio-website), custom 404 |
 | Deploy | 🔄 Pas encore | Prêt pour Vercel |
 
-**Dernière action:** Personalisation skills — vrais skills Nathan (Python, SQL, JS, Dataiku, Excel, Scraping, Git, Anglais), categories Langages/Data/Outils
+**Dernière action:** Remplacement des projets placeholders par vrais projets GitHub (LaBonneNote + Tube), portfolio conservé
+
+**Projets (réels, mis a jour session 2026-02-21):**
+- LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
+- Tube : App mobile métro parisien, signalements temps réel, gamification, React Native/Expo/Supabase/PostGIS
+- Portfolio : Ce site, avatar 3D 173 frames, particules canvas, Neo-Brutalist, Next.js/TypeScript/Tailwind
 
 **Skills (réels, mis a jour session 2026-02-21):**
 - Langages : Python, SQL, JavaScript, Anglais
@@ -299,12 +304,11 @@ portfolio/
 
 ## 🎯 Next Immediate Action
 
-**Finir Phase 4 — ajouter vrais projets puis deployer:**
+**Finir Phase 4 — images projets puis deployer:**
 
-1. **Ajouter les vrais projets:**
-   - Modifier `src/data/projects.ts` avec vrais projets (titre, description, tags, etc.)
-   - Ajouter images dans `public/projects/` et mettre a jour les paths thumbnail/media
-   - Remplacer les emojis placeholders 📁 par de vraies images dans ProjectCard + ProjectDetail
+1. **Ajouter images des projets:**
+   - Screenshots/captures dans `public/projects/` (labonnenote-thumb.jpg, tube-thumb.jpg, etc.)
+   - Mettre a jour les paths dans projects.ts si necessaire
 
 2. **Deployer sur Vercel:**
    ```bash
@@ -389,5 +393,5 @@ Valeurs recommandées:
 ---
 
 **Last updated:** 2026-02-21
-**Status:** Phase 4 In Progress - Skills personnalises ✅, vrais projets restants
-**Next:** Ajouter vrais projets dans projects.ts + images, puis deploy Vercel
+**Status:** Phase 4 In Progress - Skills personnalises ✅, vrais projets ✅, images restantes
+**Next:** Ajouter images projets dans public/projects/, puis deploy Vercel
