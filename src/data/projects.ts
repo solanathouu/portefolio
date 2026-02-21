@@ -153,55 +153,57 @@ export const projects: Project[] = [
       '12 migrations SQL avec schéma PostGIS, fonctions et triggers',
     ],
   },
-  // PROJECT 3 - Portfolio
+  // PROJECT 3 - B2B IT Catalog Scraper
   {
-    id: 'portfolio-website',
-    title: 'Portfolio Personnel',
+    id: 'b2b-it-catalog-scraper',
+    title: 'B2B IT Catalog Scraper',
     description:
-      'Portfolio web interactif avec avatar 3D animé par le scroll, particules canvas et design Neo-Brutalist. Construit avec Next.js 15, TypeScript et Tailwind CSS.',
+      'Scraper Python automatisé pour extraire +8 800 produits IT depuis le catalogue B2B TD Synnex. 11 catégories, 440+ spécifications techniques, export CSV.',
     longDescription:
-      'Ce portfolio repousse les limites du web design moderne en combinant un avatar 3D composé de 173 frames PNG synchronisées au scroll, un système de particules canvas avec répulsion souris, et une esthétique Neo-Brutalist audacieuse. Chaque interaction est pensée pour créer une expérience mémorable, de la rotation immersive de l\'avatar aux transitions fluides entre les sections.',
-    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-    thumbnail: '/projects/portfolio-thumb.jpg',
+      'Ce scraper Python extrait automatiquement l\'intégralité du catalogue IT de TD Synnex France (plateforme InTouch) : plus de 8 800 produits répartis en 11 catégories hardware. Le script interroge les endpoints REST de l\'API InTouch, gère la pagination intelligente (100 produits par page), récupère les prix par batch via un endpoint dédié, et extrait dynamiquement plus de 440 spécifications techniques par produit. Le tout est exporté en CSV (~11 Mo) prêt à alimenter un configurateur B2B IT. Exécution complète en ~5 minutes avec rate limiting respectueux (1 req/s).',
+    tags: ['Python', 'Web Scraping', 'REST API', 'CSV'],
+    thumbnail: '/projects/scraper-thumb.jpg',
     media: [
       {
         type: 'image',
-        url: '/projects/portfolio-1.jpg',
-        caption: "Page d'accueil avec avatar 3D interactif",
+        url: '/projects/scraper-1.jpg',
+        caption: 'Extraction automatisée de +8 800 produits IT',
       },
       {
         type: 'image',
-        url: '/projects/portfolio-2.jpg',
-        caption: 'Section projets avec design Neo-Brutalist',
+        url: '/projects/scraper-2.jpg',
+        caption: 'Export CSV avec 440+ spécifications techniques',
       },
     ],
-    githubUrl: 'https://github.com/solanathouu/portefolio',
+    githubUrl: 'https://github.com/solanathouu/b2b-it-catalog-scraper',
     featured: false,
-    year: '2026',
-    role: 'Design & Development',
+    year: '2025',
+    role: 'Data Engineering',
     technologies: [
       {
-        category: 'Frontend',
-        items: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS'],
+        category: 'Backend',
+        items: ['Python 3', 'urllib.request', 'json', 're'],
       },
       {
-        category: 'Animation',
-        items: ['Framer Motion', 'GSAP ScrollTrigger', 'Canvas API'],
+        category: 'Data',
+        items: ['CSV export', 'Batch processing', 'REST API parsing'],
       },
       {
-        category: 'Outils',
-        items: ['Git', 'Vercel'],
+        category: 'API',
+        items: ['TD Synnex InTouch REST', 'Session authentication'],
       },
     ],
     challenges: [
-      'Synchroniser 173 frames PNG avec le scroll pour une rotation fluide à 60fps',
-      'Créer un système de particules canvas avec répulsion souris sans librairie externe',
-      'Implémenter un design Neo-Brutalist cohérent tout en gardant une excellente UX',
+      'Extraire +8 800 produits avec pagination automatique sur 11 catégories',
+      'Parser dynamiquement 440+ spécifications techniques sans librairie externe',
+      'Implémenter un rate limiting respectueux (1 req/s) pour éviter le blocage',
+      'Gérer l\'authentification par session cookie sur la plateforme InTouch',
     ],
     outcomes: [
-      'Rotation avatar 360° contrôlée par le scroll avec preload intelligent',
-      '200 particules animées avec scintillement et physique de répulsion',
-      'SSG avec pages projets statiques, metadata SEO et custom 404',
+      '8 800+ produits IT extraits avec métadonnées complètes',
+      '11 catégories hardware couvertes (PC, serveurs, réseau, stockage...)',
+      'Export CSV de ~11 Mo prêt pour intégration configurateur B2B',
+      'Zéro dépendance externe — Python standard library uniquement',
     ],
   },
 ];

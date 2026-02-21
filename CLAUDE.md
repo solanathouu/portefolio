@@ -238,7 +238,7 @@ portfolio/
 ### Phase 4: Polish + Personalisation 🔄 EN COURS
 - [x] Metadata SEO : "Nathan Skwarek | Portfolio" + OpenGraph
 - [x] GitHub links corrigés → solanathouu
-- [x] Header : logo "NS.", nav desktop + **mobile hamburger menu** (overlay fullscreen, animated X, stagger)
+- [x] Header : nav desktop + **mobile hamburger menu** (overlay fullscreen, animated X, stagger) — logo NS. supprimé
 - [x] Footer global supprimé (layout.tsx) — pas de footer, design minimaliste
 - [x] Footer "More experiments on GitHub" supprimé de Projects section
 - [x] Project detail page : **server component** avec generateStaticParams (SSG) + generateMetadata
@@ -250,7 +250,7 @@ portfolio/
 - [x] Skills mis a jour avec vrais skills Nathan (Python, SQL, JS, Excel, Scraping, Dataiku, Git, GitHub, VS Code, Anglais)
 - [x] Categories skills renommees : Langages / Data & Analyse / Outils (etait Frontend/Backend/Tools)
 - [x] Icones skills corriges (SiPython, FaDatabase, SiDataiku, FaFileExcel, FaSpider, FaGlobe, etc.)
-- [x] Vrais projets ajoutés dans `src/data/projects.ts` (LaBonneNote, Tube, Portfolio)
+- [x] Vrais projets ajoutés dans `src/data/projects.ts` (LaBonneNote, Tube, B2B IT Catalog Scraper)
 - [x] Typographie changée : Space Mono → **Sora** (géométrique, lisible) — Space Mono gardé uniquement pour Preloader ASCII
 - [x] Layout sections : containers `w-11/12 max-w-6xl` (Projects, Skills, Contact) pour marge visible des bords écran
 - [ ] Ajouter images projets dans `public/projects/`
@@ -262,19 +262,19 @@ portfolio/
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 4 en cours | Vrais projets (LaBonneNote, Tube, Portfolio), skills personnalises |
+| Code | ✅ Phase 4 en cours | Vrais projets (LaBonneNote, Tube, B2B Scraper), skills personnalises |
 | Config | ✅ Optimisé | Sora font, anthracite, SSG, SEO metadata |
 | Tests | 🔄 Pas encore | TDD à implémenter |
-| Git | ✅ Committé | Checkpoint session skills personnalisation |
-| Build | ✅ Passing | 0 errors, SSG project pages (labonnenote, tube, portfolio-website), custom 404 |
+| Git | ✅ Committé | Checkpoint session polish UI |
+| Build | ✅ Passing | 0 errors, SSG project pages (labonnenote, tube, b2b-it-catalog-scraper), custom 404 |
 | Deploy | 🔄 Pas encore | Prêt pour Vercel |
 
-**Dernière action:** Typo Space Mono → Sora + layout sections w-11/12 max-w-6xl pour marges bords écran
+**Dernière action:** Supprimé logo NS., fixé pixel blanc html, restauré police système NATHAN, remplacé projet Portfolio par B2B IT Catalog Scraper, amélioré boutons nav prev/next (Neo-Brutalist + nom projet en gros)
 
 **Projets (réels, mis a jour session 2026-02-21):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
 - Tube : App mobile métro parisien, signalements temps réel, gamification, React Native/Expo/Supabase/PostGIS
-- Portfolio : Ce site, avatar 3D 173 frames, particules canvas, Neo-Brutalist, Next.js/TypeScript/Tailwind
+- B2B IT Catalog Scraper : Scraper Python, +8800 produits IT TD Synnex, 11 catégories, 440+ specs, CSV, zéro dépendance
 
 **Skills (réels, mis a jour session 2026-02-21):**
 - Langages : Python, SQL, JavaScript, Anglais
@@ -298,7 +298,7 @@ portfolio/
 - Preloader lié au vrai window.load (min 800ms)
 - Avatar rotation 360° une seule fois par page load (module-level flag)
 - Pas de footer — design minimaliste
-- Header : logo "NS." + nav desktop + hamburger mobile
+- Header : nav desktop alignée à droite + hamburger mobile (logo NS. supprimé)
 
 **Scroll indicator (Hero):**
 - Position ajustable dans `src/components/sections/Hero.tsx` ligne ~63
@@ -397,5 +397,5 @@ Valeurs recommandées:
 ---
 
 **Last updated:** 2026-02-21
-**Status:** Phase 4 In Progress - Skills ✅, projets ✅, typo Sora ✅, layout marges ✅, images restantes
+**Status:** Phase 4 In Progress - Skills ✅, projets ✅ (LaBonneNote, Tube, B2B Scraper), typo Sora ✅, layout ✅, nav prev/next améliorée ✅
 **Next:** Ajouter images projets dans public/projects/, puis deploy Vercel
