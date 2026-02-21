@@ -1,45 +1,131 @@
 'use client';
 
-import { contactLinks } from '@/data/contact';
-import { getContactIcon } from '@/lib/utils/contactIcons';
+import { motion } from 'framer-motion';
+
+interface MarqueeRowConfig {
+  words: string[];
+  duration: number;
+  reverse: boolean;
+  opacity: number;
+  fontSize: string;
+}
+
+const MARQUEE_ROWS: MarqueeRowConfig[] = [
+  {
+    words: [
+      'nathan skwarek', 'python', 'vibe', 'café', 'data',
+      'creative', 'scraping', 'paris', 'pixel perfect',
+      'dark mode', 'curious', 'deploy', 'dev life',
+    ],
+    duration: 20,
+    reverse: true,
+    opacity: 0.07,
+    fontSize: 'clamp(1.5rem, 4vw, 3.5rem)',
+  },
+  {
+    words: [
+      'clean code', 'coding', 'claude', 'git push', 'terminal',
+      'flow', 'automation', 'JSON', 'localhost:3000',
+      'open source', 'debug', 'nathan skwarek', 'next.js',
+      'ship it', 'nocturne',
+    ],
+    duration: 14,
+    reverse: false,
+    opacity: 0.85,
+    fontSize: 'clamp(2rem, 5.5vw, 5rem)',
+  },
+  {
+    words: [
+      'npm run dev', 'SQL', 'react', 'café & code', 'design',
+      'API', 'no bugs', 'CSV', 'nathan skwarek', 'fastapi',
+      'ctrl+c', '01101', 'wifi & café',
+    ],
+    duration: 18,
+    reverse: true,
+    opacity: 0.12,
+    fontSize: 'clamp(1.5rem, 4vw, 3.5rem)',
+  },
+];
+
+function MarqueeRow({ config }: { config: MarqueeRowConfig }) {
+  const { words, duration, reverse, opacity, fontSize } = config;
+  const content = words.join('  ·  ').toUpperCase() + '  ·  ';
+
+  return (
+    <div className="overflow-hidden whitespace-nowrap" style={{ opacity }}>
+      <div
+        className="flex marquee-track"
+        style={{
+          animationDuration: `${duration}s`,
+          animationDirection: reverse ? 'reverse' : 'normal',
+          fontSize,
+        }}
+      >
+        <span className="flex-none font-bold uppercase tracking-wider text-white">
+          {content}
+        </span>
+        <span className="flex-none font-bold uppercase tracking-wider text-white">
+          {content}
+        </span>
+      </div>
+    </div>
+  );
+}
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative py-12 px-8 md:px-12 lg:px-16 border-t border-white/10">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Left - Copyright */}
-          <p className="text-xs uppercase tracking-widest text-white/40">
-            &copy; {currentYear} Nathan Skwarek
-          </p>
+    <footer className="relative">
+      {/* Grain texture overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
+        style={{
+          backgroundImage:
+            'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+        }}
+      />
 
-          {/* Center - Social Icons */}
-          <div className="flex items-center gap-6">
-            {contactLinks.map((link) => {
-              const Icon = getContactIcon(link.icon);
-              return (
-                <a
-                  key={link.type}
-                  href={link.url}
-                  target={link.type === 'email' ? undefined : '_blank'}
-                  rel={link.type === 'email' ? undefined : 'noopener noreferrer'}
-                  className="text-white/40 hover:text-[#00f0ff] transition-colors"
-                  aria-label={link.label}
-                >
-                  {Icon && <Icon size={18} />}
-                </a>
-              );
-            })}
-          </div>
+      {/* Separator — gradient fade line */}
+      <motion.div
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
+        className="mx-auto w-11/12 max-w-6xl h-px origin-left"
+        style={{
+          background:
+            'linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent)',
+        }}
+      />
 
-          {/* Right - Built with */}
-          <p className="text-xs uppercase tracking-widest text-white/40">
-            Built with Next.js
-          </p>
-        </div>
-      </div>
+      {/* Marquee zone — 3 rows, different speeds & directions */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, delay: 0.3 }}
+        className="marquee-container overflow-hidden flex flex-col gap-2"
+        style={{ paddingTop: '50px', paddingBottom: '40px' }}
+      >
+        {MARQUEE_ROWS.map((row, i) => (
+          <MarqueeRow key={i} config={row} />
+        ))}
+      </motion.div>
+
+      {/* Signature line */}
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.5 }}
+        className="text-center text-white/25 text-xs uppercase tracking-[0.2em] relative"
+        style={{ paddingBottom: '30px' }}
+      >
+        &copy; {currentYear} &mdash; Construit avec{' '}
+        <span className="footer-coffee inline-block cursor-default">&#9749;</span>
+        {' '}et de la curiosit&eacute;
+      </motion.p>
     </footer>
   );
 }

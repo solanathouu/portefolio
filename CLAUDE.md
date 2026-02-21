@@ -254,6 +254,9 @@ portfolio/
 - [x] Typographie changée : Space Mono → **Sora** (géométrique, lisible) — Space Mono gardé uniquement pour Preloader ASCII
 - [x] Layout sections : containers `w-11/12 max-w-6xl` (Projects, Skills, Contact) pour marge visible des bords écran
 - [x] Section headers unifiés : titres centrés (// Portfolio, // Compétences, // Contact), descriptions en français, espacements inline (40px/30px/60px)
+- [x] Footer Marquee Signature : 3 rangées de mots défilant (vitesses/directions différentes), hover pause, signature "Construit avec ☕ et de la curiosité", CSS keyframes seamless loop
+- [x] Skills cliquables : Dataiku ouvre certificat PDF (`/certificates/dataiku-core-designer.pdf`), GitHub ouvre profil — champ `url?` dans Skill interface, label "Certifié" sur certificats
+- [x] Contact description orientée alternance : "En quête d'une alternance où je peux monter en compétences et livrer du concret."
 - [ ] Ajouter images projets dans `public/projects/`
 - [ ] Tests responsive mobile/tablet
 - [ ] Lighthouse performance audit
@@ -263,14 +266,14 @@ portfolio/
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 4 en cours | Vrais projets (LaBonneNote, Tube, B2B Scraper), skills personnalises |
+| Code | ✅ Phase 4 en cours | Footer marquee, skills cliquables (Dataiku cert, GitHub), contact alternance |
 | Config | ✅ Optimisé | Sora font, anthracite, SSG, SEO metadata |
 | Tests | 🔄 Pas encore | TDD à implémenter |
 | Git | ✅ Committé | Checkpoint session polish UI |
 | Build | ✅ Passing | 0 errors, SSG project pages (labonnenote, tube, b2b-it-catalog-scraper), custom 404 |
 | Deploy | 🔄 Pas encore | Prêt pour Vercel |
 
-**Dernière action:** Section headers unifiés — titres centrés "// Portfolio", "// Compétences", "// Contact" avec descriptions françaises, suppression "Selected Works" / "Tech Stack" / "Let's Connect", espacements inline CSS (marginTop/marginBottom en px)
+**Dernière action:** Footer marquee 3 rangées + skills cliquables (Dataiku cert PDF, GitHub profil) + contact orienté alternance
 
 **Projets (réels, mis a jour session 2026-02-21):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
@@ -298,7 +301,7 @@ portfolio/
 - Scrollbars cachées, scroll fonctionnel
 - Preloader lié au vrai window.load (min 800ms)
 - Avatar rotation 360° une seule fois par page load (module-level flag)
-- Pas de footer — design minimaliste
+- Footer marquee signature : 3 rangées de mots-clés défilant (directions/vitesses variées), pause on hover, ligne copyright avec easter egg ☕
 - Header : nav desktop alignée à droite + hamburger mobile (logo NS. supprimé)
 - Section headers : titres centrés "// Nom", descriptions françaises, espacements via style inline (pas Tailwind margin classes qui ne s'appliquaient pas)
 
@@ -399,5 +402,5 @@ Valeurs recommandées:
 ---
 
 **Last updated:** 2026-02-21
-**Status:** Phase 4 In Progress - Skills ✅, projets ✅ (LaBonneNote, Tube, B2B Scraper), typo Sora ✅, layout ✅, nav prev/next améliorée ✅
+**Status:** Phase 4 In Progress - Footer marquee ✅, skills cliquables ✅, contact alternance ✅
 **Next:** Ajouter images projets dans public/projects/, puis deploy Vercel

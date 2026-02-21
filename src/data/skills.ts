@@ -5,6 +5,7 @@ export interface Skill {
   icon: string; // Icon name from react-icons
   category: SkillCategory;
   color: string; // Hex color for glow effect
+  url?: string; // External link opened on click (certificate, profile, etc.)
 }
 
 export const skills: Skill[] = [
@@ -51,6 +52,7 @@ export const skills: Skill[] = [
     icon: 'SiDataiku',
     category: 'data',
     color: '#2AB1AC',
+    url: '/certificates/dataiku-core-designer.pdf',
   },
   // Outils
   {
@@ -64,6 +66,7 @@ export const skills: Skill[] = [
     icon: 'SiGithub',
     category: 'tools',
     color: '#181717',
+    url: 'https://github.com/solanathouu',
   },
   {
     name: 'VS Code',

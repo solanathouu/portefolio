@@ -41,8 +41,8 @@ export default function Contact() {
               className="text-white/60 max-w-2xl mx-auto text-base leading-relaxed"
               style={{ marginTop: '40px' }}
             >
-              Un projet en tête, une question ou simplement envie d&apos;échanger ?
-              N&apos;hésitez pas à me contacter via l&apos;un de ces canaux.
+              En quête d&apos;une alternance où je peux monter en compétences
+              et livrer du concret. Si ça vous parle, on s&apos;écrit.
             </motion.p>
           </div>
 
