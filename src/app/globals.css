@@ -37,6 +37,7 @@ html {
   scroll-behavior: smooth;
   overflow-x: hidden;
   scrollbar-width: none; /* Firefox */
+  background: #303030;
 }
 
 html::-webkit-scrollbar {

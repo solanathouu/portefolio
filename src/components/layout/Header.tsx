@@ -53,15 +53,7 @@ export default function Header() {
         )}
       >
         <nav className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <a
-              href="#hero"
-              className="text-sm uppercase tracking-widest text-white/80 hover:text-white transition-colors"
-            >
-              NS.
-            </a>
-
+          <div className="flex items-center justify-end">
             {/* Desktop Navigation */}
             <ul className="hidden md:flex items-center gap-8 list-none">
               {navLinks.map((link) => (
