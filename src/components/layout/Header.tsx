@@ -57,7 +57,7 @@ export default function Header() {
             {/* Logo */}
             <a
               href="#hero"
-              className="font-mono text-sm uppercase tracking-widest text-white/80 hover:text-white transition-colors"
+              className="text-sm uppercase tracking-widest text-white/80 hover:text-white transition-colors"
             >
               NS.
             </a>
@@ -68,7 +68,7 @@ export default function Header() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="font-mono text-xs uppercase tracking-widest text-white/60 hover:text-[#00f0ff] transition-colors"
+                    className="text-xs uppercase tracking-widest text-white/60 hover:text-[#00f0ff] transition-colors"
                   >
                     {link.label}
                   </a>
@@ -122,7 +122,7 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4, delay: index * 0.08 }}
-                  className="font-mono text-2xl uppercase tracking-widest text-white/80 hover:text-[#00f0ff] transition-colors"
+                  className="text-2xl uppercase tracking-widest text-white/80 hover:text-[#00f0ff] transition-colors"
                 >
                   {link.label}
                 </motion.a>

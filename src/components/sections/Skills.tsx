@@ -24,7 +24,7 @@ export default function Skills() {
         }}
       />
 
-      <div className="mx-auto max-w-7xl relative">
+      <div className="mx-auto w-11/12 max-w-6xl relative">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -40,12 +40,12 @@ export default function Skills() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-sm font-mono uppercase tracking-widest mb-4 text-white/40"
+                className="text-sm uppercase tracking-widest mb-4 text-white/40"
               >
                 // Expertise
               </motion.div>
 
-              <h2 className="text-6xl md:text-8xl font-bold leading-none font-mono uppercase text-white">
+              <h2 className="text-6xl md:text-8xl font-bold leading-none uppercase text-white">
                 Tech
                 <br />
                 Stack
@@ -57,7 +57,7 @@ export default function Skills() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-white/60 max-w-md text-base leading-relaxed font-mono"
+              className="text-white/60 max-w-md text-base leading-relaxed"
             >
               Langages, outils data et environnements
               que j&apos;utilise au quotidien.
@@ -87,7 +87,7 @@ export default function Skills() {
               {/* Category Title */}
               <div className="mb-8">
                 <h3
-                  className="text-2xl font-bold font-mono uppercase tracking-widest"
+                  className="text-2xl font-bold uppercase tracking-widest"
                   style={{ color: category.color }}
                 >
                   {category.label}

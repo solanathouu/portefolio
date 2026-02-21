@@ -17,18 +17,12 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-sora), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom font families */
-.font-playfair {
-  font-family: var(--font-playfair), serif;
-}
-
+/* Monospace - preloader ASCII only */
 .font-mono {
   font-family: var(--font-space-mono), 'Courier New', monospace;
 }

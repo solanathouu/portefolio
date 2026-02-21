@@ -36,7 +36,7 @@ export default function SkillCard({ skill, index, categoryColor }: SkillCardProp
       }}
     >
       {Icon && <Icon size={36} className="text-white" />}
-      <span className="font-mono text-xs uppercase tracking-wider text-white/80">
+      <span className="text-xs uppercase tracking-wider text-white/80">
         {skill.name}
       </span>
     </motion.div>

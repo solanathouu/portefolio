@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import ParticleBackground from "@/components/layout/ParticleBackground";
-import { Playfair_Display, Space_Mono } from 'next/font/google';
+import { Sora, Space_Mono } from 'next/font/google';
 import { LoadingProvider } from '@/lib/contexts/LoadingContext';
 
-const playfair = Playfair_Display({
+const sora = Sora({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  weight: ['400', '600', '700', '800'],
+  variable: '--font-sora',
   display: 'swap',
 });
 
@@ -36,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`dark ${playfair.variable} ${spaceMono.variable}`}>
+    <html lang="fr" className={`dark ${sora.variable} ${spaceMono.variable}`}>
       <body className="antialiased" style={{ backgroundColor: '#303030' }}>
         <ParticleBackground />
         <LoadingProvider>

@@ -251,6 +251,8 @@ portfolio/
 - [x] Categories skills renommees : Langages / Data & Analyse / Outils (etait Frontend/Backend/Tools)
 - [x] Icones skills corriges (SiPython, FaDatabase, SiDataiku, FaFileExcel, FaSpider, FaGlobe, etc.)
 - [x] Vrais projets ajoutés dans `src/data/projects.ts` (LaBonneNote, Tube, Portfolio)
+- [x] Typographie changée : Space Mono → **Sora** (géométrique, lisible) — Space Mono gardé uniquement pour Preloader ASCII
+- [x] Layout sections : containers `w-11/12 max-w-6xl` (Projects, Skills, Contact) pour marge visible des bords écran
 - [ ] Ajouter images projets dans `public/projects/`
 - [ ] Tests responsive mobile/tablet
 - [ ] Lighthouse performance audit
@@ -261,13 +263,13 @@ portfolio/
 | Aspect | Status | Details |
 |--------|--------|---------|
 | Code | ✅ Phase 4 en cours | Vrais projets (LaBonneNote, Tube, Portfolio), skills personnalises |
-| Config | ✅ Optimisé | Space Mono, anthracite, SSG, SEO metadata |
+| Config | ✅ Optimisé | Sora font, anthracite, SSG, SEO metadata |
 | Tests | 🔄 Pas encore | TDD à implémenter |
 | Git | ✅ Committé | Checkpoint session skills personnalisation |
 | Build | ✅ Passing | 0 errors, SSG project pages (labonnenote, tube, portfolio-website), custom 404 |
 | Deploy | 🔄 Pas encore | Prêt pour Vercel |
 
-**Dernière action:** Remplacement des projets placeholders par vrais projets GitHub (LaBonneNote + Tube), portfolio conservé
+**Dernière action:** Typo Space Mono → Sora + layout sections w-11/12 max-w-6xl pour marges bords écran
 
 **Projets (réels, mis a jour session 2026-02-21):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
@@ -286,7 +288,8 @@ portfolio/
 
 **Design cohérent Neo-Brutalist:**
 - Background anthracite (#303030), accent Electric Cyan (#00f0ff)
-- Space Mono font, uppercase, tracking-widest
+- **Sora** font (body, headings), Space Mono uniquement pour Preloader ASCII
+- Sections containers: `w-11/12 max-w-6xl` (jamais colle aux bords ecran)
 - Hover: border color + box-shadow offset + translate
 - Grain texture overlay sur toutes les sections
 - Particules canvas en arriere-plan (200, repulsion souris, params dans ParticleBackground.tsx)
@@ -386,6 +389,7 @@ Valeurs recommandées:
 | Scroll bloqué | Expérience immersive forcée |
 | 173 frames | Équilibre qualité/performance |
 | Slate-900 gradient | Moderne, contraste avec avatar |
+| Sora au lieu Space Mono | Lisible, geometrique, moins agressif qu'un monospace |
 | Framer Motion | Animations fluides, DX excellent |
 | Canvas custom vs tsparticles | Zero dependance, plus leger, suffisant pour dust effect |
 | Sections sans backgroundColor | Transparent pour laisser voir le canvas particules fixe |
@@ -393,5 +397,5 @@ Valeurs recommandées:
 ---
 
 **Last updated:** 2026-02-21
-**Status:** Phase 4 In Progress - Skills personnalises ✅, vrais projets ✅, images restantes
+**Status:** Phase 4 In Progress - Skills ✅, projets ✅, typo Sora ✅, layout marges ✅, images restantes
 **Next:** Ajouter images projets dans public/projects/, puis deploy Vercel

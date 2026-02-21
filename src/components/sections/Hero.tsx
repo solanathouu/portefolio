@@ -63,7 +63,7 @@ export default function Hero() {
             className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
             style={{ zIndex: 20, bottom: '40px' }}
           >
-            <span className="font-mono text-xs uppercase tracking-widest text-white/40">
+            <span className="text-xs uppercase tracking-widest text-white/40">
               Scroll
             </span>
             <motion.div

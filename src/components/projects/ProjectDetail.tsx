@@ -30,7 +30,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
         >
           <button
             onClick={() => router.push('/#projects')}
-            className="flex items-center gap-3 px-5 py-3 font-mono text-sm uppercase tracking-wider transition-all group"
+            className="flex items-center gap-3 px-5 py-3 text-sm uppercase tracking-wider transition-all group"
             style={{
               border: `3px solid ${accentColor}`,
               color: accentColor,
@@ -62,13 +62,13 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
           className="mb-20"
         >
           <h1
-            className="text-5xl md:text-7xl lg:text-8xl font-bold leading-none font-mono uppercase mb-10 text-center"
+            className="text-5xl md:text-7xl lg:text-8xl font-bold leading-none uppercase mb-10 text-center"
             style={{ color: accentColor }}
           >
             {project.title}
           </h1>
 
-          <p className="text-xl md:text-2xl text-white/80 font-mono leading-relaxed max-w-4xl mb-12">
+          <p className="text-xl md:text-2xl text-white/80 leading-relaxed max-w-4xl mb-12">
             {project.longDescription || project.description}
           </p>
 
@@ -76,25 +76,25 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {project.role && (
               <div>
-                <div className="text-xs font-mono uppercase tracking-widest mb-2" style={{ color: accentColor }}>
+                <div className="text-xs uppercase tracking-widest mb-2" style={{ color: accentColor }}>
                   Role
                 </div>
-                <div className="text-white font-mono text-lg">{project.role}</div>
+                <div className="text-white text-lg">{project.role}</div>
               </div>
             )}
             {project.client && (
               <div>
-                <div className="text-xs font-mono uppercase tracking-widest mb-2" style={{ color: accentColor }}>
+                <div className="text-xs uppercase tracking-widest mb-2" style={{ color: accentColor }}>
                   Client
                 </div>
-                <div className="text-white font-mono text-lg">{project.client}</div>
+                <div className="text-white text-lg">{project.client}</div>
               </div>
             )}
             <div>
-              <div className="text-xs font-mono uppercase tracking-widest mb-2" style={{ color: accentColor }}>
+              <div className="text-xs uppercase tracking-widest mb-2" style={{ color: accentColor }}>
                 Year
               </div>
-              <div className="text-white font-mono text-lg">{project.year || '2025'}</div>
+              <div className="text-white text-lg">{project.year || '2025'}</div>
             </div>
           </div>
 
@@ -105,7 +105,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                 href={project.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 px-8 py-4 font-mono text-sm uppercase tracking-wider transition-all"
+                className="flex items-center gap-3 px-8 py-4 text-sm uppercase tracking-wider transition-all"
                 style={{
                   backgroundColor: accentColor,
                   color: '#000',
@@ -128,7 +128,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 px-8 py-4 font-mono text-sm uppercase tracking-wider transition-all"
+                className="flex items-center gap-3 px-8 py-4 text-sm uppercase tracking-wider transition-all"
                 style={{
                   border: `3px solid ${accentColor}`,
                   color: accentColor,
@@ -162,7 +162,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
             className="mb-32"
           >
             <h2
-              className="text-4xl md:text-5xl font-bold font-mono uppercase mb-12"
+              className="text-4xl md:text-5xl font-bold uppercase mb-12"
               style={{ color: accentColor }}
             >
               Visual Overview
@@ -188,7 +188,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                   </div>
                   {item.caption && (
                     <div className="p-6 bg-black/40">
-                      <p className="text-white/60 font-mono text-sm">{item.caption}</p>
+                      <p className="text-white/60 text-sm">{item.caption}</p>
                     </div>
                   )}
                 </motion.div>
@@ -206,7 +206,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
             className="mb-32"
           >
             <h2
-              className="text-4xl md:text-5xl font-bold font-mono uppercase mb-12"
+              className="text-4xl md:text-5xl font-bold uppercase mb-12"
               style={{ color: accentColor }}
             >
               Tech Stack
@@ -224,12 +224,12 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                     backgroundColor: 'rgba(0,0,0,0.3)',
                   }}
                 >
-                  <h3 className="text-sm font-mono uppercase tracking-widest mb-6" style={{ color: accentColor }}>
+                  <h3 className="text-sm uppercase tracking-widest mb-6" style={{ color: accentColor }}>
                     {tech.category}
                   </h3>
                   <ul className="space-y-3">
                     {tech.items.map((item) => (
-                      <li key={item} className="text-white/80 font-mono text-sm flex items-start gap-2">
+                      <li key={item} className="text-white/80 text-sm flex items-start gap-2">
                         <span style={{ color: accentColor }}>→</span>
                         <span>{item}</span>
                       </li>
@@ -249,7 +249,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold font-mono uppercase mb-8" style={{ color: accentColor }}>
+              <h2 className="text-3xl md:text-4xl font-bold uppercase mb-8" style={{ color: accentColor }}>
                 Challenges
               </h2>
               <ul className="space-y-6">
@@ -265,10 +265,10 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                       backgroundColor: 'rgba(0,0,0,0.2)',
                     }}
                   >
-                    <span className="text-2xl font-bold font-mono" style={{ color: accentColor, marginRight: '24px', flexShrink: 0 }}>
+                    <span className="text-2xl font-bold" style={{ color: accentColor, marginRight: '24px', flexShrink: 0 }}>
                       {String(idx + 1).padStart(2, '0')}
                     </span>
-                    <p className="text-white/80 font-mono text-sm leading-relaxed" style={{ flex: 1 }}>{challenge}</p>
+                    <p className="text-white/80 text-sm leading-relaxed" style={{ flex: 1 }}>{challenge}</p>
                   </motion.li>
                 ))}
               </ul>
@@ -281,7 +281,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold font-mono uppercase mb-8" style={{ color: accentColor }}>
+              <h2 className="text-3xl md:text-4xl font-bold uppercase mb-8" style={{ color: accentColor }}>
                 Outcomes
               </h2>
               <ul className="space-y-6">
@@ -297,7 +297,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                       backgroundColor: `${accentColor}10`,
                     }}
                   >
-                    <p className="text-white font-mono text-sm leading-relaxed">{outcome}</p>
+                    <p className="text-white text-sm leading-relaxed">{outcome}</p>
                   </motion.li>
                 ))}
               </ul>
@@ -332,8 +332,8 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
               >
                 <FiArrowLeft className="w-6 h-6" style={{ color: accentColor }} />
                 <div className="text-left">
-                  <div className="text-xs font-mono uppercase tracking-widest mb-1 text-white/40">Previous</div>
-                  <div className="font-mono text-lg text-white">{prevProject.title}</div>
+                  <div className="text-xs uppercase tracking-widest mb-1 text-white/40">Previous</div>
+                  <div className="text-lg text-white">{prevProject.title}</div>
                 </div>
               </button>
             ) : (
@@ -357,8 +357,8 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                 }}
               >
                 <div className="text-right">
-                  <div className="text-xs font-mono uppercase tracking-widest mb-1 text-white/40">Next</div>
-                  <div className="font-mono text-lg text-white">{nextProject.title}</div>
+                  <div className="text-xs uppercase tracking-widest mb-1 text-white/40">Next</div>
+                  <div className="text-lg text-white">{nextProject.title}</div>
                 </div>
                 <FiArrowRight className="w-6 h-6" style={{ color: accentColor }} />
               </button>

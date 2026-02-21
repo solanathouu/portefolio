@@ -18,7 +18,7 @@ export default function Contact() {
         }}
       />
 
-      <div className="mx-auto max-w-7xl w-full relative">
+      <div className="mx-auto w-11/12 max-w-6xl relative">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -34,12 +34,12 @@ export default function Contact() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-sm font-mono uppercase tracking-widest mb-4 text-white/40"
+                className="text-sm uppercase tracking-widest mb-4 text-white/40"
               >
                 // Get in Touch
               </motion.div>
 
-              <h2 className="text-6xl md:text-8xl font-bold leading-none font-mono uppercase text-white">
+              <h2 className="text-6xl md:text-8xl font-bold leading-none uppercase text-white">
                 Let&apos;s
                 <br />
                 Connect
@@ -51,7 +51,7 @@ export default function Contact() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-white/60 max-w-md text-base leading-relaxed font-mono"
+              className="text-white/60 max-w-md text-base leading-relaxed"
             >
               Got a project in mind or just want to say hi?
               Feel free to reach out through any of these channels.
@@ -102,7 +102,7 @@ export default function Contact() {
                 }}
               >
                 {Icon && <Icon size={28} className="text-white" />}
-                <span className="font-mono text-sm uppercase tracking-wider text-white">
+                <span className="text-sm uppercase tracking-wider text-white">
                   {link.label}
                 </span>
               </motion.a>

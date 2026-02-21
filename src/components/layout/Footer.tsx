@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Left - Copyright */}
-          <p className="font-mono text-xs uppercase tracking-widest text-white/40">
+          <p className="text-xs uppercase tracking-widest text-white/40">
             &copy; {currentYear} Nathan Skwarek
           </p>
 
@@ -35,7 +35,7 @@ export default function Footer() {
           </div>
 
           {/* Right - Built with */}
-          <p className="font-mono text-xs uppercase tracking-widest text-white/40">
+          <p className="text-xs uppercase tracking-widest text-white/40">
             Built with Next.js
           </p>
         </div>

@@ -40,7 +40,7 @@ export default function ProjectCard({ project, index, featured = false }: Projec
     >
       {/* Giant Number Background */}
       <div
-        className="absolute pointer-events-none select-none font-black leading-none font-mono text-white"
+        className="absolute pointer-events-none select-none font-black leading-none text-white"
         style={{
           top: '10px',
           right: '20px',
@@ -70,7 +70,7 @@ export default function ProjectCard({ project, index, featured = false }: Projec
 
           {/* View Details Overlay on Hover */}
           <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <div className="flex items-center gap-3 text-white font-mono text-sm uppercase tracking-wider">
+            <div className="flex items-center gap-3 text-white text-sm uppercase tracking-wider">
               <span>View Details</span>
               <FiArrowRight className="w-5 h-5" />
             </div>
@@ -83,7 +83,7 @@ export default function ProjectCard({ project, index, featured = false }: Projec
         <div className="relative p-10 space-y-5" style={{ zIndex: 1 }}>
           {/* Number Label */}
           <div
-            className="inline-block px-3 py-1 font-mono text-xs font-bold"
+            className="inline-block px-3 py-1 text-xs font-bold"
             style={{
               backgroundColor: accentColor,
               color: '#000',
@@ -93,12 +93,12 @@ export default function ProjectCard({ project, index, featured = false }: Projec
           </div>
 
           {/* Title */}
-          <h3 className="text-2xl md:text-3xl font-bold leading-tight font-mono text-white uppercase tracking-tight group-hover:translate-x-1 transition-transform">
+          <h3 className="text-2xl md:text-3xl font-bold leading-tight text-white uppercase tracking-tight group-hover:translate-x-1 transition-transform">
             {project.title}
           </h3>
 
           {/* Description */}
-          <p className="text-sm text-white/70 leading-relaxed line-clamp-2 font-mono">
+          <p className="text-sm text-white/70 leading-relaxed line-clamp-2">
             {project.description}
           </p>
 
@@ -107,7 +107,7 @@ export default function ProjectCard({ project, index, featured = false }: Projec
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider"
+                className="px-3 py-1 text-xs font-bold uppercase tracking-wider"
                 style={{
                   border: `2px solid ${accentColor}40`,
                   backgroundColor: 'transparent',
@@ -129,7 +129,7 @@ export default function ProjectCard({ project, index, featured = false }: Projec
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider transition-opacity group/link"
+            className="flex items-center gap-2 text-sm uppercase tracking-wider transition-opacity group/link"
             style={{
               color: '#ffffff',
               opacity: 0.6,
@@ -148,7 +148,7 @@ export default function ProjectCard({ project, index, featured = false }: Projec
             href={project.demoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 font-mono text-sm uppercase tracking-wider transition-opacity group/link"
+            className="flex items-center gap-2 text-sm uppercase tracking-wider transition-opacity group/link"
             style={{
               color: '#ffffff',
               opacity: 0.6,
@@ -168,7 +168,7 @@ export default function ProjectCard({ project, index, featured = false }: Projec
       {featured && (
         <div className="absolute top-8 right-8">
           <div
-            className="px-4 py-2 font-mono text-xs font-bold uppercase tracking-widest rotate-3"
+            className="px-4 py-2 text-xs font-bold uppercase tracking-widest rotate-3"
             style={{
               backgroundColor: accentColor,
               color: '#000',

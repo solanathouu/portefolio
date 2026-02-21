@@ -8,7 +8,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative min-h-screen py-16 px-8 md:px-12 lg:px-16"
+      className="relative min-h-screen py-16 px-6 sm:px-10 md:px-16 lg:px-24"
     >
       {/* Grain texture overlay */}
       <div
@@ -18,7 +18,7 @@ export default function Projects() {
         }}
       />
 
-      <div className="mx-auto max-w-7xl relative">
+      <div className="mx-auto w-11/12 max-w-6xl relative">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -34,12 +34,12 @@ export default function Projects() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-sm font-mono uppercase tracking-widest mb-2 text-white/40"
+                className="text-sm uppercase tracking-widest mb-2 text-white/40"
               >
                 // Portfolio
               </motion.div>
 
-              <h2 className="text-6xl md:text-8xl font-bold leading-none font-mono uppercase text-white">
+              <h2 className="text-6xl md:text-8xl font-bold leading-none uppercase text-white">
                 Selected
                 <br />
                 Works
@@ -51,7 +51,7 @@ export default function Projects() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-white/60 max-w-md text-base leading-relaxed font-mono"
+              className="text-white/60 max-w-md text-base leading-relaxed"
             >
               A curated collection of projects spanning web development,
               interactive experiences, and digital experimentation.
