@@ -253,6 +253,7 @@ portfolio/
 - [x] Vrais projets ajoutés dans `src/data/projects.ts` (LaBonneNote, Tube, B2B IT Catalog Scraper)
 - [x] Typographie changée : Space Mono → **Sora** (géométrique, lisible) — Space Mono gardé uniquement pour Preloader ASCII
 - [x] Layout sections : containers `w-11/12 max-w-6xl` (Projects, Skills, Contact) pour marge visible des bords écran
+- [x] Section headers unifiés : titres centrés (// Portfolio, // Compétences, // Contact), descriptions en français, espacements inline (40px/30px/60px)
 - [ ] Ajouter images projets dans `public/projects/`
 - [ ] Tests responsive mobile/tablet
 - [ ] Lighthouse performance audit
@@ -269,7 +270,7 @@ portfolio/
 | Build | ✅ Passing | 0 errors, SSG project pages (labonnenote, tube, b2b-it-catalog-scraper), custom 404 |
 | Deploy | 🔄 Pas encore | Prêt pour Vercel |
 
-**Dernière action:** Supprimé logo NS., fixé pixel blanc html, restauré police système NATHAN, remplacé projet Portfolio par B2B IT Catalog Scraper, amélioré boutons nav prev/next (Neo-Brutalist + nom projet en gros)
+**Dernière action:** Section headers unifiés — titres centrés "// Portfolio", "// Compétences", "// Contact" avec descriptions françaises, suppression "Selected Works" / "Tech Stack" / "Let's Connect", espacements inline CSS (marginTop/marginBottom en px)
 
 **Projets (réels, mis a jour session 2026-02-21):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
@@ -299,6 +300,7 @@ portfolio/
 - Avatar rotation 360° une seule fois par page load (module-level flag)
 - Pas de footer — design minimaliste
 - Header : nav desktop alignée à droite + hamburger mobile (logo NS. supprimé)
+- Section headers : titres centrés "// Nom", descriptions françaises, espacements via style inline (pas Tailwind margin classes qui ne s'appliquaient pas)
 
 **Scroll indicator (Hero):**
 - Position ajustable dans `src/components/sections/Hero.tsx` ligne ~63

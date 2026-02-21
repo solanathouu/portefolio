@@ -8,7 +8,8 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative py-16 px-8 md:px-12 lg:px-16"
+      className="relative px-8 md:px-12 lg:px-16"
+      style={{ paddingTop: '120px', paddingBottom: '64px' }}
     >
       {/* Grain texture overlay */}
       <div
@@ -25,36 +26,23 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-24"
+          style={{ marginBottom: '60px' }}
         >
-          <div className="flex items-end justify-between flex-wrap gap-8">
-            <div>
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-sm uppercase tracking-widest mb-4 text-white/40"
-              >
-                // Get in Touch
-              </motion.div>
-
-              <h2 className="text-6xl md:text-8xl font-bold leading-none uppercase text-white">
-                Let&apos;s
-                <br />
-                Connect
-              </h2>
-            </div>
+          <div className="text-center">
+            <h2 className="text-6xl md:text-8xl font-bold leading-none uppercase text-white">
+              // Contact
+            </h2>
 
             <motion.p
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-white/60 max-w-md text-base leading-relaxed"
+              className="text-white/60 max-w-2xl mx-auto text-base leading-relaxed"
+              style={{ marginTop: '40px' }}
             >
-              Got a project in mind or just want to say hi?
-              Feel free to reach out through any of these channels.
+              Un projet en tête, une question ou simplement envie d&apos;échanger ?
+              N&apos;hésitez pas à me contacter via l&apos;un de ces canaux.
             </motion.p>
           </div>
 
@@ -64,7 +52,8 @@ export default function Contact() {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="mt-12 h-1 origin-left bg-white/20"
+            className="h-1 origin-left bg-white/20"
+            style={{ marginTop: '30px' }}
           />
         </motion.div>
 

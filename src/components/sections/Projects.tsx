@@ -25,36 +25,23 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-16"
+          style={{ marginBottom: '60px' }}
         >
-          <div className="flex items-end justify-between flex-wrap gap-4">
-            <div>
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-sm uppercase tracking-widest mb-2 text-white/40"
-              >
-                // Portfolio
-              </motion.div>
-
-              <h2 className="text-6xl md:text-8xl font-bold leading-none uppercase text-white">
-                Selected
-                <br />
-                Works
-              </h2>
-            </div>
+          <div className="text-center">
+            <h2 className="text-6xl md:text-8xl font-bold leading-none uppercase text-white">
+              // Portfolio
+            </h2>
 
             <motion.p
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-white/60 max-w-md text-base leading-relaxed"
+              className="text-white/60 max-w-2xl mx-auto text-base leading-relaxed"
+              style={{ marginTop: '40px' }}
             >
-              A curated collection of projects spanning web development,
-              interactive experiences, and digital experimentation.
+              Projets personnels et académiques mêlant développement web, scraping de données,
+              intelligence artificielle et expériences mobiles — de la conception à la mise en production.
             </motion.p>
           </div>
 
@@ -64,7 +51,8 @@ export default function Projects() {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="mt-8 h-1 origin-left bg-white/20"
+            className="h-1 origin-left bg-white/20"
+            style={{ marginTop: '30px' }}
           />
         </motion.div>
 
