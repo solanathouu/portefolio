@@ -310,78 +310,98 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="border-t pt-16"
-          style={{ borderColor: `${accentColor}30` }}
+          className="pt-20"
         >
-          <div className="flex justify-between items-stretch gap-8 flex-wrap">
+          {/* Section label */}
+          <div className="flex items-center gap-4 mb-10">
+            <div className="h-px flex-1" style={{ backgroundColor: `${accentColor}20` }} />
+            <span className="text-sm font-medium uppercase tracking-[0.3em]" style={{ color: accentColor }}>Navigation</span>
+            <div className="h-px flex-1" style={{ backgroundColor: `${accentColor}20` }} />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px" style={{ backgroundColor: `${accentColor}15` }}>
+            {/* Previous Project */}
             {prevProject ? (
               <button
                 onClick={() => router.push(`/projects/${prevProject.id}`)}
-                className="group flex flex-col p-8 flex-1 min-w-[250px] transition-all duration-300"
-                style={{
-                  border: `3px solid ${accentColor}`,
-                  backgroundColor: 'rgba(0,0,0,0.3)',
-                }}
+                className="group relative py-10 px-8 text-center transition-all duration-500 overflow-hidden"
+                style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = accentColor;
-                  e.currentTarget.style.transform = 'translate(-4px, -4px)';
-                  e.currentTarget.style.boxShadow = `6px 6px 0 0 ${accentColor}80`;
-                  e.currentTarget.querySelector('.nav-label')!.setAttribute('style', 'color: #000');
-                  e.currentTarget.querySelector('.nav-title')!.setAttribute('style', 'color: #000');
-                  e.currentTarget.querySelector('.nav-icon')!.setAttribute('style', 'color: #000');
+                  e.currentTarget.style.backgroundColor = 'rgba(0,240,255,0.08)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.3)';
-                  e.currentTarget.style.transform = 'translate(0, 0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.querySelector('.nav-label')!.setAttribute('style', `color: ${accentColor}`);
-                  e.currentTarget.querySelector('.nav-title')!.setAttribute('style', 'color: #fff');
-                  e.currentTarget.querySelector('.nav-icon')!.setAttribute('style', `color: ${accentColor}`);
                 }}
               >
-                <div className="flex items-center gap-2 mb-4">
-                  <FiArrowLeft className="nav-icon w-5 h-5 transition-colors" style={{ color: accentColor }} />
-                  <span className="nav-label text-xs uppercase tracking-widest transition-colors" style={{ color: accentColor }}>Projet précédent</span>
+                {/* Accent line top */}
+                <div
+                  className="absolute top-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-500"
+                  style={{ backgroundColor: accentColor }}
+                />
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <FiArrowLeft
+                    className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1"
+                    style={{ color: accentColor }}
+                  />
+                  <span className="text-sm font-semibold uppercase tracking-[0.2em]" style={{ color: accentColor }}>
+                    Précédent
+                  </span>
                 </div>
-                <div className="nav-title text-2xl md:text-3xl font-bold uppercase transition-colors" style={{ color: '#fff' }}>{prevProject.title}</div>
+                <div className="text-xl md:text-2xl font-bold uppercase tracking-wide transition-colors duration-300" style={{ color: accentColor }}>
+                  {prevProject.title}
+                </div>
+                {/* Project number */}
+                <span
+                  className="absolute bottom-4 right-6 text-xs font-mono font-bold tracking-widest"
+                  style={{ color: `${accentColor}50` }}
+                >
+                  {String(currentIndex).padStart(2, '0')}
+                </span>
               </button>
             ) : (
-              <div className="flex-1 min-w-[250px]" />
+              <div style={{ backgroundColor: 'rgba(0,0,0,0.15)' }} />
             )}
 
+            {/* Next Project */}
             {nextProject ? (
               <button
                 onClick={() => router.push(`/projects/${nextProject.id}`)}
-                className="group flex flex-col items-end p-8 flex-1 min-w-[250px] transition-all duration-300"
-                style={{
-                  border: `3px solid ${accentColor}`,
-                  backgroundColor: 'rgba(0,0,0,0.3)',
-                }}
+                className="group relative py-10 px-8 text-center transition-all duration-500 overflow-hidden"
+                style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = accentColor;
-                  e.currentTarget.style.transform = 'translate(-4px, -4px)';
-                  e.currentTarget.style.boxShadow = `6px 6px 0 0 ${accentColor}80`;
-                  e.currentTarget.querySelector('.nav-label')!.setAttribute('style', 'color: #000');
-                  e.currentTarget.querySelector('.nav-title')!.setAttribute('style', 'color: #000');
-                  e.currentTarget.querySelector('.nav-icon')!.setAttribute('style', 'color: #000');
+                  e.currentTarget.style.backgroundColor = 'rgba(0,240,255,0.08)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.3)';
-                  e.currentTarget.style.transform = 'translate(0, 0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.querySelector('.nav-label')!.setAttribute('style', `color: ${accentColor}`);
-                  e.currentTarget.querySelector('.nav-title')!.setAttribute('style', 'color: #fff');
-                  e.currentTarget.querySelector('.nav-icon')!.setAttribute('style', `color: ${accentColor}`);
                 }}
               >
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="nav-label text-xs uppercase tracking-widest transition-colors" style={{ color: accentColor }}>Projet suivant</span>
-                  <FiArrowRight className="nav-icon w-5 h-5 transition-colors" style={{ color: accentColor }} />
+                {/* Accent line top */}
+                <div
+                  className="absolute top-0 right-0 h-[2px] w-0 group-hover:w-full transition-all duration-500"
+                  style={{ backgroundColor: accentColor }}
+                />
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <span className="text-sm font-semibold uppercase tracking-[0.2em]" style={{ color: accentColor }}>
+                    Suivant
+                  </span>
+                  <FiArrowRight
+                    className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+                    style={{ color: accentColor }}
+                  />
                 </div>
-                <div className="nav-title text-2xl md:text-3xl font-bold uppercase text-right transition-colors" style={{ color: '#fff' }}>{nextProject.title}</div>
+                <div className="text-xl md:text-2xl font-bold uppercase tracking-wide transition-colors duration-300" style={{ color: accentColor }}>
+                  {nextProject.title}
+                </div>
+                {/* Project number */}
+                <span
+                  className="absolute bottom-4 left-6 text-xs font-mono font-bold tracking-widest"
+                  style={{ color: `${accentColor}50` }}
+                >
+                  {String(currentIndex + 2).padStart(2, '0')}
+                </span>
               </button>
             ) : (
-              <div className="flex-1 min-w-[250px]" />
+              <div style={{ backgroundColor: 'rgba(0,0,0,0.15)' }} />
             )}
           </div>
         </motion.section>

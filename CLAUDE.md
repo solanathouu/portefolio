@@ -258,6 +258,7 @@ portfolio/
 - [x] Skills cliquables : Dataiku ouvre certificat PDF (`/certificates/dataiku-core-designer.pdf`), Anglais ouvre certificat PDF (`/certificates/anglais.pdf`), GitHub ouvre profil — champ `url?` dans Skill interface, label "Certifié" sur certificats
 - [x] Contact description orientée alternance : "En quête d'une alternance où je peux monter en compétences et livrer du concret."
 - [x] Marquee fix : inline-flex + pointer-events-none (plus de saut, plus de pause hover), vitesses ralenties (40s/30s/36s)
+- [x] Navigation projets prev/next redesignée : editorial strip, grid 2 colonnes, accent line slide-in, titres centrés cyan, labels + fleches plus gros, numéro de projet en watermark
 - [ ] Ajouter images projets dans `public/projects/`
 - [ ] Tests responsive mobile/tablet
 - [ ] Lighthouse performance audit
@@ -267,14 +268,14 @@ portfolio/
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 4 en cours | Footer marquee fix, certif anglais, signature "Paris" |
+| Code | ✅ Phase 4 en cours | Nav projets redesignée (editorial strip, cyan, centrée) |
 | Config | ✅ Optimisé | Sora font, anthracite, SSG, SEO metadata |
 | Tests | 🔄 Pas encore | TDD à implémenter |
 | Git | ✅ Committé | Checkpoint session polish UI |
 | Build | ✅ Passing | 0 errors, SSG project pages (labonnenote, tube, b2b-it-catalog-scraper), custom 404 |
 | Deploy | 🔄 Pas encore | Prêt pour Vercel |
 
-**Dernière action:** Certif anglais ajoutée (public/certificates/anglais.pdf), footer simplifié "© 2026 — Paris", marquee fix (inline-flex, pointer-events-none, vitesses ralenties 40s/30s/36s)
+**Dernière action:** Navigation prev/next projets redesignée — editorial strip avec grid 2 colonnes, accent line slide-in au hover, titres en cyan centrés, labels/flèches agrandis, numéros watermark
 
 **Projets (réels, mis a jour session 2026-02-21):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
@@ -403,5 +404,5 @@ Valeurs recommandées:
 ---
 
 **Last updated:** 2026-02-23
-**Status:** Phase 4 In Progress - Footer marquee fix ✅, certif anglais ✅, signature Paris ✅
+**Status:** Phase 4 In Progress - Nav projets redesignée ✅ (editorial strip, cyan, centrée)
 **Next:** Ajouter images projets dans public/projects/, puis deploy Vercel
