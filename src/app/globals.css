@@ -65,30 +65,9 @@ a:visited {
 }
 
 .marquee-track {
-  animation-name: marquee-scroll;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-duration: 20s;
+  display: inline-flex;
+  animation: marquee-scroll linear infinite;
   will-change: transform;
-}
-
-.marquee-container:hover .marquee-track {
-  animation-play-state: paused;
-}
-
-.footer-coffee {
-  transition: transform 0.3s ease;
-}
-
-.footer-coffee:hover {
-  animation: coffee-wiggle 0.5s ease;
-}
-
-@keyframes coffee-wiggle {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(-15deg); }
-  50% { transform: rotate(15deg); }
-  75% { transform: rotate(-10deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {

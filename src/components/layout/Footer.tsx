@@ -17,7 +17,7 @@ const MARQUEE_ROWS: MarqueeRowConfig[] = [
       'creative', 'scraping', 'paris', 'pixel perfect',
       'dark mode', 'curious', 'deploy', 'dev life',
     ],
-    duration: 20,
+    duration: 40,
     reverse: true,
     opacity: 0.07,
     fontSize: 'clamp(1.5rem, 4vw, 3.5rem)',
@@ -29,7 +29,7 @@ const MARQUEE_ROWS: MarqueeRowConfig[] = [
       'open source', 'debug', 'nathan skwarek', 'next.js',
       'ship it', 'nocturne',
     ],
-    duration: 14,
+    duration: 30,
     reverse: false,
     opacity: 0.85,
     fontSize: 'clamp(2rem, 5.5vw, 5rem)',
@@ -40,7 +40,7 @@ const MARQUEE_ROWS: MarqueeRowConfig[] = [
       'API', 'no bugs', 'CSV', 'nathan skwarek', 'fastapi',
       'ctrl+c', '01101', 'wifi & café',
     ],
-    duration: 18,
+    duration: 36,
     reverse: true,
     opacity: 0.12,
     fontSize: 'clamp(1.5rem, 4vw, 3.5rem)',
@@ -49,22 +49,25 @@ const MARQUEE_ROWS: MarqueeRowConfig[] = [
 
 function MarqueeRow({ config }: { config: MarqueeRowConfig }) {
   const { words, duration, reverse, opacity, fontSize } = config;
-  const content = words.join('  ·  ').toUpperCase() + '  ·  ';
+  const content = words.join('  \u00b7  ').toUpperCase() + '  \u00b7  ';
 
   return (
-    <div className="overflow-hidden whitespace-nowrap" style={{ opacity }}>
+    <div
+      className="overflow-hidden whitespace-nowrap pointer-events-none select-none"
+      style={{ opacity }}
+    >
       <div
-        className="flex marquee-track"
+        className="marquee-track inline-flex"
         style={{
           animationDuration: `${duration}s`,
           animationDirection: reverse ? 'reverse' : 'normal',
           fontSize,
         }}
       >
-        <span className="flex-none font-bold uppercase tracking-wider text-white">
+        <span className="inline-block font-bold uppercase tracking-wider text-white">
           {content}
         </span>
-        <span className="flex-none font-bold uppercase tracking-wider text-white">
+        <span className="inline-block font-bold uppercase tracking-wider text-white">
           {content}
         </span>
       </div>
@@ -105,7 +108,7 @@ export default function Footer() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1, delay: 0.3 }}
-        className="marquee-container overflow-hidden flex flex-col gap-2"
+        className="overflow-hidden flex flex-col gap-2"
         style={{ paddingTop: '50px', paddingBottom: '40px' }}
       >
         {MARQUEE_ROWS.map((row, i) => (
@@ -122,9 +125,7 @@ export default function Footer() {
         className="text-center text-white/25 text-xs uppercase tracking-[0.2em] relative"
         style={{ paddingBottom: '30px' }}
       >
-        &copy; {currentYear} &mdash; Construit avec{' '}
-        <span className="footer-coffee inline-block cursor-default">&#9749;</span>
-        {' '}et de la curiosit&eacute;
+&copy; {currentYear} &mdash; Paris
       </motion.p>
     </footer>
   );

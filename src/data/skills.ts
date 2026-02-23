@@ -33,6 +33,7 @@ export const skills: Skill[] = [
     icon: 'FaGlobe',
     category: 'languages',
     color: '#E63946',
+    url: '/certificates/anglais.pdf',
   },
   // Data & Analyse
   {
