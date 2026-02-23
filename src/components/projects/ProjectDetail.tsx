@@ -59,24 +59,24 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="mb-20"
+          style={{ marginBottom: '24px' }}
         >
           <h1
-            className="text-5xl md:text-7xl lg:text-8xl font-bold leading-none uppercase mb-10 text-center"
-            style={{ color: accentColor }}
+            className="text-5xl md:text-7xl lg:text-8xl font-bold leading-none uppercase text-center"
+            style={{ color: accentColor, marginBottom: '32px' }}
           >
             {project.title}
           </h1>
 
-          <p className="text-xl md:text-2xl text-white/80 leading-relaxed max-w-4xl mb-12">
+          <p className="text-xl md:text-2xl text-white/80 max-w-4xl" style={{ lineHeight: 1.75, marginBottom: '20px' }}>
             {project.longDescription || project.description}
           </p>
 
           {/* Info Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8" style={{ marginBottom: '22px' }}>
             {project.role && (
               <div>
-                <div className="text-xs uppercase tracking-widest mb-2" style={{ color: accentColor }}>
+                <div className="text-xs uppercase tracking-widest mb-3" style={{ color: accentColor }}>
                   Role
                 </div>
                 <div className="text-white text-lg">{project.role}</div>
@@ -84,7 +84,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
             )}
             {project.client && (
               <div>
-                <div className="text-xs uppercase tracking-widest mb-2" style={{ color: accentColor }}>
+                <div className="text-xs uppercase tracking-widest mb-3" style={{ color: accentColor }}>
                   Client
                 </div>
                 <div className="text-white text-lg">{project.client}</div>
@@ -159,11 +159,11 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-32"
+            style={{ marginBottom: '34px' }}
           >
             <h2
-              className="text-4xl md:text-5xl font-bold uppercase mb-12"
-              style={{ color: accentColor }}
+              className="text-4xl md:text-5xl font-bold uppercase"
+              style={{ color: accentColor, marginBottom: '18px' }}
             >
               Visual Overview
             </h2>
@@ -203,15 +203,15 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="mb-32"
+            style={{ marginBottom: '44px' }}
           >
             <h2
-              className="text-4xl md:text-5xl font-bold uppercase mb-12"
-              style={{ color: accentColor }}
+              className="text-4xl md:text-5xl font-bold uppercase"
+              style={{ color: accentColor, marginBottom: '18px' }}
             >
               Tech Stack
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               {project.technologies.map((tech, idx) => (
                 <motion.div
                   key={tech.category}
@@ -224,10 +224,10 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                     backgroundColor: 'rgba(0,0,0,0.3)',
                   }}
                 >
-                  <h3 className="text-sm uppercase tracking-widest mb-6" style={{ color: accentColor }}>
+                  <h3 className="text-sm uppercase tracking-widest" style={{ color: accentColor, marginBottom: '16px' }}>
                     {tech.category}
                   </h3>
-                  <ul className="space-y-3">
+                  <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     {tech.items.map((item) => (
                       <li key={item} className="text-white/80 text-sm flex items-start gap-2">
                         <span style={{ color: accentColor }}>→</span>
@@ -242,17 +242,17 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
         )}
 
         {/* Challenges & Outcomes */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: '30px', marginBottom: '44px' }}>
           {project.challenges && project.challenges.length > 0 && (
             <motion.section
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold uppercase mb-8" style={{ color: accentColor }}>
+              <h2 className="text-3xl md:text-4xl font-bold uppercase" style={{ color: accentColor, marginBottom: '14px' }}>
                 Challenges
               </h2>
-              <ul className="space-y-6">
+              <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {project.challenges.map((challenge, idx) => (
                   <motion.li
                     key={idx}
@@ -268,7 +268,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                     <span className="text-2xl font-bold" style={{ color: accentColor, marginRight: '24px', flexShrink: 0 }}>
                       {String(idx + 1).padStart(2, '0')}
                     </span>
-                    <p className="text-white/80 text-sm leading-relaxed" style={{ flex: 1 }}>{challenge}</p>
+                    <p className="text-white/80 text-base leading-relaxed" style={{ flex: 1 }}>{challenge}</p>
                   </motion.li>
                 ))}
               </ul>
@@ -281,10 +281,10 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold uppercase mb-8" style={{ color: accentColor }}>
+              <h2 className="text-3xl md:text-4xl font-bold uppercase" style={{ color: accentColor, marginBottom: '14px' }}>
                 Outcomes
               </h2>
-              <ul className="space-y-6">
+              <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {project.outcomes.map((outcome, idx) => (
                   <motion.li
                     key={idx}
@@ -297,7 +297,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                       backgroundColor: `${accentColor}10`,
                     }}
                   >
-                    <p className="text-white text-sm leading-relaxed">{outcome}</p>
+                    <p className="text-white text-base leading-relaxed">{outcome}</p>
                   </motion.li>
                 ))}
               </ul>
