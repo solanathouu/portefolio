@@ -9,6 +9,7 @@ export interface Project {
     type: 'image' | 'video' | 'gif';
     url: string;
     caption?: string;
+    linkUrl?: string; // If set, clicking opens this URL instead of lightbox
   }[];
   demoUrl?: string;
   githubUrl?: string;
@@ -34,17 +35,27 @@ export const projects: Project[] = [
     longDescription:
       'LaBonneNote est un assistant pédagogique basé sur le RAG (Retrieval-Augmented Generation) qui répond aux questions des collégiens en s\'appuyant exclusivement sur sa base de connaissances de 43 857 chunks issus de Vikidia. Le système détecte automatiquement le niveau (6e-3e) et la matière, adapte ses réponses pédagogiquement, et cite ses sources. La bibliothèque intégrée couvre 8 matières avec recherche full-text en temps réel. Les quiz sont générés automatiquement à partir de n\'importe quelle leçon avec scoring détaillé et feedback par question.',
     tags: ['Python', 'FastAPI', 'LangChain', 'ChromaDB', 'GPT-4o-mini'],
-    thumbnail: '/projects/labonnenote-thumb.jpg',
+    thumbnail: '/projects/labonnenote-thumb.png',
     media: [
       {
         type: 'image',
-        url: '/projects/labonnenote-1.jpg',
+        url: '/projects/labonnenote-1.png',
         caption: 'Interface de chat avec détection automatique du niveau',
       },
       {
         type: 'image',
-        url: '/projects/labonnenote-2.jpg',
+        url: '/projects/labonnenote-2.png',
         caption: 'Bibliothèque de 24 321 articles organisés par matière',
+      },
+      {
+        type: 'image',
+        url: '/projects/labonnenote-3.png',
+        caption: 'Quiz auto-générés avec scoring et feedback détaillé',
+      },
+      {
+        type: 'image',
+        url: '/projects/labonnenote-4.png',
+        caption: 'Upload PDF et import de cours personnels',
       },
     ],
     githubUrl: 'https://github.com/solanathouu/LaBonneNote',
@@ -96,17 +107,27 @@ export const projects: Project[] = [
     longDescription:
       'Tube permet aux usagers du métro parisien de signaler et consulter en temps réel les incidents, contrôles, travaux et pannes sur le réseau. Chaque signalement est validé par vote communautaire. L\'app intègre les données officielles RATP/IDFM via l\'API PRIM, un système de gamification complet (XP, niveaux, badges, classement), le partage de trajet en direct, et la gestion d\'amis. 302 stations avec coordonnées GPS, carte Google Maps avec clustering de marqueurs.',
     tags: ['React Native', 'Expo', 'Supabase', 'PostGIS'],
-    thumbnail: '/projects/tube-thumb.jpg',
+    thumbnail: '/projects/tube-thumb.png',
     media: [
       {
         type: 'image',
-        url: '/projects/tube-1.jpg',
+        url: '/projects/tube-1.png',
         caption: 'Carte interactive avec signalements géolocalisés',
       },
       {
         type: 'image',
-        url: '/projects/tube-2.jpg',
+        url: '/projects/tube-2.png',
         caption: 'Système de gamification et profil utilisateur',
+      },
+      {
+        type: 'image',
+        url: '/projects/tube-3.png',
+        caption: 'Signalement en temps réel et validation communautaire',
+      },
+      {
+        type: 'image',
+        url: '/projects/tube-4.png',
+        caption: 'Liste des stations et recherche par ligne',
       },
     ],
     githubUrl: 'https://github.com/solanathouu/Tube',
@@ -162,17 +183,28 @@ export const projects: Project[] = [
     longDescription:
       'Ce scraper Python extrait automatiquement l\'intégralité du catalogue IT de TD Synnex France (plateforme InTouch) : plus de 8 800 produits répartis en 11 catégories hardware. Le script interroge les endpoints REST de l\'API InTouch, gère la pagination intelligente (100 produits par page), récupère les prix par batch via un endpoint dédié, et extrait dynamiquement plus de 440 spécifications techniques par produit. Le tout est exporté en CSV (~11 Mo) prêt à alimenter un configurateur B2B IT. Exécution complète en ~5 minutes avec rate limiting respectueux (1 req/s).',
     tags: ['Python', 'Web Scraping', 'REST API', 'CSV'],
-    thumbnail: '/projects/scraper-thumb.jpg',
+    thumbnail: '/projects/scraper-thumb.png',
     media: [
       {
         type: 'image',
-        url: '/projects/scraper-1.jpg',
+        url: '/projects/scraper-1.png',
         caption: 'Extraction automatisée de +8 800 produits IT',
       },
       {
         type: 'image',
-        url: '/projects/scraper-2.jpg',
+        url: '/projects/scraper-2.png',
         caption: 'Export CSV avec 440+ spécifications techniques',
+      },
+      {
+        type: 'image',
+        url: '/projects/scraper-3.png',
+        caption: 'Architecture du pipeline et rate limiting',
+      },
+      {
+        type: 'image',
+        url: '/projects/scraper-4.png',
+        caption: 'Présentation complète du projet (PDF)',
+        linkUrl: '/projects/scraper-presentation.pdf',
       },
     ],
     githubUrl: 'https://github.com/solanathouu/b2b-it-catalog-scraper',

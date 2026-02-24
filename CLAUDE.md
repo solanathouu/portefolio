@@ -260,7 +260,11 @@ portfolio/
 - [x] Marquee fix : inline-flex + pointer-events-none (plus de saut, plus de pause hover), vitesses ralenties (40s/30s/36s)
 - [x] Navigation projets prev/next redesignée : editorial strip, grid 2 colonnes, accent line slide-in, titres centrés cyan, labels + fleches plus gros, numéro de projet en watermark
 - [x] Skills grid bordures lissées : technique border-collapse (container border-top/left, cards border-right/bottom 1px), taille uniforme (h-full + justify-center), hover outline au lieu de border pour ne pas casser le layout
-- [ ] Ajouter images projets dans `public/projects/`
+- [x] Images projets ajoutées dans `public/projects/` (3 screenshots par projet LaBonneNote/Tube/Scraper)
+- [x] ProjectDetail : grille de vignettes cliquables (2 cols mobile, 3 cols desktop) + lightbox plein écran (navigation flèches, Escape, compteur)
+- [x] Scraper : 4e vignette = première slide PDF, clic ouvre le PDF complet (`scraper-presentation.pdf`)
+- [x] Interface media enrichie : champ `linkUrl?` pour ouvrir un lien externe au lieu du lightbox
+- [ ] Ajouter images manquantes : `tube-4.png`, `labonnenote-4.png`, thumbnails (`*-thumb.png`)
 - [ ] Tests responsive mobile/tablet
 - [ ] Lighthouse performance audit
 - [ ] Deployer sur Vercel
@@ -269,14 +273,14 @@ portfolio/
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 4 en cours | Skills grid bordures lissées (border-collapse, taille uniforme) |
+| Code | ✅ Phase 4 en cours | Lightbox + vignettes projet + PDF scraper |
 | Config | ✅ Optimisé | Sora font, anthracite, SSG, SEO metadata |
 | Tests | 🔄 Pas encore | TDD à implémenter |
-| Git | ✅ Committé | Checkpoint session polish UI |
+| Git | ✅ Committé | Checkpoint session images projets + lightbox |
 | Build | ✅ Passing | 0 errors, SSG project pages (labonnenote, tube, b2b-it-catalog-scraper), custom 404 |
 | Deploy | 🔄 Pas encore | Prêt pour Vercel |
 
-**Dernière action:** Skills grid bordures lissées — technique border-collapse (1px uniforme partout), cards taille uniforme (h-full + justify-center), hover via outline au lieu de border
+**Dernière action:** ProjectDetail lightbox (vignettes cliquables, navigation, Escape), 4 images par projet scraper (4e = slide PDF ouvre le PDF complet), images réelles ajoutées dans public/projects/
 
 **Projets (réels, mis a jour session 2026-02-21):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
@@ -315,11 +319,13 @@ portfolio/
 
 ## 🎯 Next Immediate Action
 
-**Finir Phase 4 — images projets puis deployer:**
+**Finir Phase 4 — images manquantes puis deployer:**
 
-1. **Ajouter images des projets:**
-   - Screenshots/captures dans `public/projects/` (labonnenote-thumb.jpg, tube-thumb.jpg, etc.)
-   - Mettre a jour les paths dans projects.ts si necessaire
+1. **Images manquantes à ajouter dans `public/projects/`:**
+   - `labonnenote-4.png`, `labonnenote-thumb.png`
+   - `tube-4.png`, `tube-thumb.png`
+   - `scraper-thumb.png`
+   - (Les 3 screenshots par projet + scraper-4.png + scraper-presentation.pdf sont déjà en place)
 
 2. **Deployer sur Vercel:**
    ```bash
@@ -404,6 +410,6 @@ Valeurs recommandées:
 
 ---
 
-**Last updated:** 2026-02-23
-**Status:** Phase 4 In Progress - Skills grid bordures lissées ✅ (border-collapse, taille uniforme)
-**Next:** Ajouter images projets dans public/projects/, puis deploy Vercel
+**Last updated:** 2026-02-24
+**Status:** Phase 4 In Progress - Lightbox + vignettes projet + PDF scraper ✅
+**Next:** Images manquantes (thumb, 4e image LaBonneNote/Tube), puis deploy Vercel
