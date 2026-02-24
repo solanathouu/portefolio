@@ -268,6 +268,7 @@ portfolio/
 - [x] ProjectDetail refonte images : miniatures 300x300 en bas de page, lightbox CSS pur (position fixed + z-99999, pas de portal/Framer Motion), animation fade+scale 0.3s, fleches navigation, Escape/clic ferme
 - [x] Lightbox : bouton "Ouvrir le PDF" cyan quand l'image a un linkUrl (scraper presentation)
 - [x] Images manquantes nettoyées : supprimé labonnenote-4.png et tube-4.png des données (fichiers inexistants)
+- [x] Ordre screenshots projets réorganisé : screenshot 3 en premier, 1 en deuxième, 2 en troisième (3 projets)
 - [ ] Tests responsive mobile/tablet
 - [ ] Lighthouse performance audit
 - [ ] Deployer sur Vercel
@@ -276,14 +277,14 @@ portfolio/
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 4 en cours | Images projets refaites, lightbox fonctionnel |
+| Code | ✅ Phase 4 en cours | Screenshots réordonnés, lightbox fonctionnel |
 | Config | ✅ Optimisé | Sora font, anthracite, SSG, SEO metadata |
 | Tests | 🔄 Pas encore | TDD à implémenter |
-| Git | ✅ Committé | Checkpoint session refonte images + lightbox CSS |
+| Git | ✅ Committé + pushé | Tout synchronisé avec GitHub |
 | Build | ✅ Passing | 0 errors, SSG project pages (labonnenote, tube, b2b-it-catalog-scraper), custom 404 |
 | Deploy | 🔄 Pas encore | Prêt pour Vercel |
 
-**Dernière action:** Refonte complète UX images projets : ProjectCard avec vraies images, ProjectDetail miniatures 300x300 en bas de page, lightbox CSS pur (fix position fixed cassé par Framer Motion transforms), bouton "Ouvrir le PDF" dans lightbox scraper
+**Dernière action:** Réorganisation ordre screenshots projets (3→1, 1→2, 2→3) pour les 3 projets. Prêt pour déploiement Vercel.
 
 **Projets (réels, mis a jour session 2026-02-21):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
@@ -410,5 +411,5 @@ Valeurs recommandées:
 ---
 
 **Last updated:** 2026-02-24
-**Status:** Phase 4 In Progress - Images projets refaites, lightbox CSS pur fonctionnel ✅
-**Next:** Tests responsive, Lighthouse audit, deploy Vercel
+**Status:** Phase 4 In Progress - Prêt pour déploiement Vercel ✅
+**Next:** Déployer sur Vercel (vercel.com/signup → import repo → deploy)
