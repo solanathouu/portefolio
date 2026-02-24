@@ -39,6 +39,11 @@ export const projects: Project[] = [
     media: [
       {
         type: 'image',
+        url: '/projects/labonnenote-3.png',
+        caption: 'Quiz auto-générés avec scoring et feedback détaillé',
+      },
+      {
+        type: 'image',
         url: '/projects/labonnenote-1.png',
         caption: 'Interface de chat avec détection automatique du niveau',
       },
@@ -46,11 +51,6 @@ export const projects: Project[] = [
         type: 'image',
         url: '/projects/labonnenote-2.png',
         caption: 'Bibliothèque de 24 321 articles organisés par matière',
-      },
-      {
-        type: 'image',
-        url: '/projects/labonnenote-3.png',
-        caption: 'Quiz auto-générés avec scoring et feedback détaillé',
       },
     ],
     githubUrl: 'https://github.com/solanathouu/LaBonneNote',
@@ -106,6 +106,11 @@ export const projects: Project[] = [
     media: [
       {
         type: 'image',
+        url: '/projects/tube-3.png',
+        caption: 'Signalement en temps réel et validation communautaire',
+      },
+      {
+        type: 'image',
         url: '/projects/tube-1.png',
         caption: 'Carte interactive avec signalements géolocalisés',
       },
@@ -113,11 +118,6 @@ export const projects: Project[] = [
         type: 'image',
         url: '/projects/tube-2.png',
         caption: 'Système de gamification et profil utilisateur',
-      },
-      {
-        type: 'image',
-        url: '/projects/tube-3.png',
-        caption: 'Signalement en temps réel et validation communautaire',
       },
     ],
     githubUrl: 'https://github.com/solanathouu/Tube',
@@ -177,6 +177,11 @@ export const projects: Project[] = [
     media: [
       {
         type: 'image',
+        url: '/projects/scraper-3.png',
+        caption: 'Architecture du pipeline et rate limiting',
+      },
+      {
+        type: 'image',
         url: '/projects/scraper-1.png',
         caption: 'Extraction automatisée de +8 800 produits IT',
       },
@@ -184,11 +189,6 @@ export const projects: Project[] = [
         type: 'image',
         url: '/projects/scraper-2.png',
         caption: 'Export CSV avec 440+ spécifications techniques',
-      },
-      {
-        type: 'image',
-        url: '/projects/scraper-3.png',
-        caption: 'Architecture du pipeline et rate limiting',
       },
       {
         type: 'image',
