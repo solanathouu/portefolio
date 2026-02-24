@@ -52,11 +52,6 @@ export const projects: Project[] = [
         url: '/projects/labonnenote-3.png',
         caption: 'Quiz auto-générés avec scoring et feedback détaillé',
       },
-      {
-        type: 'image',
-        url: '/projects/labonnenote-4.png',
-        caption: 'Upload PDF et import de cours personnels',
-      },
     ],
     githubUrl: 'https://github.com/solanathouu/LaBonneNote',
     featured: true,
@@ -123,11 +118,6 @@ export const projects: Project[] = [
         type: 'image',
         url: '/projects/tube-3.png',
         caption: 'Signalement en temps réel et validation communautaire',
-      },
-      {
-        type: 'image',
-        url: '/projects/tube-4.png',
-        caption: 'Liste des stations et recherche par ligne',
       },
     ],
     githubUrl: 'https://github.com/solanathouu/Tube',

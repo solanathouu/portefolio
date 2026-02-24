@@ -264,7 +264,10 @@ portfolio/
 - [x] ProjectDetail : grille de vignettes cliquables (2 cols mobile, 3 cols desktop) + lightbox plein écran (navigation flèches, Escape, compteur)
 - [x] Scraper : 4e vignette = première slide PDF, clic ouvre le PDF complet (`scraper-presentation.pdf`)
 - [x] Interface media enrichie : champ `linkUrl?` pour ouvrir un lien externe au lieu du lightbox
-- [ ] Ajouter images manquantes : `tube-4.png`, `labonnenote-4.png`, thumbnails (`*-thumb.png`)
+- [x] ProjectCard : vraies images projets (media[0]) au lieu du placeholder emoji 📁, next/image fill + object-cover
+- [x] ProjectDetail refonte images : miniatures 300x300 en bas de page, lightbox CSS pur (position fixed + z-99999, pas de portal/Framer Motion), animation fade+scale 0.3s, fleches navigation, Escape/clic ferme
+- [x] Lightbox : bouton "Ouvrir le PDF" cyan quand l'image a un linkUrl (scraper presentation)
+- [x] Images manquantes nettoyées : supprimé labonnenote-4.png et tube-4.png des données (fichiers inexistants)
 - [ ] Tests responsive mobile/tablet
 - [ ] Lighthouse performance audit
 - [ ] Deployer sur Vercel
@@ -273,14 +276,14 @@ portfolio/
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 4 en cours | Lightbox + vignettes projet + PDF scraper |
+| Code | ✅ Phase 4 en cours | Images projets refaites, lightbox fonctionnel |
 | Config | ✅ Optimisé | Sora font, anthracite, SSG, SEO metadata |
 | Tests | 🔄 Pas encore | TDD à implémenter |
-| Git | ✅ Committé | Checkpoint session images projets + lightbox |
+| Git | ✅ Committé | Checkpoint session refonte images + lightbox CSS |
 | Build | ✅ Passing | 0 errors, SSG project pages (labonnenote, tube, b2b-it-catalog-scraper), custom 404 |
 | Deploy | 🔄 Pas encore | Prêt pour Vercel |
 
-**Dernière action:** ProjectDetail lightbox (vignettes cliquables, navigation, Escape), 4 images par projet scraper (4e = slide PDF ouvre le PDF complet), images réelles ajoutées dans public/projects/
+**Dernière action:** Refonte complète UX images projets : ProjectCard avec vraies images, ProjectDetail miniatures 300x300 en bas de page, lightbox CSS pur (fix position fixed cassé par Framer Motion transforms), bouton "Ouvrir le PDF" dans lightbox scraper
 
 **Projets (réels, mis a jour session 2026-02-21):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
@@ -319,15 +322,11 @@ portfolio/
 
 ## 🎯 Next Immediate Action
 
-**Finir Phase 4 — images manquantes puis deployer:**
+**Finir Phase 4 — polish puis deployer:**
 
-1. **Images manquantes à ajouter dans `public/projects/`:**
-   - `labonnenote-4.png`, `labonnenote-thumb.png`
-   - `tube-4.png`, `tube-thumb.png`
-   - `scraper-thumb.png`
-   - (Les 3 screenshots par projet + scraper-4.png + scraper-presentation.pdf sont déjà en place)
-
-2. **Deployer sur Vercel:**
+1. **Tests responsive mobile/tablet**
+2. **Lighthouse performance audit**
+3. **Deployer sur Vercel:**
    ```bash
    npm i -g vercel && vercel
    ```
@@ -411,5 +410,5 @@ Valeurs recommandées:
 ---
 
 **Last updated:** 2026-02-24
-**Status:** Phase 4 In Progress - Lightbox + vignettes projet + PDF scraper ✅
-**Next:** Images manquantes (thumb, 4e image LaBonneNote/Tube), puis deploy Vercel
+**Status:** Phase 4 In Progress - Images projets refaites, lightbox CSS pur fonctionnel ✅
+**Next:** Tests responsive, Lighthouse audit, deploy Vercel

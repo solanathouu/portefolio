@@ -4,6 +4,7 @@ import { Project } from '@/data/projects';
 import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiArrowRight } from 'react-icons/fi';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface ProjectCardProps {
   project: Project;
@@ -53,23 +54,33 @@ export default function ProjectCard({ project, index, featured = false }: Projec
         {numberDisplay}
       </div>
 
-      {/* Image Placeholder - Clickable */}
+      {/* Project Image - Clickable */}
       <Link href={`/projects/${project.id}`} className="block">
         <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-neutral-800 to-neutral-900">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-8xl opacity-20">📁</span>
-          </div>
+          {project.media && project.media.length > 0 ? (
+            <Image
+              src={project.media[0].url}
+              alt={project.media[0].caption || project.title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-8xl opacity-20">📁</span>
+            </div>
+          )}
 
           {/* Grain overlay */}
           <div
-            className="absolute inset-0 opacity-30 mix-blend-overlay pointer-events-none"
+            className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none"
             style={{
               backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulance type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
             }}
           />
 
           {/* View Details Overlay on Hover */}
-          <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
             <div className="flex items-center gap-3 text-white text-sm uppercase tracking-wider">
               <span>View Details</span>
               <FiArrowRight className="w-5 h-5" />
