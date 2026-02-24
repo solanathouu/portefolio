@@ -259,6 +259,7 @@ portfolio/
 - [x] Contact description orientée alternance : "En quête d'une alternance où je peux monter en compétences et livrer du concret."
 - [x] Marquee fix : inline-flex + pointer-events-none (plus de saut, plus de pause hover), vitesses ralenties (40s/30s/36s)
 - [x] Navigation projets prev/next redesignée : editorial strip, grid 2 colonnes, accent line slide-in, titres centrés cyan, labels + fleches plus gros, numéro de projet en watermark
+- [x] Skills grid bordures lissées : technique border-collapse (container border-top/left, cards border-right/bottom 1px), taille uniforme (h-full + justify-center), hover outline au lieu de border pour ne pas casser le layout
 - [ ] Ajouter images projets dans `public/projects/`
 - [ ] Tests responsive mobile/tablet
 - [ ] Lighthouse performance audit
@@ -268,14 +269,14 @@ portfolio/
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 4 en cours | Nav projets redesignée (editorial strip, cyan, centrée) |
+| Code | ✅ Phase 4 en cours | Skills grid bordures lissées (border-collapse, taille uniforme) |
 | Config | ✅ Optimisé | Sora font, anthracite, SSG, SEO metadata |
 | Tests | 🔄 Pas encore | TDD à implémenter |
 | Git | ✅ Committé | Checkpoint session polish UI |
 | Build | ✅ Passing | 0 errors, SSG project pages (labonnenote, tube, b2b-it-catalog-scraper), custom 404 |
 | Deploy | 🔄 Pas encore | Prêt pour Vercel |
 
-**Dernière action:** Navigation prev/next projets redesignée — editorial strip avec grid 2 colonnes, accent line slide-in au hover, titres en cyan centrés, labels/flèches agrandis, numéros watermark
+**Dernière action:** Skills grid bordures lissées — technique border-collapse (1px uniforme partout), cards taille uniforme (h-full + justify-center), hover via outline au lieu de border
 
 **Projets (réels, mis a jour session 2026-02-21):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
@@ -296,7 +297,7 @@ portfolio/
 - Background anthracite (#303030), accent Electric Cyan (#00f0ff)
 - **Sora** font (body, headings), Space Mono uniquement pour Preloader ASCII
 - Sections containers: `w-11/12 max-w-6xl` (jamais colle aux bords ecran)
-- Hover: border color + box-shadow offset + translate
+- Hover: outline color + box-shadow offset + translate (outline au lieu de border pour ne pas casser le layout grid)
 - Grain texture overlay sur toutes les sections
 - Particules canvas en arriere-plan (200, repulsion souris, params dans ParticleBackground.tsx)
 - Sections sans backgroundColor (transparent) pour laisser voir les particules
@@ -404,5 +405,5 @@ Valeurs recommandées:
 ---
 
 **Last updated:** 2026-02-23
-**Status:** Phase 4 In Progress - Nav projets redesignée ✅ (editorial strip, cyan, centrée)
+**Status:** Phase 4 In Progress - Skills grid bordures lissées ✅ (border-collapse, taille uniforme)
 **Next:** Ajouter images projets dans public/projects/, puis deploy Vercel

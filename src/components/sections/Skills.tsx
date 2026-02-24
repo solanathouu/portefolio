@@ -87,7 +87,13 @@ export default function Skills() {
               </div>
 
               {/* Skills Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              <div
+                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+                style={{
+                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  borderLeft: '1px solid rgba(255,255,255,0.1)',
+                }}
+              >
                 {skillsByCategory[category.key].map((skill, index) => (
                   <SkillCard
                     key={skill.name}

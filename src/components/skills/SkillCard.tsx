@@ -29,26 +29,32 @@ export default function SkillCard({ skill, index, categoryColor }: SkillCardProp
   );
 
   const sharedProps = {
-    className: `flex flex-col items-center gap-3 bg-black/30 py-6 px-4 ${hasLink ? 'cursor-pointer' : 'cursor-default'}`,
+    className: `flex flex-col items-center justify-center gap-3 bg-black/30 py-6 px-4 h-full ${hasLink ? 'cursor-pointer' : 'cursor-default'}`,
     style: {
-      border: '2px solid rgba(255,255,255,0.1)',
+      borderRight: '1px solid rgba(255,255,255,0.1)',
+      borderBottom: '1px solid rgba(255,255,255,0.1)',
       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       textDecoration: 'none' as const,
     },
     onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
-      e.currentTarget.style.borderColor = categoryColor;
+      e.currentTarget.style.outline = `2px solid ${categoryColor}`;
+      e.currentTarget.style.outlineOffset = '-2px';
       e.currentTarget.style.boxShadow = `6px 6px 0 0 ${categoryColor}`;
       e.currentTarget.style.transform = 'translate(-3px, -3px)';
+      e.currentTarget.style.zIndex = '10';
     },
     onMouseLeave: (e: React.MouseEvent<HTMLElement>) => {
-      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+      e.currentTarget.style.outline = 'none';
+      e.currentTarget.style.outlineOffset = '0';
       e.currentTarget.style.boxShadow = '0 0 0 0 transparent';
       e.currentTarget.style.transform = 'translate(0, 0)';
+      e.currentTarget.style.zIndex = '0';
     },
   };
 
   return (
     <motion.div
+      className="relative h-full"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
