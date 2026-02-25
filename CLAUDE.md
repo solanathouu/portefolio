@@ -280,11 +280,11 @@ portfolio/
 | Code | ✅ Phase 4 en cours | Screenshots réordonnés, lightbox fonctionnel |
 | Config | ✅ Optimisé | Sora font, anthracite, SSG, SEO metadata |
 | Tests | 🔄 Pas encore | TDD à implémenter |
-| Git | ✅ Committé + pushé | Tout synchronisé avec GitHub |
+| Git | ✅ Committé + pushé | Synchronisé avec GitHub (force push après rollback) |
 | Build | ✅ Passing | 0 errors, SSG project pages (labonnenote, tube, b2b-it-catalog-scraper), custom 404 |
-| Deploy | 🔄 Pas encore | Prêt pour Vercel |
+| Deploy | 🔄 À redéployer | Vercel auto-deploy via GitHub (version rollback) |
 
-**Dernière action:** Réorganisation ordre screenshots projets (3→1, 1→2, 2→3) pour les 3 projets. Prêt pour déploiement Vercel.
+**Dernière action (session 2026-02-24):** Rollback vers commit 98e4239 (checkpoint pré-déploiement). Les 3 commits de refonte responsive mobile (a4a3de1, 47c720d, 141ac36) ont été supprimés via force push. Cette version est désormais la référence.
 
 **Projets (réels, mis a jour session 2026-02-21):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
@@ -410,6 +410,6 @@ Valeurs recommandées:
 
 ---
 
-**Last updated:** 2026-02-24
-**Status:** Phase 4 In Progress - Prêt pour déploiement Vercel ✅
-**Next:** Déployer sur Vercel (vercel.com/signup → import repo → deploy)
+**Last updated:** 2026-02-25
+**Status:** Phase 4 In Progress - Rollback vers version stable (98e4239), prêt pour polish responsive + déploiement
+**Next:** Tests responsive mobile/tablet, puis redéployer sur Vercel
