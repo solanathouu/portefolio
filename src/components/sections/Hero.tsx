@@ -28,7 +28,6 @@ export default function Hero() {
           <h1
             className="font-black tracking-tighter"
             style={{
-              fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif",
               fontSize: 'clamp(8rem, 20vw, 18rem)',
               color: 'transparent',
               WebkitTextStroke: '2px rgba(255, 255, 255, 0.1)',

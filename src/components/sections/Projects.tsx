@@ -8,16 +8,8 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative min-h-screen py-16 px-6 sm:px-10 md:px-16 lg:px-24"
+      className="relative min-h-screen pt-16 pb-50 px-6 sm:px-10 md:px-16 lg:px-24"
     >
-      {/* Grain texture overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
-        style={{
-          backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
-        }}
-      />
-
       <div className="mx-auto w-11/12 max-w-6xl relative">
         {/* Header */}
         <motion.div
@@ -27,9 +19,17 @@ export default function Projects() {
           transition={{ duration: 0.8 }}
           style={{ marginBottom: '60px' }}
         >
-          <div className="text-center">
-            <h2 className="text-6xl md:text-8xl font-bold leading-none uppercase text-white">
-              // Portfolio
+          <div style={{ textAlign: 'center' }}>
+            <h2
+              style={{
+                fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+                fontWeight: 700,
+                color: '#ffffff',
+                letterSpacing: '-0.02em',
+                marginBottom: '16px',
+              }}
+            >
+              Portfolio
             </h2>
 
             <motion.p
@@ -37,37 +37,57 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-white/60 max-w-2xl mx-auto text-base leading-relaxed"
-              style={{ marginTop: '40px' }}
+              style={{
+                fontSize: '0.95rem',
+                color: 'rgba(255,255,255,0.4)',
+                maxWidth: '500px',
+                margin: '0 auto',
+                lineHeight: 1.6,
+              }}
             >
               Projets personnels et académiques mêlant développement web, scraping de données,
-              intelligence artificielle et expériences mobiles — de la conception à la mise en production.
+              intelligence artificielle et expériences mobiles.
             </motion.p>
           </div>
-
-          {/* Decorative line */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="h-1 origin-left bg-white/20"
-            style={{ marginTop: '30px' }}
-          />
         </motion.div>
 
-        {/* Projects Grid - Asymmetric Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto" style={{ gap: '3.5rem' }}>
-          {projects.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={index}
-              featured={project.featured}
-            />
-          ))}
-        </div>
+        {/* Bento Grid — inline grid for reliability */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gridTemplateRows: '300px 300px 250px',
+            gap: '16px',
+          }}
+        >
+          {/* Project 1 — left column, spans 2 rows */}
+          {projects[0] && (
+            <div style={{ gridColumn: '1', gridRow: '1 / 3' }}>
+              <ProjectCard project={projects[0]} index={0} />
+            </div>
+          )}
 
+          {/* Project 2 — right column, row 1 */}
+          {projects[1] && (
+            <div style={{ gridColumn: '2', gridRow: '1' }}>
+              <ProjectCard project={projects[1]} index={1} />
+            </div>
+          )}
+
+          {/* Project 3 — right column, row 2 */}
+          {projects[2] && (
+            <div style={{ gridColumn: '2', gridRow: '2' }}>
+              <ProjectCard project={projects[2]} index={2} />
+            </div>
+          )}
+
+          {/* Project 4 — full width, row 3 */}
+          {projects[3] && (
+            <div style={{ gridColumn: '1 / 3', gridRow: '3' }}>
+              <ProjectCard project={projects[3]} index={3} />
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

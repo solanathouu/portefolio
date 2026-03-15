@@ -4,10 +4,53 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Project } from '@/data/projects';
 import { projects } from '@/data/projects';
-import { motion } from 'framer-motion';
-import { FiArrowLeft, FiGithub, FiExternalLink, FiArrowRight, FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiArrowLeft, FiGithub, FiExternalLink, FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import {
+  SiPython, SiFastapi, SiOpenai, SiJavascript, SiHtml5, SiCss3,
+  SiReact, SiSupabase, SiPostgresql, SiExpo, SiGit, SiGithub,
+  SiTypescript,
+} from 'react-icons/si';
+import { FaDatabase, FaServer, FaCloud, FaSpider, FaGlobe, FaFileExport } from 'react-icons/fa';
 import Image from 'next/image';
+import type { IconType } from 'react-icons';
 
+/* ── Tech icon mapping ── */
+const techIcons: Record<string, IconType> = {
+  'python': SiPython,
+  'fastapi': SiFastapi,
+  'openai': SiOpenai,
+  'gpt': SiOpenai,
+  'javascript': SiJavascript,
+  'html': SiHtml5,
+  'css': SiCss3,
+  'react': SiReact,
+  'react native': SiReact,
+  'supabase': SiSupabase,
+  'postgresql': SiPostgresql,
+  'postgis': SiPostgresql,
+  'expo': SiExpo,
+  'git': SiGit,
+  'github': SiGithub,
+  'typescript': SiTypescript,
+  'chromadb': FaDatabase,
+  'uvicorn': FaServer,
+  'cloudscraper': FaCloud,
+  'beautifulsoup': FaSpider,
+  'mediawiki': FaGlobe,
+  'csv': FaFileExport,
+  'rest': FaGlobe,
+  'session': FaServer,
+};
+
+function getTechIcon(techName: string): IconType | null {
+  const lower = techName.toLowerCase();
+  for (const [key, icon] of Object.entries(techIcons)) {
+    if (lower.includes(key)) return icon;
+  }
+  return null;
+}
+
+/* ── Component ── */
 interface ProjectDetailProps {
   project: Project;
   currentIndex: number;
@@ -15,16 +58,13 @@ interface ProjectDetailProps {
 
 export default function ProjectDetail({ project, currentIndex }: ProjectDetailProps) {
   const router = useRouter();
-  const accentColor = '#00f0ff';
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
-
   const goToPrev = useCallback(() => {
     if (lightboxIndex === null || !project.media) return;
     setLightboxIndex(lightboxIndex > 0 ? lightboxIndex - 1 : project.media.length - 1);
   }, [lightboxIndex, project.media]);
-
   const goToNext = useCallback(() => {
     if (lightboxIndex === null || !project.media) return;
     setLightboxIndex(lightboxIndex < project.media.length - 1 ? lightboxIndex + 1 : 0);
@@ -48,374 +88,477 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
   const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
   const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
 
-  const openLightbox = (idx: number) => {
-    setLightboxIndex(idx);
-  };
+  // Flatten all tech items for the visual grid
+  const allTechItems = project.technologies?.flatMap((cat) => cat.items) ?? [];
 
   return (
     <div className="relative">
-      <div className="px-8 md:px-12 lg:px-20 pt-12 pb-20">
-        <div className="max-w-7xl mx-auto">
-          {/* Back Navigation */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-16"
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '48px 24px 80px' }}>
+
+        {/* Back button — minimal */}
+        <button
+          onClick={() => router.push('/#projects')}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            fontSize: '14px',
+            color: 'rgba(255,255,255,0.5)',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            marginBottom: '40px',
+            transition: 'color 0.3s',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.9)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; }}
+        >
+          <FiArrowLeft style={{ width: 16, height: 16 }} />
+          <span>Retour</span>
+        </button>
+
+        {/* Hero image */}
+        {project.media && project.media.length > 0 && (
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              height: '420px',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              marginBottom: '48px',
+            }}
           >
-            <button
-              onClick={() => router.push('/#projects')}
-              className="flex items-center gap-3 px-5 py-3 text-sm uppercase tracking-wider transition-all group"
+            <Image
+              src={project.media[0].url}
+              alt={project.title}
+              fill
+              sizes="900px"
+              style={{ objectFit: 'cover' }}
+              priority
+            />
+            <div
               style={{
-                border: `3px solid ${accentColor}`,
-                color: accentColor,
-                backgroundColor: 'rgba(0,0,0,0.5)',
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)',
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = accentColor;
-                e.currentTarget.style.color = '#000';
-                e.currentTarget.style.transform = 'translate(-4px, -4px)';
-                e.currentTarget.style.boxShadow = `6px 6px 0 0 ${accentColor}80`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.5)';
-                e.currentTarget.style.color = accentColor;
-                e.currentTarget.style.transform = 'translate(0, 0)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-            >
-              <FiArrowLeft className="w-4 h-4" />
-              <span>Back</span>
-            </button>
-          </motion.div>
+            />
+          </div>
+        )}
 
-          {/* Hero Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            style={{ marginBottom: '24px' }}
+        {/* Title + metadata */}
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <h1
+            style={{
+              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+              fontWeight: 800,
+              color: '#ffffff',
+              letterSpacing: '-0.03em',
+              lineHeight: 1.1,
+              marginBottom: '20px',
+            }}
           >
-            <h1
-              className="text-5xl md:text-7xl lg:text-8xl font-bold leading-none uppercase text-center"
-              style={{ color: accentColor, marginBottom: '32px' }}
-            >
-              {project.title}
-            </h1>
+            {project.title}
+          </h1>
 
-            <p className="text-xl md:text-2xl text-white/80 max-w-4xl" style={{ lineHeight: 1.75, marginBottom: '20px' }}>
-              {project.longDescription || project.description}
-            </p>
-
-            {/* Info Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8" style={{ marginBottom: '22px' }}>
-              {project.role && (
-                <div>
-                  <div className="text-xs uppercase tracking-widest mb-3" style={{ color: accentColor }}>
-                    Role
-                  </div>
-                  <div className="text-white text-lg">{project.role}</div>
-                </div>
-              )}
-              {project.client && (
-                <div>
-                  <div className="text-xs uppercase tracking-widest mb-3" style={{ color: accentColor }}>
-                    Client
-                  </div>
-                  <div className="text-white text-lg">{project.client}</div>
-                </div>
-              )}
-              <div>
-                <div className="text-xs uppercase tracking-widest mb-2" style={{ color: accentColor }}>
-                  Year
-                </div>
-                <div className="text-white text-lg">{project.year || '2025'}</div>
-              </div>
-            </div>
-
-            {/* Action Links */}
-            <div className="flex flex-wrap gap-6">
-              {project.demoUrl && (
-                <a
-                  href={project.demoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-8 py-4 text-sm uppercase tracking-wider transition-all"
-                  style={{
-                    backgroundColor: accentColor,
-                    color: '#000',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translate(-4px, -4px)';
-                    e.currentTarget.style.boxShadow = `8px 8px 0 0 ${accentColor}80`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translate(0, 0)';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                >
-                  <FiExternalLink className="w-5 h-5" />
-                  <span>View Live</span>
-                </a>
-              )}
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-8 py-4 text-sm uppercase tracking-wider transition-all"
-                  style={{
-                    border: `3px solid ${accentColor}`,
-                    color: accentColor,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = accentColor;
-                    e.currentTarget.style.color = '#000';
-                    e.currentTarget.style.transform = 'translate(-4px, -4px)';
-                    e.currentTarget.style.boxShadow = `8px 8px 0 0 ${accentColor}80`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.color = accentColor;
-                    e.currentTarget.style.transform = 'translate(0, 0)';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                >
-                  <FiGithub className="w-5 h-5" />
-                  <span>Source Code</span>
-                </a>
-              )}
-            </div>
-          </motion.div>
-
-          {/* Technologies */}
-          {project.technologies && project.technologies.length > 0 && (
-            <motion.section
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              style={{ marginBottom: '44px' }}
-            >
-              <h2
-                className="text-4xl md:text-5xl font-bold uppercase"
-                style={{ color: accentColor, marginBottom: '18px' }}
+          {/* Metadata pills */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '24px' }}>
+            {project.role && (
+              <span
+                style={{
+                  padding: '6px 16px',
+                  fontSize: '13px',
+                  color: 'rgba(255,255,255,0.7)',
+                  borderRadius: '999px',
+                  backgroundColor: 'rgba(255,255,255,0.08)',
+                  backdropFilter: 'blur(12px)',
+                }}
               >
-                Tech Stack
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                {project.technologies.map((tech, idx) => (
-                  <motion.div
-                    key={tech.category}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5 + idx * 0.1 }}
-                    className="p-8"
-                    style={{
-                      border: `3px solid ${accentColor}30`,
-                      backgroundColor: 'rgba(0,0,0,0.3)',
-                    }}
-                  >
-                    <h3 className="text-sm uppercase tracking-widest" style={{ color: accentColor, marginBottom: '16px' }}>
-                      {tech.category}
-                    </h3>
-                    <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                      {tech.items.map((item) => (
-                        <li key={item} className="text-white/80 text-sm flex items-start gap-2">
-                          <span style={{ color: accentColor }}>→</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.section>
-          )}
-
-          {/* Challenges & Outcomes */}
-          <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: '30px', marginBottom: '44px' }}>
-            {project.challenges && project.challenges.length > 0 && (
-              <motion.section
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              >
-                <h2 className="text-3xl md:text-4xl font-bold uppercase" style={{ color: accentColor, marginBottom: '14px' }}>
-                  Challenges
-                </h2>
-                <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {project.challenges.map((challenge, idx) => (
-                    <motion.li
-                      key={idx}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, delay: 0.7 + idx * 0.1 }}
-                      className="p-6 flex gap-6"
-                      style={{
-                        border: `3px solid ${accentColor}20`,
-                        backgroundColor: 'rgba(0,0,0,0.2)',
-                      }}
-                    >
-                      <span className="text-2xl font-bold" style={{ color: accentColor, marginRight: '24px', flexShrink: 0 }}>
-                        {String(idx + 1).padStart(2, '0')}
-                      </span>
-                      <p className="text-white/80 text-base leading-relaxed" style={{ flex: 1 }}>{challenge}</p>
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.section>
+                {project.role}
+              </span>
             )}
-
-            {project.outcomes && project.outcomes.length > 0 && (
-              <motion.section
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-              >
-                <h2 className="text-3xl md:text-4xl font-bold uppercase" style={{ color: accentColor, marginBottom: '14px' }}>
-                  Outcomes
-                </h2>
-                <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {project.outcomes.map((outcome, idx) => (
-                    <motion.li
-                      key={idx}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, delay: 0.9 + idx * 0.1 }}
-                      className="p-6"
-                      style={{
-                        border: `3px solid ${accentColor}`,
-                        backgroundColor: `${accentColor}10`,
-                      }}
-                    >
-                      <p className="text-white text-base leading-relaxed">{outcome}</p>
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.section>
-            )}
+            <span
+              style={{
+                padding: '6px 16px',
+                fontSize: '13px',
+                color: 'rgba(255,255,255,0.7)',
+                borderRadius: '999px',
+                backgroundColor: 'rgba(255,255,255,0.08)',
+                backdropFilter: 'blur(12px)',
+              }}
+            >
+              {project.year || '2025'}
+            </span>
           </div>
 
-          {/* Screenshots */}
-          {project.media && project.media.length > 0 && (
-            <section style={{ marginBottom: '44px' }}>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="h-px flex-1" style={{ backgroundColor: `${accentColor}20` }} />
-                <span className="text-xs uppercase tracking-[0.2em]" style={{ color: `${accentColor}80` }}>
-                  Screenshots
-                </span>
-                <div className="h-px flex-1" style={{ backgroundColor: `${accentColor}20` }} />
-              </div>
-              <div className="flex gap-3 flex-wrap">
-                {project.media.map((item, idx) => (
-                  <div
-                    key={idx}
-                    onClick={() => {
-                      if (item.linkUrl) {
-                        window.open(item.linkUrl, '_blank', 'noopener,noreferrer');
-                      } else {
-                        openLightbox(idx);
-                      }
-                    }}
+          {/* Action buttons */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '10px 24px',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  color: '#ffffff',
+                  borderRadius: '12px',
+                  backgroundColor: 'rgba(255,255,255,0.1)',
+                  backdropFilter: 'blur(12px)',
+                  transition: 'background-color 0.3s',
+                  textDecoration: 'none',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.18)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; }}
+              >
+                <FiGithub style={{ width: 18, height: 18 }} />
+                Source Code
+              </a>
+            )}
+            {project.demoUrl && (
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '10px 24px',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  color: '#000',
+                  borderRadius: '12px',
+                  backgroundColor: '#ffffff',
+                  transition: 'opacity 0.3s',
+                  textDecoration: 'none',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.85'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
+              >
+                <FiExternalLink style={{ width: 18, height: 18 }} />
+                Voir le projet
+              </a>
+            )}
+          </div>
+        </div>
+
+        {/* Description */}
+        <p
+          style={{
+            fontSize: '1.05rem',
+            lineHeight: 1.8,
+            color: 'rgba(255,255,255,0.65)',
+            textAlign: 'center',
+            maxWidth: '700px',
+            margin: '0 auto 56px',
+          }}
+        >
+          {project.longDescription || project.description}
+        </p>
+
+        {/* ── Challenges ── */}
+        {project.challenges && project.challenges.length > 0 && (
+          <section style={{ marginBottom: '56px' }}>
+            <h2
+              style={{
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                color: 'rgba(255,255,255,0.4)',
+                textAlign: 'center',
+                textTransform: 'uppercase',
+                letterSpacing: '0.15em',
+                marginBottom: '24px',
+              }}
+            >
+              Défis techniques
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {project.challenges.map((challenge, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    display: 'flex',
+                    gap: '16px',
+                    alignItems: 'flex-start',
+                    padding: '20px 24px',
+                    borderRadius: '14px',
+                    backgroundColor: 'rgba(255,255,255,0.04)',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                  }}
+                >
+                  <span
                     style={{
-                      width: 300,
-                      height: 300,
-                      position: 'relative',
-                      overflow: 'hidden',
-                      cursor: 'pointer',
-                      border: `2px solid ${accentColor}20`,
+                      fontSize: '14px',
+                      fontWeight: 700,
+                      color: 'rgba(255,255,255,0.25)',
+                      flexShrink: 0,
+                      width: '28px',
+                      textAlign: 'right',
                     }}
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={item.url}
-                      alt={item.caption || `${project.title} screenshot ${idx + 1}`}
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
+                  <p style={{ fontSize: '0.95rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.7)', margin: 0 }}>
+                    {challenge}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── Outcomes ── */}
+        {project.outcomes && project.outcomes.length > 0 && (
+          <section style={{ marginBottom: '56px' }}>
+            <h2
+              style={{
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                color: 'rgba(255,255,255,0.4)',
+                textAlign: 'center',
+                textTransform: 'uppercase',
+                letterSpacing: '0.15em',
+                marginBottom: '24px',
+              }}
+            >
+              Résultats
+            </h2>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: '12px',
+              }}
+            >
+              {project.outcomes.map((outcome, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    padding: '20px 24px',
+                    borderRadius: '14px',
+                    backgroundColor: 'rgba(255,255,255,0.04)',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                  }}
+                >
+                  <p style={{ fontSize: '0.9rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.7)', margin: 0 }}>
+                    {outcome}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── Tech Stack ── */}
+        {allTechItems.length > 0 && (
+          <section style={{ marginBottom: '56px' }}>
+            <h2
+              style={{
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                color: 'rgba(255,255,255,0.4)',
+                textAlign: 'center',
+                textTransform: 'uppercase',
+                letterSpacing: '0.15em',
+                marginBottom: '28px',
+              }}
+            >
+              Stack technique
+            </h2>
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                gap: '12px',
+              }}
+            >
+              {allTechItems.map((tech) => {
+                const Icon = getTechIcon(tech);
+                return (
+                  <div
+                    key={tech}
+                    className="tech-chip"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      padding: '12px 20px',
+                      borderRadius: '14px',
+                      backgroundColor: 'rgba(255,255,255,0.06)',
+                      backdropFilter: 'blur(16px)',
+                      WebkitBackdropFilter: 'blur(16px)',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      transition: 'all 0.3s ease',
+                    }}
+                  >
+                    {Icon && <Icon style={{ width: 20, height: 20, color: 'rgba(255,255,255,0.7)', flexShrink: 0 }} />}
+                    <span style={{ fontSize: '14px', fontWeight: 500, color: 'rgba(255,255,255,0.8)' }}>
+                      {tech}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        {/* ── Screenshots ── */}
+        {project.media && project.media.length > 1 && (
+          <section style={{ marginBottom: '56px' }}>
+            <h2
+              style={{
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                color: 'rgba(255,255,255,0.4)',
+                textAlign: 'center',
+                textTransform: 'uppercase',
+                letterSpacing: '0.15em',
+                marginBottom: '24px',
+              }}
+            >
+              Screenshots
+            </h2>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '12px',
+              }}
+            >
+              {project.media.slice(1).map((item, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => {
+                    if (item.linkUrl) {
+                      window.open(item.linkUrl, '_blank', 'noopener,noreferrer');
+                    } else {
+                      setLightboxIndex(idx + 1);
+                    }
+                  }}
+                  style={{
+                    position: 'relative',
+                    aspectRatio: '4/3',
+                    borderRadius: '14px',
+                    overflow: 'hidden',
+                    cursor: 'pointer',
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  }}
+                  className="screenshot-thumb"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.url}
+                    alt={item.caption || `${project.title} screenshot ${idx + 2}`}
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                  />
+                  {item.caption && (
+                    <div
                       style={{
                         position: 'absolute',
-                        inset: 0,
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        pointerEvents: 'none',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        padding: '32px 12px 12px',
+                        background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
+                        fontSize: '12px',
+                        color: 'rgba(255,255,255,0.8)',
                       }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
+                    >
+                      {item.caption}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
-          {/* Project Navigation */}
-          <motion.section
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
-            className="pt-20"
+        {/* ── Project Navigation ── */}
+        <section>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: prevProject && nextProject ? '1fr 1fr' : '1fr',
+              gap: '12px',
+            }}
           >
-            <div className="flex items-center gap-4 mb-10">
-              <div className="h-px flex-1" style={{ backgroundColor: `${accentColor}20` }} />
-              <span className="text-sm font-medium uppercase tracking-[0.3em]" style={{ color: accentColor }}>Navigation</span>
-              <div className="h-px flex-1" style={{ backgroundColor: `${accentColor}20` }} />
-            </div>
+            {prevProject && (
+              <button
+                onClick={() => router.push(`/projects/${prevProject.id}`)}
+                className="nav-card"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  gap: '8px',
+                  padding: '24px',
+                  borderRadius: '14px',
+                  backgroundColor: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'background-color 0.3s',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)'; }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <FiChevronLeft style={{ width: 14, height: 14, color: 'rgba(255,255,255,0.4)' }} />
+                  <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                    Précédent
+                  </span>
+                </div>
+                <span style={{ fontSize: '1.1rem', fontWeight: 600, color: '#fff' }}>{prevProject.title}</span>
+              </button>
+            )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-px" style={{ backgroundColor: `${accentColor}15` }}>
-              {prevProject ? (
-                <button
-                  onClick={() => router.push(`/projects/${prevProject.id}`)}
-                  className="group relative py-10 px-8 text-center transition-all duration-500 overflow-hidden"
-                  style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(0,240,255,0.08)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.3)'; }}
-                >
-                  <div className="absolute top-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-500" style={{ backgroundColor: accentColor }} />
-                  <div className="flex items-center justify-center gap-3 mb-4">
-                    <FiArrowLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" style={{ color: accentColor }} />
-                    <span className="text-sm font-semibold uppercase tracking-[0.2em]" style={{ color: accentColor }}>Précédent</span>
-                  </div>
-                  <div className="text-xl md:text-2xl font-bold uppercase tracking-wide" style={{ color: accentColor }}>{prevProject.title}</div>
-                  <span className="absolute bottom-4 right-6 text-xs font-mono font-bold tracking-widest" style={{ color: `${accentColor}50` }}>{String(currentIndex).padStart(2, '0')}</span>
-                </button>
-              ) : (
-                <div style={{ backgroundColor: 'rgba(0,0,0,0.15)' }} />
-              )}
-
-              {nextProject ? (
-                <button
-                  onClick={() => router.push(`/projects/${nextProject.id}`)}
-                  className="group relative py-10 px-8 text-center transition-all duration-500 overflow-hidden"
-                  style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(0,240,255,0.08)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.3)'; }}
-                >
-                  <div className="absolute top-0 right-0 h-[2px] w-0 group-hover:w-full transition-all duration-500" style={{ backgroundColor: accentColor }} />
-                  <div className="flex items-center justify-center gap-3 mb-4">
-                    <span className="text-sm font-semibold uppercase tracking-[0.2em]" style={{ color: accentColor }}>Suivant</span>
-                    <FiArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" style={{ color: accentColor }} />
-                  </div>
-                  <div className="text-xl md:text-2xl font-bold uppercase tracking-wide" style={{ color: accentColor }}>{nextProject.title}</div>
-                  <span className="absolute bottom-4 left-6 text-xs font-mono font-bold tracking-widest" style={{ color: `${accentColor}50` }}>{String(currentIndex + 2).padStart(2, '0')}</span>
-                </button>
-              ) : (
-                <div style={{ backgroundColor: 'rgba(0,0,0,0.15)' }} />
-              )}
-            </div>
-          </motion.section>
-        </div>
+            {nextProject && (
+              <button
+                onClick={() => router.push(`/projects/${nextProject.id}`)}
+                className="nav-card"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: nextProject && prevProject ? 'flex-end' : 'flex-start',
+                  gap: '8px',
+                  padding: '24px',
+                  borderRadius: '14px',
+                  backgroundColor: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  cursor: 'pointer',
+                  textAlign: nextProject && prevProject ? 'right' : 'left',
+                  transition: 'background-color 0.3s',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)'; }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                    Suivant
+                  </span>
+                  <FiChevronRight style={{ width: 14, height: 14, color: 'rgba(255,255,255,0.4)' }} />
+                </div>
+                <span style={{ fontSize: '1.1rem', fontWeight: 600, color: '#fff' }}>{nextProject.title}</span>
+              </button>
+            )}
+          </div>
+        </section>
       </div>
 
-      {/* CSS animations */}
-      <style jsx>{`
-        @keyframes lightbox-backdrop {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes lightbox-image {
-          from { opacity: 0; transform: scale(0.92); }
-          to { opacity: 1; transform: scale(1); }
-        }
-      `}</style>
-
-      {/* LIGHTBOX */}
+      {/* ── LIGHTBOX ── */}
       {lightboxIndex !== null && project.media && (
         <div
           style={{
@@ -429,11 +572,9 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            animation: 'lightbox-backdrop 0.3s ease-out forwards',
           }}
           onClick={closeLightbox}
         >
-          {/* Close */}
           <div
             onClick={closeLightbox}
             style={{ position: 'absolute', top: 20, right: 20, cursor: 'pointer', zIndex: 10, padding: 8 }}
@@ -441,7 +582,6 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
             <FiX style={{ width: 28, height: 28, color: 'rgba(255,255,255,0.7)' }} />
           </div>
 
-          {/* Prev arrow */}
           {project.media.length > 1 && (
             <div
               onClick={(e) => { e.stopPropagation(); goToPrev(); }}
@@ -451,24 +591,13 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
             </div>
           )}
 
-          {/* Image */}
-          <div
-            key={lightboxIndex}
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              position: 'relative',
-              maxWidth: '85vw',
-              maxHeight: '85vh',
-              animation: 'lightbox-image 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-            }}
-          >
+          <div key={lightboxIndex} onClick={(e) => e.stopPropagation()}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={project.media[lightboxIndex].url}
               alt={project.media[lightboxIndex].caption || `${project.title} screenshot`}
-              style={{ maxWidth: '85vw', maxHeight: '85vh', objectFit: 'contain', display: 'block' }}
+              style={{ maxWidth: '85vw', maxHeight: '85vh', objectFit: 'contain', display: 'block', borderRadius: '12px' }}
             />
-            {/* Open link button (PDF etc.) */}
             {project.media[lightboxIndex].linkUrl && (
               <a
                 href={project.media[lightboxIndex].linkUrl}
@@ -484,12 +613,11 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                   alignItems: 'center',
                   gap: 8,
                   padding: '10px 20px',
-                  backgroundColor: '#00f0ff',
+                  backgroundColor: '#fff',
                   color: '#000',
                   fontSize: 13,
-                  fontWeight: 700,
-                  textTransform: 'uppercase' as const,
-                  letterSpacing: '0.1em',
+                  fontWeight: 600,
+                  borderRadius: '10px',
                   cursor: 'pointer',
                   textDecoration: 'none',
                 }}
@@ -500,7 +628,6 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
             )}
           </div>
 
-          {/* Next arrow */}
           {project.media.length > 1 && (
             <div
               onClick={(e) => { e.stopPropagation(); goToNext(); }}
@@ -510,9 +637,8 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
             </div>
           )}
 
-          {/* Counter */}
           {project.media.length > 1 && (
-            <div style={{ position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)', color: 'rgba(255,255,255,0.4)', fontSize: 12, fontFamily: 'monospace' }}>
+            <div style={{ position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)', color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>
               {lightboxIndex + 1} / {project.media.length}
             </div>
           )}

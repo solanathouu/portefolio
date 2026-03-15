@@ -228,4 +228,17 @@ export const projects: Project[] = [
       'Zéro dépendance externe — Python standard library uniquement',
     ],
   },
+  // PROJECT 4 - Hackathon Payfit SEO
+  {
+    id: 'hackathon-payfit-seo',
+    title: 'Hackathon Payfit — SEO',
+    description:
+      'Hackathon d\'entreprise chez Payfit autour de l\'optimisation SEO. Conception et implémentation de solutions pour améliorer la visibilité et le référencement.',
+    tags: ['SEO', 'Hackathon', 'Payfit'],
+    thumbnail: '',
+    media: [],
+    featured: false,
+    year: '2025',
+    role: 'Participant',
+  },
 ];

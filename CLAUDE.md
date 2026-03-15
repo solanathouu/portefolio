@@ -277,44 +277,46 @@ portfolio/
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 4 en cours | Screenshots réordonnés, lightbox fonctionnel |
-| Config | ✅ Optimisé | Sora font, anthracite, SSG, SEO metadata |
+| Code | ✅ Phase 5 en cours | Refonte DA complète — glacé/Apple/premium |
+| Config | ✅ Optimisé | System font stack (Apple), anthracite, SSG, SEO |
 | Tests | 🔄 Pas encore | TDD à implémenter |
-| Git | ✅ Committé + pushé | Synchronisé avec GitHub (force push après rollback) |
-| Build | ✅ Passing | 0 errors, SSG project pages (labonnenote, tube, b2b-it-catalog-scraper), custom 404 |
-| Deploy | 🔄 À redéployer | Vercel auto-deploy via GitHub (version rollback) |
+| Git | 🔄 À committer | Refonte DA en cours, pas encore pushé |
+| Build | ✅ Passing | 0 errors TypeScript |
+| Deploy | 🔄 À redéployer | Après validation refonte |
 
-**Dernière action (session 2026-02-24):** Rollback vers commit 98e4239 (checkpoint pré-déploiement). Les 3 commits de refonte responsive mobile (a4a3de1, 47c720d, 141ac36) ont été supprimés via force push. Cette version est désormais la référence.
+**Dernière action (session 2026-03-15):** Refonte complète de la direction artistique — passage du style Neo-Brutalist (cyan, bordures, Sora font) vers un design glacé/luxe/Apple.
 
-**Projets (réels, mis a jour session 2026-02-21):**
+**Projets (4 projets):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
 - Tube : App mobile métro parisien, signalements temps réel, gamification, React Native/Expo/Supabase/PostGIS
 - B2B IT Catalog Scraper : Scraper Python, +8800 produits IT TD Synnex, 11 catégories, 440+ specs, CSV, zéro dépendance
+- Hackathon Payfit — SEO : Hackathon entreprise, optimisation SEO (placeholder, sans image)
 
-**Skills (réels, mis a jour session 2026-02-21):**
-- Langages : Python, SQL, JavaScript, Anglais
-- Data & Analyse : Excel, Web Scraping, Dataiku
-- Outils : Git, GitHub, VS Code
+**Skills (mis à jour session 2026-03-15):**
+- Langages : Python, SQL, JavaScript, Anglais (certifié)
+- Data & Analyse : Excel, Web Scraping, Dataiku (certifié), Power BI, Tableau
+- Outils : Git, GitHub, VS Code, N8N, Make, Notion, Dust, Claude
 
 **Contact data (réel):**
 - Email: skwarek.nathan@gmail.com
 - LinkedIn: https://www.linkedin.com/in/nathan-skwarek-8a3723252/
 - GitHub: https://github.com/solanathouu
 
-**Design cohérent Neo-Brutalist:**
-- Background anthracite (#303030), accent Electric Cyan (#00f0ff)
-- **Sora** font (body, headings), Space Mono uniquement pour Preloader ASCII
-- Sections containers: `w-11/12 max-w-6xl` (jamais colle aux bords ecran)
-- Hover: outline color + box-shadow offset + translate (outline au lieu de border pour ne pas casser le layout grid)
-- Grain texture overlay sur toutes les sections
-- Particules canvas en arriere-plan (200, repulsion souris, params dans ParticleBackground.tsx)
-- Sections sans backgroundColor (transparent) pour laisser voir les particules
+**Design — Glacé / Apple / Premium (refonte session 2026-03-15):**
+- Background anthracite (#303030)
+- **System font stack** : -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue (identique au hero NATHAN)
+- Space Mono uniquement pour Preloader ASCII
+- Direction artistique : glacé, luxe, Apple — plus de neo-brutalist
+- Cartes : glass morphism (backdrop-blur, rgba backgrounds, rounded-2xl, no borders)
+- Hover : scale subtil + ombre douce + reflet lumineux glissant (shimmer)
+- Projects : Bento grid asymétrique (2col×2row + 2×1col + full width)
+- ProjectDetail : layout centré îlot (900px max), tech stack avec logos react-icons, hero image bannière
+- Skills & Contact : chips glass arrondis avec logos en couleur, layout flex-wrap centré
+- Section headers unifiés : clamp(2.5rem, 5vw, 3.5rem), letterSpacing -0.02em, description rgba(255,255,255,0.4)
+- Particules canvas en arrière-plan (inchangé)
 - Scrollbars cachées, scroll fonctionnel
 - Preloader lié au vrai window.load (min 800ms)
-- Avatar rotation 360° une seule fois par page load (module-level flag)
-- Footer marquee signature : 3 rangées de mots-clés défilant (directions/vitesses variées 40s/30s/36s), pointer-events-none (jamais de pause), signature "© 2026 — Paris"
-- Header : nav desktop alignée à droite + hamburger mobile (logo NS. supprimé)
-- Section headers : titres centrés "// Nom", descriptions françaises, espacements via style inline (pas Tailwind margin classes qui ne s'appliquaient pas)
+- Avatar rotation 360° une seule fois par page load
 
 **Scroll indicator (Hero):**
 - Position ajustable dans `src/components/sections/Hero.tsx` ligne ~63
@@ -323,15 +325,13 @@ portfolio/
 
 ## 🎯 Next Immediate Action
 
-**Finir Phase 4 — polish puis deployer:**
+**Continuer la refonte Phase 5 :**
 
-1. **Tests responsive mobile/tablet**
-2. **Lighthouse performance audit**
-3. **Deployer sur Vercel:**
-   ```bash
-   npm i -g vercel && vercel
-   ```
-   Ou connecter le repo GitHub https://github.com/solanathouu/portefolio.git
+1. **Finir la refonte DA** — vérifier cohérence de tous les éléments (header, footer, 404 pages)
+2. **Ajouter détails du 4e projet** (Hackathon Payfit SEO — description, tags, image)
+3. **Tests responsive mobile/tablet**
+4. **Lighthouse performance audit**
+5. **Deployer sur Vercel**
 
 ## 🔧 Performance Guidelines
 
@@ -403,13 +403,13 @@ Valeurs recommandées:
 | Scroll bloqué | Expérience immersive forcée |
 | 173 frames | Équilibre qualité/performance |
 | Slate-900 gradient | Moderne, contraste avec avatar |
-| Sora au lieu Space Mono | Lisible, geometrique, moins agressif qu'un monospace |
+| System font stack au lieu Sora | Feeling Apple/glacé, cohérent avec hero NATHAN, zero font loading |
 | Framer Motion | Animations fluides, DX excellent |
 | Canvas custom vs tsparticles | Zero dependance, plus leger, suffisant pour dust effect |
 | Sections sans backgroundColor | Transparent pour laisser voir le canvas particules fixe |
 
 ---
 
-**Last updated:** 2026-02-25
-**Status:** Phase 4 In Progress - Rollback vers version stable (98e4239), prêt pour polish responsive + déploiement
-**Next:** Tests responsive mobile/tablet, puis redéployer sur Vercel
+**Last updated:** 2026-03-15
+**Status:** Phase 5 In Progress — Refonte DA glacé/Apple, bento grid, tech logos, chips glass
+**Next:** Finir cohérence DA (header, footer, 404), ajouter 4e projet, responsive, déployer

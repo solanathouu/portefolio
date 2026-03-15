@@ -55,6 +55,18 @@ export const skills: Skill[] = [
     color: '#2AB1AC',
     url: '/certificates/dataiku-core-designer.pdf',
   },
+  {
+    name: 'Power BI',
+    icon: 'FaChartBar',
+    category: 'data',
+    color: '#F2C811',
+  },
+  {
+    name: 'Tableau',
+    icon: 'SiTableau',
+    category: 'data',
+    color: '#E97627',
+  },
   // Outils
   {
     name: 'Git',
@@ -74,6 +86,36 @@ export const skills: Skill[] = [
     icon: 'VscVscode',
     category: 'tools',
     color: '#007ACC',
+  },
+  {
+    name: 'N8N',
+    icon: 'SiN8N',
+    category: 'tools',
+    color: '#EA4B71',
+  },
+  {
+    name: 'Make',
+    icon: 'SiMake',
+    category: 'tools',
+    color: '#6D00CC',
+  },
+  {
+    name: 'Notion',
+    icon: 'SiNotion',
+    category: 'tools',
+    color: '#FFFFFF',
+  },
+  {
+    name: 'Dust',
+    icon: 'FaRobot',
+    category: 'tools',
+    color: '#FF6B35',
+  },
+  {
+    name: 'Claude',
+    icon: 'SiClaude',
+    category: 'tools',
+    color: '#D4A574',
   },
 ];
 

@@ -1,110 +1,136 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { skillsByCategory } from '@/data/skills';
-import SkillCard from '@/components/skills/SkillCard';
-
-const CATEGORIES = [
-  { key: 'languages' as const, label: 'Langages', color: '#00f0ff' },
-  { key: 'data' as const, label: 'Data & Analyse', color: '#ff00e5' },
-  { key: 'tools' as const, label: 'Outils', color: '#a3ff00' },
-];
+import { skills } from '@/data/skills';
+import { getSkillIcon } from '@/lib/utils/skillIcons';
 
 export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative py-16 px-8 md:px-12 lg:px-16"
+      className="relative pt-64 pb-16 px-8 md:px-12 lg:px-16"
     >
-      {/* Grain texture overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
-        style={{
-          backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
-        }}
-      />
-
-      <div className="mx-auto w-11/12 max-w-6xl relative">
+      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          style={{ marginBottom: '60px' }}
+          style={{ marginBottom: '48px', textAlign: 'center' }}
         >
-          <div className="text-center">
-            <h2 className="text-6xl md:text-8xl font-bold leading-none uppercase text-white">
-              // Compétences
-            </h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-white/60 max-w-2xl mx-auto text-base leading-relaxed"
-              style={{ marginTop: '40px' }}
-            >
-              Langages de programmation, outils d&apos;analyse de données et environnements
-              de développement que j&apos;utilise au quotidien pour concevoir et déployer mes projets.
-            </motion.p>
-          </div>
-
-          {/* Decorative line */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="h-1 origin-left bg-white/20"
-            style={{ marginTop: '30px' }}
-          />
+          <h2
+            style={{
+              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+              fontWeight: 700,
+              color: '#ffffff',
+              letterSpacing: '-0.02em',
+              marginBottom: '16px',
+            }}
+          >
+            Compétences
+          </h2>
+          <p
+            style={{
+              fontSize: '0.95rem',
+              color: 'rgba(255,255,255,0.4)',
+              maxWidth: '500px',
+              margin: '0 auto',
+              lineHeight: 1.6,
+            }}
+          >
+            Langages, outils d&apos;analyse et environnements de développement
+            que j&apos;utilise au quotidien.
+          </p>
         </motion.div>
 
-        {/* Categories */}
-        <div className="space-y-20">
-          {CATEGORIES.map((category, catIndex) => (
-            <motion.div
-              key={category.key}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: catIndex * 0.15 }}
-            >
-              {/* Category Title */}
-              <div className="mb-8">
-                <h3
-                  className="text-2xl font-bold uppercase tracking-widest"
-                  style={{ color: category.color }}
-                >
-                  {category.label}
-                </h3>
-                <div
-                  className="mt-3 h-0.5 w-16"
-                  style={{ backgroundColor: category.color }}
-                />
-              </div>
+        {/* Skills grid — all in one flow */}
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '12px',
+          }}
+        >
+          {skills.map((skill, index) => {
+            const Icon = getSkillIcon(skill.icon);
+            const hasLink = !!skill.url;
+            const isCertified = skill.url?.startsWith('/');
 
-              {/* Skills Grid */}
-              <div
-                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+            const inner = (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                className="skill-chip"
                 style={{
-                  borderTop: '1px solid rgba(255,255,255,0.1)',
-                  borderLeft: '1px solid rgba(255,255,255,0.1)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  padding: '14px 22px',
+                  borderRadius: '16px',
+                  backgroundColor: 'rgba(255,255,255,0.06)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  cursor: hasLink ? 'pointer' : 'default',
+                  transition: 'all 0.3s ease',
+                  textDecoration: 'none',
+                  color: 'inherit',
                 }}
               >
-                {skillsByCategory[category.key].map((skill, index) => (
-                  <SkillCard
-                    key={skill.name}
-                    skill={skill}
-                    index={index}
-                    categoryColor={category.color}
+                {Icon && (
+                  <Icon
+                    size={24}
+                    style={{ color: skill.color, flexShrink: 0 }}
                   />
-                ))}
-              </div>
-            </motion.div>
-          ))}
+                )}
+                <span
+                  style={{
+                    fontSize: '15px',
+                    fontWeight: 500,
+                    color: 'rgba(255,255,255,0.85)',
+                  }}
+                >
+                  {skill.name}
+                </span>
+                {isCertified && (
+                  <span
+                    style={{
+                      fontSize: '10px',
+                      fontWeight: 600,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                      padding: '3px 8px',
+                      borderRadius: '6px',
+                      backgroundColor: 'rgba(255,255,255,0.1)',
+                      color: 'rgba(255,255,255,0.5)',
+                    }}
+                  >
+                    Certifié
+                  </span>
+                )}
+              </motion.div>
+            );
+
+            if (hasLink) {
+              return (
+                <a
+                  key={skill.name}
+                  href={skill.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  {inner}
+                </a>
+              );
+            }
+
+            return <div key={skill.name}>{inner}</div>;
+          })}
         </div>
       </div>
     </section>
