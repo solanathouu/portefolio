@@ -9,7 +9,7 @@ export default function Contact() {
     <section
       id="contact"
       className="relative px-8 md:px-12 lg:px-16"
-      style={{ paddingTop: '120px', paddingBottom: '64px' }}
+      style={{ paddingTop: '0px', paddingBottom: '200px' }}
     >
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         {/* Header */}

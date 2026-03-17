@@ -7,18 +7,25 @@ import { cn } from '@/lib/utils/cn';
 interface Avatar3DLockedProps {
   frameCount?: number;
   onAnimationComplete?: () => void;
+  onProgressChange?: (progress: number) => void;
   className?: string;
 }
 
 export default function Avatar3DLocked({
   frameCount = 173,
   onAnimationComplete,
+  onProgressChange,
   className,
 }: Avatar3DLockedProps) {
-  const { currentFrame, isAnimationComplete } = useScrollLockAnimation({
+  const { currentFrame, isAnimationComplete, progress } = useScrollLockAnimation({
     frameCount,
     onComplete: onAnimationComplete,
   });
+
+  // Report progress to parent
+  useEffect(() => {
+    onProgressChange?.(progress);
+  }, [progress, onProgressChange]);
 
   const [isLoaded, setIsLoaded] = useState(false);
 

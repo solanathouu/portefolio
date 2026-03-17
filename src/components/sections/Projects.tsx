@@ -8,7 +8,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative min-h-screen pt-16 pb-50 px-6 sm:px-10 md:px-16 lg:px-24"
+      className="relative min-h-screen pt-16 pb-32 px-6 sm:px-10 md:px-16 lg:px-24"
     >
       <div className="mx-auto w-11/12 max-w-6xl relative">
         {/* Header */}
@@ -56,7 +56,7 @@ export default function Projects() {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
-            gridTemplateRows: '300px 300px 250px',
+            gridTemplateRows: '300px 300px 300px 250px',
             gap: '16px',
           }}
         >
@@ -81,10 +81,17 @@ export default function Projects() {
             </div>
           )}
 
-          {/* Project 4 — full width, row 3 */}
+          {/* Project 4 — left column, row 3 */}
           {projects[3] && (
-            <div style={{ gridColumn: '1 / 3', gridRow: '3' }}>
+            <div style={{ gridColumn: '1', gridRow: '3' }}>
               <ProjectCard project={projects[3]} index={3} />
+            </div>
+          )}
+
+          {/* Project 5 — right column, row 3 */}
+          {projects[4] && (
+            <div style={{ gridColumn: '2', gridRow: '3' }}>
+              <ProjectCard project={projects[4]} index={4} />
             </div>
           )}
         </div>

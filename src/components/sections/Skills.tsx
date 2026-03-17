@@ -8,7 +8,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative pt-64 pb-16 px-8 md:px-12 lg:px-16"
+      className="relative pt-32 pb-16 px-8 md:px-12 lg:px-16"
     >
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
         {/* Header */}

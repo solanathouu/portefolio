@@ -241,4 +241,59 @@ export const projects: Project[] = [
     year: '2025',
     role: 'Participant',
   },
+  // PROJECT 5 - Oppy (Hackathon Gemini)
+  {
+    id: 'oppy',
+    title: 'Oppy — AI Copilot',
+    description:
+      'Agent IA proactif qui scanne emails, calendrier et signaux web en continu pour générer un brief d\'action priorisé chaque matin. Zéro prompt, zéro bruit.',
+    longDescription:
+      'Oppy est un copilote IA proactif développé lors d\'un hackathon Gemini. Il tourne en continu en arrière-plan, scanne Gmail, Google Calendar et des signaux web externes, puis utilise un modèle HuggingFace cross-encoder pour scorer l\'urgence sémantique de chaque signal. Un moteur de règles déterministes décide quand agir, et génère un brief d\'action concis avec les prochaines étapes concrètes — le tout sans aucun prompt de l\'utilisateur. Pipeline en 4 étapes : Scan → Score → Decide → Brief.',
+    tags: ['Gemini', 'Python', 'FastAPI', 'HuggingFace', 'Gmail API', 'Google Calendar'],
+    thumbnail: '/projects/oppy-1.png',
+    media: [
+      {
+        type: 'image',
+        url: '/projects/oppy-1.png',
+        caption: 'Oppy — Your proactive AI that acts before you even ask',
+      },
+      {
+        type: 'image',
+        url: '/projects/oppy-2.png',
+        caption: 'Présentation complète du projet (PDF)',
+        linkUrl: '/projects/oppy-presentation.pdf',
+      },
+    ],
+    githubUrl: 'https://github.com/solanathouu/hack-google',
+    demoUrl: undefined,
+    featured: false,
+    year: '2026',
+    role: 'Full-Stack Development',
+    technologies: [
+      {
+        category: 'Backend',
+        items: ['Python', 'FastAPI', 'Async Pipeline'],
+      },
+      {
+        category: 'IA & Scoring',
+        items: ['Google Gemini', 'HuggingFace cross-encoder', 'Reranker model'],
+      },
+      {
+        category: 'APIs & Data',
+        items: ['Gmail API', 'Google Calendar API', 'OAuth 2.0', 'Web Context scraping'],
+      },
+    ],
+    challenges: [
+      'Scanner en continu emails, calendrier et signaux web sans saturer les APIs',
+      'Implémenter un scoring d\'urgence sémantique via HuggingFace cross-encoder (pas du keyword matching)',
+      'Concevoir un moteur de règles déterministes fiable et auditable pour décider quand alerter',
+      'Générer des briefs d\'action concis avec prochaines étapes concrètes, zéro bruit',
+    ],
+    outcomes: [
+      'Boucle d\'intelligence en 4 étapes : Scan → Score → Decide → Brief',
+      '90 minutes récupérées par jour en triage d\'emails et gestion de calendrier',
+      'Scoring d\'urgence sémantique — pas de faux positifs par mots-clés',
+      'Comportement prédictible et auditable grâce aux règles déterministes',
+    ],
+  },
 ];
