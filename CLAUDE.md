@@ -284,13 +284,13 @@ portfolio/
 | Build | ✅ Passing | 0 errors TypeScript |
 | Deploy | 🔄 À redéployer | Après validation refonte |
 
-**Dernière action (session 2026-03-17):** Ajout bulles contact organiques (Framer Motion) sur Hero, projet Oppy ajouté, bento grid 5 projets, spacings ajustés.
+**Dernière action (session 2026-03-17):** Projet Hackathon PayFit SEO complété (description, technologies, media, PDF 28Mo, screenshot workflow N8N, logo PayFit). Hero : ajout "SKWAREK" en dessous de "NATHAN" (même style, taille réduite).
 
 **Projets (5 projets):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
 - Tube : App mobile métro parisien, signalements temps réel, gamification, React Native/Expo/Supabase/PostGIS
 - B2B IT Catalog Scraper : Scraper Python, +8800 produits IT TD Synnex, 11 catégories, 440+ specs, CSV, zéro dépendance
-- Hackathon Payfit — SEO : Hackathon entreprise, optimisation SEO (placeholder, sans image)
+- Hackathon PayFit — SEO : Infrastructure IA de contenu, N8N veille concurrentielle, Agent GEO Audit multi-IA, Agent Maestro Dust 4 étapes, 35h économisées, 0.30€/mois API
 - Oppy — AI Copilot : Agent IA proactif (Hackathon Gemini), scan Gmail/Calendar/web, scoring urgence HuggingFace, brief d'action. GitHub: solanathouu/hack-google
 
 **Skills (mis à jour session 2026-03-15):**
@@ -331,12 +331,13 @@ portfolio/
 
 **Continuer la refonte Phase 5 :**
 
-1. **Compléter le projet Hackathon Payfit SEO** — description, tags, images (placeholder actuellement)
+1. ~~**Compléter le projet Hackathon Payfit SEO**~~ ✅ DONE
 2. **Ajouter screenshots Oppy** — l'utilisateur fournira des captures supplémentaires
 3. **Vérifier cohérence DA** — header, footer, 404 pages (encore en style neo-brutalist ?)
-4. **Tests responsive mobile/tablet**
-5. **Lighthouse performance audit**
-6. **Deployer sur Vercel**
+4. **Compresser payfit-presentation.pdf** (28Mo actuellement, lourd pour Vercel)
+5. **Tests responsive mobile/tablet**
+6. **Lighthouse performance audit**
+7. **Deployer sur Vercel**
 
 ## 🔧 Performance Guidelines
 
@@ -416,5 +417,5 @@ Valeurs recommandées:
 ---
 
 **Last updated:** 2026-03-17
-**Status:** Phase 5 In Progress — Refonte DA glacé/Apple, bulles contact organiques, 5 projets bento
-**Next:** Compléter projets Payfit/Oppy, cohérence DA (header/footer/404), responsive, déployer
+**Status:** Phase 5 In Progress — Refonte DA glacé/Apple, 5 projets complets, Hero NATHAN + SKWAREK
+**Next:** Screenshots Oppy, cohérence DA (header/footer/404), compresser PDF Payfit, responsive, déployer

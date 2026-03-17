@@ -35,8 +35,13 @@ export const projects: Project[] = [
     longDescription:
       'LaBonneNote est un assistant pédagogique basé sur le RAG (Retrieval-Augmented Generation) qui répond aux questions des collégiens en s\'appuyant exclusivement sur sa base de connaissances de 43 857 chunks issus de Vikidia. Le système détecte automatiquement le niveau (6e-3e) et la matière, adapte ses réponses pédagogiquement, et cite ses sources. La bibliothèque intégrée couvre 8 matières avec recherche full-text en temps réel. Les quiz sont générés automatiquement à partir de n\'importe quelle leçon avec scoring détaillé et feedback par question.',
     tags: ['Python', 'FastAPI', 'LangChain', 'ChromaDB', 'GPT-4o-mini'],
-    thumbnail: '/projects/labonnenote-thumb.png',
+    thumbnail: '/projects/labonnenote-mascot.png',
     media: [
+      {
+        type: 'image',
+        url: '/projects/labonnenote-mascot.png',
+        caption: 'Mascotte LaBonneNote',
+      },
       {
         type: 'image',
         url: '/projects/labonnenote-3.png',
@@ -231,27 +236,82 @@ export const projects: Project[] = [
   // PROJECT 4 - Hackathon Payfit SEO
   {
     id: 'hackathon-payfit-seo',
-    title: 'Hackathon Payfit — SEO',
+    title: 'Hackathon PayFit — SEO',
     description:
-      'Hackathon d\'entreprise chez Payfit autour de l\'optimisation SEO. Conception et implémentation de solutions pour améliorer la visibilité et le référencement.',
-    tags: ['SEO', 'Hackathon', 'Payfit'],
-    thumbnail: '',
-    media: [],
+      'Infrastructure IA de génération de contenu pour PayFit. Veille concurrentielle automatisée, audit GEO multi-IA, agent rédactionnel 4 étapes et newsletter Slack — 35h économisées.',
+    longDescription:
+      'Lors du hackathon PayFit, nous avons conçu une infrastructure complète de génération de contenu alliant masse, expertise SEO, conformité légale et agilité décisionnelle. L\'objectif : transformer 2h de rédaction manuelle en 15 minutes de leadership stratégique.\n\nLe système repose sur 4 briques :\n\n1. **Workflow Newsletter (N8N)** — Surveillance quotidienne de 4 concurrents (Factorial, Lucca, Cegid, Sage), filtrage automatique des articles de la veille, analyse IA (résumé + mots-clés SEO), classification par thème (Paie, RH, Droit du travail, Recrutement), synthèse quotidienne envoyée via Slack et email. Coût : 0.30€/mois en API.\n\n2. **Agent d\'Audit GEO** — Interroge 4 IA (ChatGPT, Claude, Gemini, Mistral) pour mesurer la visibilité de PayFit dans les réponses générées. Calcul de scores de visibilité, position moyenne, et recommandations d\'actions basées sur les sources citées.\n\n3. **Agent Maestro (Dust)** — Pipeline rédactionnel en 4 étapes : V1 article (blog_redactor) → vérification légale (legal_analyser) → vérification BDD liens et contenu (verif_bdd) → conformité structure PayFit, SEO et tone of voice (Conformity).\n\n4. **Multi-format** — Génération automatique d\'articles, visuels/infographies, podcasts audio et posts LinkedIn à partir du contenu produit.',
+    tags: ['N8N', 'Dust', 'SEO', 'IA', 'Slack', 'Prompt Engineering'],
+    thumbnail: '/projects/payfit-logo.png',
+    media: [
+      {
+        type: 'image',
+        url: '/projects/payfit-logo.png',
+        caption: 'Logo PayFit',
+      },
+      {
+        type: 'image',
+        url: '/projects/payfit-workflow.png',
+        caption: 'Workflow N8N — Veille concurrentielle et newsletter automatisée',
+      },
+      {
+        type: 'image',
+        url: '/projects/payfit-cover.png',
+        caption: 'Présentation complète du projet (PDF)',
+        linkUrl: '/projects/payfit-presentation.pdf',
+      },
+    ],
     featured: false,
-    year: '2025',
-    role: 'Participant',
+    year: '2026',
+    role: 'Automation & SEO Engineering',
+    technologies: [
+      {
+        category: 'Automation',
+        items: ['N8N', 'Dust (AI ecosystem)', 'Google Sheets', 'Slack API'],
+      },
+      {
+        category: 'IA & APIs',
+        items: ['ChatGPT', 'Claude', 'Gemini', 'Mistral', 'AI Analyse'],
+      },
+      {
+        category: 'SEO & Contenu',
+        items: [
+          'Prompt Engineering',
+          'GEO Audit',
+          'Newsletter automation',
+          'Multi-format (article, audio, visuel, LinkedIn)',
+        ],
+      },
+    ],
+    challenges: [
+      'Industrialiser la création de contenu de 2h manuelles à 15 minutes de pilotage stratégique',
+      'Mesurer la visibilité de PayFit dans les réponses de 4 moteurs IA différents (GEO Audit)',
+      'Garantir zéro erreur légale via un pipeline de vérification en 4 étapes avec Dust',
+      'Automatiser la veille concurrentielle quotidienne sur 4 concurrents RH majeurs',
+    ],
+    outcomes: [
+      '35h de temps économisées par mois sur la production de contenu',
+      'Pipeline rédactionnel 4 étapes : rédaction → légal → BDD → conformité SEO',
+      'Veille concurrentielle automatique sur Factorial, Lucca, Cegid, Sage',
+      'Coût opérationnel de 0.30€/mois en appels API',
+    ],
   },
   // PROJECT 5 - Oppy (Hackathon Gemini)
   {
     id: 'oppy',
-    title: 'Oppy — AI Copilot',
+    title: 'Oppy — Hackathon Gemini 3',
     description:
       'Agent IA proactif qui scanne emails, calendrier et signaux web en continu pour générer un brief d\'action priorisé chaque matin. Zéro prompt, zéro bruit.',
     longDescription:
       'Oppy est un copilote IA proactif développé lors d\'un hackathon Gemini. Il tourne en continu en arrière-plan, scanne Gmail, Google Calendar et des signaux web externes, puis utilise un modèle HuggingFace cross-encoder pour scorer l\'urgence sémantique de chaque signal. Un moteur de règles déterministes décide quand agir, et génère un brief d\'action concis avec les prochaines étapes concrètes — le tout sans aucun prompt de l\'utilisateur. Pipeline en 4 étapes : Scan → Score → Decide → Brief.',
     tags: ['Gemini', 'Python', 'FastAPI', 'HuggingFace', 'Gmail API', 'Google Calendar'],
-    thumbnail: '/projects/oppy-1.png',
+    thumbnail: '/projects/oppy-mascot.png',
     media: [
+      {
+        type: 'image',
+        url: '/projects/oppy-mascot.png',
+        caption: 'Mascotte Oppy',
+      },
       {
         type: 'image',
         url: '/projects/oppy-1.png',

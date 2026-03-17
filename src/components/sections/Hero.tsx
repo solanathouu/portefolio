@@ -207,16 +207,20 @@ export default function Hero() {
           style={{ zIndex: 0 }}
         >
           <h1
-            className="font-black tracking-tighter"
+            className="font-black tracking-tighter text-center"
             style={{
-              fontSize: 'clamp(8rem, 20vw, 18rem)',
               color: 'transparent',
               WebkitTextStroke: '2px rgba(255, 255, 255, 0.1)',
               backdropFilter: 'blur(2px)',
               textShadow: '0 0 40px rgba(255, 255, 255, 0.05)',
             } as React.CSSProperties}
           >
-            NATHAN
+            <span style={{ fontSize: 'clamp(8rem, 20vw, 18rem)', display: 'block', lineHeight: 0.85 }}>
+              NATHAN
+            </span>
+            <span style={{ fontSize: 'clamp(3rem, 7vw, 6.5rem)', display: 'block', lineHeight: 0.85 }}>
+              SKWAREK
+            </span>
           </h1>
         </motion.div>
 
