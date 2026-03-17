@@ -284,7 +284,7 @@ portfolio/
 | Build | ✅ Passing | 0 errors TypeScript |
 | Deploy | 🔄 À redéployer | Après validation refonte |
 
-**Dernière action (session 2026-03-17):** Projet Hackathon PayFit SEO complété (description, technologies, media, PDF 28Mo, screenshot workflow N8N, logo PayFit). Hero : ajout "SKWAREK" en dessous de "NATHAN" (même style, taille réduite).
+**Dernière action (session 2026-03-17):** Réécriture longDescription PayFit SEO — version organique et concise (contexte hackathon + résumé haut niveau, sans détails techniques/coûts). Hero : ajout "SKWAREK" en dessous de "NATHAN" (même style, taille réduite).
 
 **Projets (5 projets):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
