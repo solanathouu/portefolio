@@ -15,40 +15,35 @@ interface Particle {
 }
 
 // ============================================================
-// PARAMETRES — Modifie ces valeurs pour ajuster l'effet
+// PARAMETRES — Constellation / Plexus
 // ============================================================
 
-// Nombre total de particules a l'ecran
-// 30-50 = subtil, 70-100 = normal, 150-300 = dense
-const PARTICLE_COUNT = 200;
+// Nombre de particules (moins mais plus grosses)
+const PARTICLE_COUNT = 80;
 
-// Taille des particules (en pixels)
-// MIN = plus petite possible, MAX = plus grosse possible
-// Chaque particule a une taille aleatoire entre les deux
-const MIN_RADIUS = 0.5;
-const MAX_RADIUS = 2;
+// Taille des particules
+const MIN_RADIUS = 1;
+const MAX_RADIUS = 3;
 
-// Opacite des particules (0 = invisible, 1 = blanc pur)
-// MIN = opacite minimum, MAX = opacite maximum
-// Garder < 0.5 pour un effet subtil "poussiere lumineuse"
-const MIN_OPACITY = 0.1;
-const MAX_OPACITY = 0.4;
+// Opacite des particules
+const MIN_OPACITY = 0.15;
+const MAX_OPACITY = 0.5;
 
-// Vitesse de derive naturelle (mouvement lent aleatoire)
-// 0.1 = quasi immobile, 0.3 = lent, 0.8 = rapide
-const DRIFT_SPEED = 2;
+// Vitesse de derive (0.4 = lent, 0.8 = moyen, 1.2 = rapide)
+const DRIFT_SPEED = 0.9;
 
-// Rayon de repulsion autour du curseur (en pixels)
-// 80 = petit cercle, 120 = moyen, 200 = grande zone d'effet
-const REPEL_RADIUS = 80;
+// Distance max pour tracer une ligne entre 2 particules
+const LINK_DISTANCE = 150;
 
-// Force de repulsion quand la souris s'approche
-// 1 = douce, 3 = nette, 6 = violente
-const REPEL_FORCE = 1;
+// Opacite max des lignes de connexion
+const LINK_OPACITY = 0.15;
 
-// Friction / ralentissement apres repulsion (0 a 1)
-// 0.90 = freine vite (retour rapide), 0.95 = glisse, 0.99 = flotte longtemps
-const FRICTION = 0.95;
+// Souris — rayon d'attraction et force
+const MOUSE_RADIUS = 200;
+const MOUSE_FORCE = 0.02;
+
+// Friction
+const FRICTION = 0.98;
 
 function createParticle(width: number, height: number): Particle {
   const baseOpacity = MIN_OPACITY + Math.random() * (MAX_OPACITY - MIN_OPACITY);
@@ -111,44 +106,97 @@ export default function ParticleBackground() {
 
       const { x: mx, y: my } = mouseRef.current;
 
+      // Update particles
       for (const p of particles) {
-        // Mouse repulsion
-        const dx = p.x - mx;
-        const dy = p.y - my;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+        // Mouse attraction (gentle pull towards cursor)
+        const dmx = mx - p.x;
+        const dmy = my - p.y;
+        const mouseDist = Math.sqrt(dmx * dmx + dmy * dmy);
 
-        if (dist < REPEL_RADIUS && dist > 0) {
-          const force = (1 - dist / REPEL_RADIUS) * REPEL_FORCE;
-          p.vx += (dx / dist) * force;
-          p.vy += (dy / dist) * force;
+        if (mouseDist < MOUSE_RADIUS && mouseDist > 0) {
+          const force = (1 - mouseDist / MOUSE_RADIUS) * MOUSE_FORCE;
+          p.vx += (dmx / mouseDist) * force;
+          p.vy += (dmy / mouseDist) * force;
         }
 
-        // Apply friction so particles slow down after repulsion
+        // Friction
         p.vx *= FRICTION;
         p.vy *= FRICTION;
 
-        // Base drift — gently nudge back to natural speed
+        // Gentle drift — keep particles always moving
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
         if (speed < DRIFT_SPEED * 0.5) {
-          p.vx += (Math.random() - 0.5) * 0.05;
-          p.vy += (Math.random() - 0.5) * 0.05;
+          p.vx += (Math.random() - 0.5) * 0.08;
+          p.vy += (Math.random() - 0.5) * 0.08;
         }
+        // Random micro-turbulence for organic feel
+        p.vx += (Math.random() - 0.5) * 0.015;
+        p.vy += (Math.random() - 0.5) * 0.015;
 
         // Move
         p.x += p.vx;
         p.y += p.vy;
 
         // Wrap around edges
-        if (p.x < -10) p.x = canvas.width + 10;
-        if (p.x > canvas.width + 10) p.x = -10;
-        if (p.y < -10) p.y = canvas.height + 10;
-        if (p.y > canvas.height + 10) p.y = -10;
+        if (p.x < -20) p.x = canvas.width + 20;
+        if (p.x > canvas.width + 20) p.x = -20;
+        if (p.y < -20) p.y = canvas.height + 20;
+        if (p.y > canvas.height + 20) p.y = -20;
 
         // Pulse opacity
         const pulse = Math.sin(time * p.pulseSpeed + p.pulseOffset);
-        p.opacity = p.baseOpacity + pulse * 0.1;
+        p.opacity = p.baseOpacity + pulse * 0.12;
+      }
 
-        // Draw particle
+      // Draw connections between nearby particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const a = particles[i];
+          const b = particles[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < LINK_DISTANCE) {
+            const alpha = (1 - dist / LINK_DISTANCE) * LINK_OPACITY;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw lines from mouse to nearby particles
+      if (mx > 0 && my > 0) {
+        for (const p of particles) {
+          const dx = mx - p.x;
+          const dy = my - p.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < MOUSE_RADIUS) {
+            const alpha = (1 - dist / MOUSE_RADIUS) * 0.2;
+            ctx.beginPath();
+            ctx.moveTo(mx, my);
+            ctx.lineTo(p.x, p.y);
+            ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw particles (on top of lines)
+      for (const p of particles) {
+        // Glow
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity * 0.1})`;
+        ctx.fill();
+
+        // Core
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;

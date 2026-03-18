@@ -284,7 +284,7 @@ portfolio/
 | Build | ✅ Passing | 0 errors TypeScript |
 | Deploy | 🔄 À redéployer | Après validation refonte |
 
-**Dernière action (session 2026-03-18):** Hero polish — contraste nom NATHAN SKWAREK augmenté (stroke 0.1→0.25), fond blanc circulaire derrière icônes LinkedIn et Email pour meilleure lisibilité sur bulles glass.
+**Dernière action (session 2026-03-18):** Background constellation/plexus (lignes entre particules proches, attraction souris, glow), couleurs accent par projet dans ProjectDetail (titres de section, numéros défis, icônes tech, bordures), icônes tech complétées sur les 5 projets (60/60 couverts).
 
 **Projets (5 projets):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
@@ -316,7 +316,7 @@ portfolio/
 - Section headers unifiés : clamp(2.5rem, 5vw, 3.5rem), letterSpacing -0.02em, description rgba(255,255,255,0.4)
 - Contact : bulles organiques (GitHub, LinkedIn, Email, CV) expulsées de l'avatar pendant le scroll rotation (Framer Motion useAnimation, 3 phases : birth → expulsion → float infini)
 - Bulles : icônes Si/Hi (couleurs marque), 68px, backdrop-blur, border-radius morphing organique, radial gradient bulle de savon
-- Particules canvas en arrière-plan (inchangé)
+- Background constellation/plexus : 80 particules connectées par lignes, attraction souris, glow, micro-turbulence
 - Scrollbars cachées, scroll fonctionnel
 - Preloader lié au vrai window.load (min 800ms)
 - Avatar rotation 360° une seule fois par page load
@@ -411,11 +411,11 @@ Valeurs recommandées:
 | Slate-900 gradient | Moderne, contraste avec avatar |
 | System font stack au lieu Sora | Feeling Apple/glacé, cohérent avec hero NATHAN, zero font loading |
 | Framer Motion | Animations fluides, DX excellent |
-| Canvas custom vs tsparticles | Zero dependance, plus leger, suffisant pour dust effect |
+| Canvas custom vs tsparticles | Zero dependance, plus leger, constellation/plexus effect |
 | Sections sans backgroundColor | Transparent pour laisser voir le canvas particules fixe |
 
 ---
 
 **Last updated:** 2026-03-18
-**Status:** Phase 5 In Progress — Refonte DA glacé/Apple, 5 projets complets, Hero NATHAN + SKWAREK, bulle CV
+**Status:** Phase 5 In Progress — DA glacé/Apple, constellation bg, couleurs accent projets, 60/60 icônes tech
 **Next:** Screenshots Oppy, cohérence DA (header/footer/404), compresser PDF Payfit, responsive, déployer

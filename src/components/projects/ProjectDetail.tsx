@@ -8,38 +8,90 @@ import { FiArrowLeft, FiGithub, FiExternalLink, FiX, FiChevronLeft, FiChevronRig
 import {
   SiPython, SiFastapi, SiOpenai, SiJavascript, SiHtml5, SiCss3,
   SiReact, SiSupabase, SiPostgresql, SiExpo, SiGit, SiGithub,
-  SiTypescript,
+  SiTypescript, SiLangchain, SiGooglemaps, SiFirebase, SiSlack,
+  SiGooglesheets, SiGmail, SiGooglecalendar, SiGooglegemini,
+  SiHuggingface, SiClaude, SiNotion,
 } from 'react-icons/si';
-import { FaDatabase, FaServer, FaCloud, FaSpider, FaGlobe, FaFileExport } from 'react-icons/fa';
+import {
+  FaDatabase, FaServer, FaCloud, FaSpider, FaGlobe, FaFileExport,
+  FaLink, FaShieldAlt, FaKey, FaRobot, FaProjectDiagram, FaCogs,
+  FaCode, FaSearch, FaBolt, FaBrain, FaNewspaper, FaImages,
+  FaSyncAlt, FaIcons, FaHdd, FaPencilAlt, FaMagic,
+} from 'react-icons/fa';
 import Image from 'next/image';
 import type { IconType } from 'react-icons';
 
 /* ── Tech icon mapping ── */
 const techIcons: Record<string, IconType> = {
+  // Languages & Frameworks
   'python': SiPython,
   'fastapi': SiFastapi,
-  'openai': SiOpenai,
-  'gpt': SiOpenai,
   'javascript': SiJavascript,
+  'typescript': SiTypescript,
   'html': SiHtml5,
   'css': SiCss3,
-  'react': SiReact,
   'react native': SiReact,
+  'react': SiReact,
+  'expo': SiExpo,
   'supabase': SiSupabase,
   'postgresql': SiPostgresql,
   'postgis': SiPostgresql,
-  'expo': SiExpo,
-  'git': SiGit,
-  'github': SiGithub,
-  'typescript': SiTypescript,
+  // AI & Models
+  'openai': SiOpenai,
+  'gpt': SiOpenai,
+  'langchain': SiLangchain,
+  'embedding': SiOpenai,
+  'rag': FaBrain,
+  'gemini': SiGooglegemini,
+  'huggingface': SiHuggingface,
+  'reranker': FaRobot,
+  'claude': SiClaude,
+  'mistral': FaBolt,
+  'ai analyse': FaBrain,
+  // Data & DB
   'chromadb': FaDatabase,
-  'uvicorn': FaServer,
+  'csv': FaFileExport,
+  'batch': FaCogs,
+  'json': FaCode,
+  // Scraping & Web
   'cloudscraper': FaCloud,
   'beautifulsoup': FaSpider,
   'mediawiki': FaGlobe,
-  'csv': FaFileExport,
+  'urllib': FaLink,
+  'web context': FaSearch,
+  // Servers & Infra
+  'uvicorn': FaServer,
   'rest': FaGlobe,
   'session': FaServer,
+  'async': FaBolt,
+  'oauth': FaKey,
+  // APIs & Services
+  'google maps': SiGooglemaps,
+  'firebase': SiFirebase,
+  'slack': SiSlack,
+  'google sheets': SiGooglesheets,
+  'gmail': SiGmail,
+  'google calendar': SiGooglecalendar,
+  'notion': SiNotion,
+  'prim': FaGlobe,
+  // Tools & Dev
+  'git': SiGit,
+  'github': SiGithub,
+  'n8n': FaProjectDiagram,
+  'dust': FaMagic,
+  'row level security': FaShieldAlt,
+  'navigation': FaGlobe,
+  'reanimated': FaSyncAlt,
+  'vector icons': FaIcons,
+  'asyncstorage': FaHdd,
+  'paper': SiReact,
+  // Content & SEO
+  'prompt': FaPencilAlt,
+  'geo': FaSearch,
+  'newsletter': FaNewspaper,
+  'multi-format': FaImages,
+  // Regex
+  're': FaCode,
 };
 
 function getTechIcon(techName: string): IconType | null {
@@ -50,6 +102,9 @@ function getTechIcon(techName: string): IconType | null {
   return null;
 }
 
+/* ── Accent colors per project ── */
+const ACCENT_COLORS = ['#00d4ff', '#4f8aff', '#00e676', '#ff9100', '#b388ff'];
+
 /* ── Component ── */
 interface ProjectDetailProps {
   project: Project;
@@ -59,6 +114,7 @@ interface ProjectDetailProps {
 export default function ProjectDetail({ project, currentIndex }: ProjectDetailProps) {
   const router = useRouter();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const accent = ACCENT_COLORS[currentIndex % ACCENT_COLORS.length];
 
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
   const goToPrev = useCallback(() => {
@@ -141,7 +197,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
               style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)',
+                background: `linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%), linear-gradient(135deg, ${accent}15 0%, transparent 40%)`,
               }}
             />
           </div>
@@ -269,7 +325,8 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
               style={{
                 fontSize: '1.1rem',
                 fontWeight: 600,
-                color: 'rgba(255,255,255,0.4)',
+                color: accent,
+                opacity: 0.7,
                 textAlign: 'center',
                 textTransform: 'uppercase',
                 letterSpacing: '0.15em',
@@ -289,14 +346,18 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                     padding: '20px 24px',
                     borderRadius: '14px',
                     backgroundColor: 'rgba(255,255,255,0.04)',
+                    borderLeft: `3px solid ${accent}40`,
                     border: '1px solid rgba(255,255,255,0.06)',
+                    borderLeftColor: `${accent}40`,
+                    borderLeftWidth: '3px',
                   }}
                 >
                   <span
                     style={{
                       fontSize: '14px',
                       fontWeight: 700,
-                      color: 'rgba(255,255,255,0.25)',
+                      color: accent,
+                      opacity: 0.6,
                       flexShrink: 0,
                       width: '28px',
                       textAlign: 'right',
@@ -320,7 +381,8 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
               style={{
                 fontSize: '1.1rem',
                 fontWeight: 600,
-                color: 'rgba(255,255,255,0.4)',
+                color: accent,
+                opacity: 0.7,
                 textAlign: 'center',
                 textTransform: 'uppercase',
                 letterSpacing: '0.15em',
@@ -342,7 +404,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                   style={{
                     padding: '20px 24px',
                     borderRadius: '14px',
-                    backgroundColor: 'rgba(255,255,255,0.04)',
+                    backgroundColor: `${accent}08`,
                     border: '1px solid rgba(255,255,255,0.06)',
                   }}
                 >
@@ -362,7 +424,8 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
               style={{
                 fontSize: '1.1rem',
                 fontWeight: 600,
-                color: 'rgba(255,255,255,0.4)',
+                color: accent,
+                opacity: 0.7,
                 textAlign: 'center',
                 textTransform: 'uppercase',
                 letterSpacing: '0.15em',
@@ -398,7 +461,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                       transition: 'all 0.3s ease',
                     }}
                   >
-                    {Icon && <Icon style={{ width: 20, height: 20, color: 'rgba(255,255,255,0.7)', flexShrink: 0 }} />}
+                    {Icon && <Icon style={{ width: 20, height: 20, color: accent, opacity: 0.8, flexShrink: 0 }} />}
                     <span style={{ fontSize: '14px', fontWeight: 500, color: 'rgba(255,255,255,0.8)' }}>
                       {tech}
                     </span>
@@ -416,7 +479,8 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
               style={{
                 fontSize: '1.1rem',
                 fontWeight: 600,
-                color: 'rgba(255,255,255,0.4)',
+                color: accent,
+                opacity: 0.7,
                 textAlign: 'center',
                 textTransform: 'uppercase',
                 letterSpacing: '0.15em',
@@ -510,10 +574,16 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                   border: '1px solid rgba(255,255,255,0.06)',
                   cursor: 'pointer',
                   textAlign: 'left',
-                  transition: 'background-color 0.3s',
+                  transition: 'all 0.3s',
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)'; }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)';
+                  e.currentTarget.style.borderColor = `${ACCENT_COLORS[(currentIndex - 1 + ACCENT_COLORS.length) % ACCENT_COLORS.length]}30`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <FiChevronLeft style={{ width: 14, height: 14, color: 'rgba(255,255,255,0.4)' }} />
@@ -540,10 +610,16 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                   border: '1px solid rgba(255,255,255,0.06)',
                   cursor: 'pointer',
                   textAlign: nextProject && prevProject ? 'right' : 'left',
-                  transition: 'background-color 0.3s',
+                  transition: 'all 0.3s',
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)'; }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)';
+                  e.currentTarget.style.borderColor = `${ACCENT_COLORS[(currentIndex + 1) % ACCENT_COLORS.length]}30`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
