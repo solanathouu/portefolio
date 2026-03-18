@@ -200,7 +200,21 @@ function ContactBubble({ bubble, scrollProgress }: {
         pointerEvents: hasTriggered.current ? 'auto' : 'none',
       }}
     >
-      <Icon style={{ width: 26, height: 26, color: bubble.color }} />
+      {(bubble.label === 'LinkedIn' || bubble.label === 'Email') ? (
+        <span style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 34,
+          height: 34,
+          borderRadius: '50%',
+          background: '#fff',
+        }}>
+          <Icon style={{ width: 22, height: 22, color: bubble.color }} />
+        </span>
+      ) : (
+        <Icon style={{ width: 26, height: 26, color: bubble.color }} />
+      )}
     </motion.a>
   );
 }
@@ -234,9 +248,8 @@ export default function Hero() {
             className="font-black tracking-tighter text-center"
             style={{
               color: 'transparent',
-              WebkitTextStroke: '2px rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(2px)',
-              textShadow: '0 0 40px rgba(255, 255, 255, 0.05)',
+              WebkitTextStroke: '2px rgba(255, 255, 255, 0.25)',
+              textShadow: '0 0 60px rgba(255, 255, 255, 0.08)',
             } as React.CSSProperties}
           >
             <span style={{ fontSize: 'clamp(8rem, 20vw, 18rem)', display: 'block', lineHeight: 0.85 }}>

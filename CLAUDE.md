@@ -284,7 +284,7 @@ portfolio/
 | Build | ✅ Passing | 0 errors TypeScript |
 | Deploy | 🔄 À redéployer | Après validation refonte |
 
-**Dernière action (session 2026-03-18):** Ajout bulle CV organique dans le Hero (4e bulle : HiDocumentText, lien vers `/cv-nathan-skwarek.pdf`, même style morphing/float que les 3 autres bulles contact). CV PDF ajouté dans `public/`.
+**Dernière action (session 2026-03-18):** Hero polish — contraste nom NATHAN SKWAREK augmenté (stroke 0.1→0.25), fond blanc circulaire derrière icônes LinkedIn et Email pour meilleure lisibilité sur bulles glass.
 
 **Projets (5 projets):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
