@@ -284,7 +284,7 @@ portfolio/
 | Build | ✅ Passing | 0 errors TypeScript |
 | Deploy | 🔄 À redéployer | Après validation refonte |
 
-**Dernière action (session 2026-03-17):** Réécriture longDescription PayFit SEO — version organique et concise (contexte hackathon + résumé haut niveau, sans détails techniques/coûts). Hero : ajout "SKWAREK" en dessous de "NATHAN" (même style, taille réduite).
+**Dernière action (session 2026-03-18):** Ajout bulle CV organique dans le Hero (4e bulle : HiDocumentText, lien vers `/cv-nathan-skwarek.pdf`, même style morphing/float que les 3 autres bulles contact). CV PDF ajouté dans `public/`.
 
 **Projets (5 projets):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
@@ -314,7 +314,7 @@ portfolio/
 - ProjectDetail : layout centré îlot (900px max), tech stack avec logos react-icons, hero image bannière
 - Skills & Contact : chips glass arrondis avec logos en couleur, layout flex-wrap centré
 - Section headers unifiés : clamp(2.5rem, 5vw, 3.5rem), letterSpacing -0.02em, description rgba(255,255,255,0.4)
-- Contact : bulles organiques (GitHub, LinkedIn, Email) expulsées de l'avatar pendant le scroll rotation (Framer Motion useAnimation, 3 phases : birth → expulsion → float infini)
+- Contact : bulles organiques (GitHub, LinkedIn, Email, CV) expulsées de l'avatar pendant le scroll rotation (Framer Motion useAnimation, 3 phases : birth → expulsion → float infini)
 - Bulles : icônes Si/Hi (couleurs marque), 68px, backdrop-blur, border-radius morphing organique, radial gradient bulle de savon
 - Particules canvas en arrière-plan (inchangé)
 - Scrollbars cachées, scroll fonctionnel
@@ -416,6 +416,6 @@ Valeurs recommandées:
 
 ---
 
-**Last updated:** 2026-03-17
-**Status:** Phase 5 In Progress — Refonte DA glacé/Apple, 5 projets complets, Hero NATHAN + SKWAREK
+**Last updated:** 2026-03-18
+**Status:** Phase 5 In Progress — Refonte DA glacé/Apple, 5 projets complets, Hero NATHAN + SKWAREK, bulle CV
 **Next:** Screenshots Oppy, cohérence DA (header/footer/404), compresser PDF Payfit, responsive, déployer

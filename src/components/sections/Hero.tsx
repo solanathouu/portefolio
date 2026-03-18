@@ -4,7 +4,7 @@ import Avatar3DLocked from '@/components/avatar/Avatar3DLocked';
 import { motion, useAnimation } from 'framer-motion';
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { SiGithub, SiLinkedin } from 'react-icons/si';
-import { HiMail } from 'react-icons/hi';
+import { HiMail, HiDocumentText } from 'react-icons/hi';
 
 const CONTACT_BUBBLES = [
   {
@@ -78,6 +78,30 @@ const CONTACT_BUBBLES = [
       '52% 48% 38% 62% / 42% 58% 48% 52%',
       '42% 58% 62% 38% / 62% 38% 42% 58%',
       '55% 45% 42% 58% / 45% 55% 58% 42%',
+    ],
+  },
+  {
+    icon: HiDocumentText,
+    label: 'CV',
+    url: '/cv-nathan-skwarek.pdf',
+    color: '#ffffff',
+    finalX: -260,
+    finalY: 170,
+    threshold: 0.35,
+    floatDuration: 10,
+    driftX: [0, -10, 6, -13, 8, -5, 11, -7, 0],
+    driftY: [0, 8, -12, 6, -9, 13, -4, 10, 0],
+    pulseScale: [1, 1.03, 0.97, 1.05, 0.95, 1.04, 0.98, 1.02, 1],
+    morphs: [
+      '42% 58% 52% 48% / 52% 48% 58% 42%',
+      '58% 42% 40% 60% / 42% 58% 48% 52%',
+      '45% 55% 62% 38% / 58% 42% 35% 65%',
+      '52% 48% 45% 55% / 38% 62% 55% 45%',
+      '38% 62% 55% 45% / 55% 45% 42% 58%',
+      '60% 40% 38% 62% / 45% 55% 62% 38%',
+      '48% 52% 58% 42% / 62% 38% 48% 52%',
+      '55% 45% 42% 58% / 48% 52% 55% 45%',
+      '42% 58% 52% 48% / 52% 48% 58% 42%',
     ],
   },
 ];
