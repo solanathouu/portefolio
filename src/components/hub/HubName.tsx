@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export default function HubName() {
   return (
-    <div className="fixed inset-0 z-20 flex items-center justify-center pointer-events-none">
+    <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
       <motion.div
         className="text-center"
         initial={{ opacity: 0, scale: 0.9 }}
