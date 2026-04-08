@@ -10,10 +10,10 @@ const categoryLabels: Record<SkillCategory, string> = {
   tools: 'Outils',
 };
 
-const categoryGlowColors: Record<SkillCategory, string> = {
-  languages: 'rgba(120, 80, 255, 0.08)',
-  data: 'rgba(0, 200, 255, 0.08)',
-  tools: 'rgba(255, 60, 120, 0.08)',
+const categoryGlowColors: Record<SkillCategory, 'purple' | 'cyan' | 'rose'> = {
+  languages: 'purple',
+  data: 'cyan',
+  tools: 'rose',
 };
 
 const categories: SkillCategory[] = ['languages', 'data', 'tools'];
