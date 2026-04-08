@@ -1,44 +1,32 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import Header from "@/components/layout/Header";
-import ParticleBackground from "@/components/layout/ParticleBackground";
-import { Space_Mono } from 'next/font/google';
-import { LoadingProvider } from '@/lib/contexts/LoadingContext';
+import type { Metadata } from 'next';
+import { Space_Grotesk } from 'next/font/google';
+import './globals.css';
 
-const spaceMono = Space_Mono({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-space-mono',
+  variable: '--font-space-grotesk',
   display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: "Nathan Skwarek | Portfolio",
-  description: "Portfolio de Nathan Skwarek — Développeur web passionné. Projets, compétences et contact.",
-  keywords: ["nathan skwarek", "portfolio", "développeur web", "react", "next.js", "typescript"],
-  authors: [{ name: "Nathan Skwarek" }],
+  title: 'Nathan Skwarek | Portfolio',
+  description: 'Data Analyst & Developer — Portfolio 2026',
   openGraph: {
-    title: "Nathan Skwarek | Portfolio",
-    description: "Portfolio de Nathan Skwarek — Développeur web passionné",
-    type: "website",
+    title: 'Nathan Skwarek | Portfolio',
+    description: 'Data Analyst & Developer — Portfolio 2026',
+    type: 'website',
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="fr" className={`dark ${spaceMono.variable}`}>
-      <body className="antialiased" style={{ backgroundColor: '#303030' }}>
-        <ParticleBackground />
-        <LoadingProvider>
-          <div className="relative z-[1]">
-            <Header />
-            {children}
-          </div>
-        </LoadingProvider>
+    <html lang="fr" className={spaceGrotesk.variable}>
+      <body className="font-[family-name:var(--font-space-grotesk)]">
+        {children}
       </body>
     </html>
   );
