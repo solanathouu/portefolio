@@ -53,8 +53,15 @@ const ORB_CONFIG = [
 
 export default function HubScene() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const orbsRef = useRef<OrbInstance[]>([]);
+  const transitionRef = useRef<{
+    active: boolean;
+    orbIndex: number;
+    startTime: number;
+    route: string;
+  } | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -116,6 +123,7 @@ export default function HubScene() {
     const wireframeMeshes = orbs.map((o) => o.wireframe);
 
     const onClick = (e: MouseEvent) => {
+      if (transitionRef.current?.active) return; // already transitioning
       mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(mouse, camera);
@@ -125,7 +133,13 @@ export default function HubScene() {
           intersects[0].object as THREE.Mesh
         );
         if (idx !== -1) {
-          router.push(ORB_CONFIG[idx].route);
+          // Start zoom-in transition
+          transitionRef.current = {
+            active: true,
+            orbIndex: idx,
+            startTime: Date.now(),
+            route: ORB_CONFIG[idx].route,
+          };
         }
       }
     };
@@ -141,18 +155,71 @@ export default function HubScene() {
     container.addEventListener('click', onClick);
     container.addEventListener('mousemove', onMove);
 
-    // Animation loop — color cycling + float + star rotation like Globe
+    // Animation loop — color cycling + float + star rotation + zoom transition
+    const TRANSITION_DURATION = 700; // ms
     let animationId: number;
+    let navigated = false;
+
     const animate = () => {
       animationId = requestAnimationFrame(animate);
+      const now = Date.now();
+      const time = now * 0.001;
 
-      // Color cycling on each orb — same logic as Globe inspiration
+      // Handle zoom-in transition
+      const tr = transitionRef.current;
+      if (tr?.active) {
+        const elapsed = now - tr.startTime;
+        const progress = Math.min(elapsed / TRANSITION_DURATION, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+
+        const targetOrb = orbs[tr.orbIndex];
+
+        // Scale the clicked orb up massively
+        const scale = 1 + eased * 18;
+        targetOrb.wireframe.scale.set(scale, scale, scale);
+        targetOrb.atmosphere.scale.set(scale, scale, scale);
+
+        // Move orb towards camera
+        targetOrb.wireframe.position.z = eased * 6;
+        targetOrb.atmosphere.position.z = eased * 6;
+
+        // Fade other orbs out
+        orbs.forEach((orb, i) => {
+          if (i !== tr.orbIndex) {
+            const mat = orb.wireframe.material as THREE.MeshBasicMaterial;
+            mat.opacity = Math.max(0, 0.5 * (1 - eased * 2));
+            const glowMat = orb.atmosphere.material as THREE.ShaderMaterial;
+            glowMat.opacity = Math.max(0, 1 - eased * 2);
+          }
+        });
+
+        // Flash overlay to white/color then fade
+        if (overlayRef.current) {
+          if (progress < 0.6) {
+            overlayRef.current.style.opacity = String(eased * 0.8);
+          } else {
+            overlayRef.current.style.opacity = '1';
+          }
+        }
+
+        // Navigate at the end
+        if (progress >= 1 && !navigated) {
+          navigated = true;
+          router.push(tr.route);
+        }
+
+        renderer.render(scene, camera);
+        return;
+      }
+
+      // Normal animation when not transitioning
+      // Color cycling on each orb
       orbs.forEach((orb) => {
         updateOrbColor(orb, 0.003);
       });
 
       // Float animation
-      const time = Date.now() * 0.001;
       orbs.forEach((orb, i) => {
         const cfg = ORB_CONFIG[i];
         const baseX = Math.cos(cfg.angle) * cfg.distance;
@@ -167,7 +234,7 @@ export default function HubScene() {
         orb.atmosphere.rotation.y += 0.0005;
       });
 
-      // Slow star rotation — same as Globe
+      // Slow star rotation
       stars.rotation.y += 0.0001;
 
       renderer.render(scene, camera);
@@ -201,5 +268,15 @@ export default function HubScene() {
     };
   }, [router]);
 
-  return <div ref={containerRef} className="fixed inset-0 z-10" />;
+  return (
+    <>
+      <div ref={containerRef} className="fixed inset-0 z-10" />
+      {/* Transition overlay — flashes the orb color then goes black */}
+      <div
+        ref={overlayRef}
+        className="fixed inset-0 z-40 pointer-events-none bg-black"
+        style={{ opacity: 0, transition: 'none' }}
+      />
+    </>
+  );
 }
