@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { createOrb, updateOrbColor, type OrbInstance } from '@/components/three/Orb';
 
@@ -64,8 +64,16 @@ const LINK_ORBS = [
   },
 ];
 
+interface LabelPos {
+  x: number;
+  y: number;
+}
+
 export default function HeroOrbs() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [labelPositions, setLabelPositions] = useState<LabelPos[]>(
+    LINK_ORBS.map(() => ({ x: 0, y: 0 }))
+  );
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -137,8 +145,20 @@ export default function HeroOrbs() {
     container.addEventListener('click', onClick);
     container.addEventListener('mousemove', onMove);
 
+    // Project 3D position to 2D screen coordinates
+    const tempVec = new THREE.Vector3();
+    function projectToScreen(position: THREE.Vector3): { x: number; y: number } {
+      tempVec.copy(position);
+      tempVec.project(camera);
+      return {
+        x: (tempVec.x * 0.5 + 0.5) * window.innerWidth,
+        y: (-tempVec.y * 0.5 + 0.5) * window.innerHeight,
+      };
+    }
+
     // Animate
     let animationId: number;
+    let frameCount = 0;
     const animate = () => {
       animationId = requestAnimationFrame(animate);
       const time = Date.now() * 0.001;
@@ -157,6 +177,18 @@ export default function HeroOrbs() {
       });
 
       renderer.render(scene, camera);
+
+      // Update label positions every 3 frames for perf
+      frameCount++;
+      if (frameCount % 3 === 0) {
+        const newPositions = orbs.map((orb) => {
+          const pos = projectToScreen(orb.wireframe.position);
+          // Offset label below the orb
+          pos.y += 45;
+          return pos;
+        });
+        setLabelPositions(newPositions);
+      }
     };
     animate();
 
@@ -185,5 +217,25 @@ export default function HeroOrbs() {
     };
   }, []);
 
-  return <div ref={containerRef} className="absolute inset-0 z-10" />;
+  return (
+    <>
+      <div ref={containerRef} className="absolute inset-0 z-10" />
+      {/* Labels positioned over each orb */}
+      <div className="absolute inset-0 z-20 pointer-events-none">
+        {LINK_ORBS.map((cfg, i) => (
+          <span
+            key={cfg.label}
+            className="absolute text-[11px] font-medium tracking-[0.1em] uppercase text-[var(--text-secondary)] -translate-x-1/2 transition-opacity duration-500"
+            style={{
+              left: labelPositions[i].x,
+              top: labelPositions[i].y,
+              opacity: labelPositions[i].x === 0 ? 0 : 1,
+            }}
+          >
+            {cfg.label}
+          </span>
+        ))}
+      </div>
+    </>
+  );
 }
