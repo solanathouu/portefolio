@@ -17,8 +17,8 @@ const LINK_ORBS = [
       new THREE.Color(0x6366f1),
       new THREE.Color(0x7850ff),
     ],
-    angle: -Math.PI * 0.65,
-    distance: 3.2,
+    angle: -Math.PI * 0.7,
+    distance: 5.0,
   },
   {
     label: 'Email',
@@ -31,8 +31,8 @@ const LINK_ORBS = [
       new THREE.Color(0xffbe0b),
       new THREE.Color(0xff3c78),
     ],
-    angle: -Math.PI * 0.3,
-    distance: 3.0,
+    angle: -Math.PI * 0.25,
+    distance: 4.5,
   },
   {
     label: 'GitHub',
@@ -45,8 +45,8 @@ const LINK_ORBS = [
       new THREE.Color(0x22d3ee),
       new THREE.Color(0x00c8ff),
     ],
-    angle: Math.PI * 0.3,
-    distance: 3.0,
+    angle: Math.PI * 0.25,
+    distance: 4.5,
   },
   {
     label: 'LinkedIn',
@@ -59,8 +59,8 @@ const LINK_ORBS = [
       new THREE.Color(0x6366f1),
       new THREE.Color(0x3a86ff),
     ],
-    angle: Math.PI * 0.65,
-    distance: 3.2,
+    angle: Math.PI * 0.7,
+    distance: 5.0,
   },
 ];
 
