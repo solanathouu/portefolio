@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Space_Grotesk } from 'next/font/google';
+import TransitionProvider from '@/components/transition/TransitionProvider';
 import './globals.css';
 
 const spaceGrotesk = Space_Grotesk({
@@ -26,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className={spaceGrotesk.variable}>
       <body className="font-[family-name:var(--font-space-grotesk)]">
-        {children}
+        <TransitionProvider>{children}</TransitionProvider>
       </body>
     </html>
   );
