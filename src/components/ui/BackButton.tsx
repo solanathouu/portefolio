@@ -8,7 +8,7 @@ export default function BackButton() {
 
   return (
     <motion.button
-      onClick={() => router.push('/')}
+      onClick={() => router.push('/#projects')}
       className="fixed top-8 left-8 z-50 flex items-center gap-2 px-4 py-2 rounded-full
         bg-[var(--surface)] border border-[var(--border)] backdrop-blur-[12px]
         text-[var(--text-secondary)] text-sm
@@ -18,7 +18,7 @@ export default function BackButton() {
       whileTap={{ scale: 0.95 }}
     >
       <span className="text-lg leading-none">&larr;</span>
-      <span>Hub</span>
+      <span>Retour</span>
     </motion.button>
   );
 }

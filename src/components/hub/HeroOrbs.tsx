@@ -1,0 +1,212 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import { createOrb, updateOrbColor, type OrbInstance } from '@/components/three/Orb';
+
+const LINK_ORBS = [
+  {
+    label: 'CV',
+    href: '/certificates/cv.pdf',
+    download: true,
+    baseColor: new THREE.Color(0x7850ff),
+    colors: [
+      new THREE.Color(0x7850ff),
+      new THREE.Color(0x8338ec),
+      new THREE.Color(0xa78bfa),
+      new THREE.Color(0x6366f1),
+      new THREE.Color(0x7850ff),
+    ],
+    angle: -Math.PI * 0.65,
+    distance: 3.2,
+  },
+  {
+    label: 'Email',
+    href: 'mailto:skwarek.nathan@gmail.com',
+    baseColor: new THREE.Color(0xff3c78),
+    colors: [
+      new THREE.Color(0xff3c78),
+      new THREE.Color(0xff006e),
+      new THREE.Color(0xfb5607),
+      new THREE.Color(0xffbe0b),
+      new THREE.Color(0xff3c78),
+    ],
+    angle: -Math.PI * 0.3,
+    distance: 3.0,
+  },
+  {
+    label: 'GitHub',
+    href: 'https://github.com/solanathouu',
+    baseColor: new THREE.Color(0x00c8ff),
+    colors: [
+      new THREE.Color(0x00c8ff),
+      new THREE.Color(0x38bdf8),
+      new THREE.Color(0x06b6d4),
+      new THREE.Color(0x22d3ee),
+      new THREE.Color(0x00c8ff),
+    ],
+    angle: Math.PI * 0.3,
+    distance: 3.0,
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/nathan-skwarek-8a3723252/',
+    baseColor: new THREE.Color(0x3a86ff),
+    colors: [
+      new THREE.Color(0x3a86ff),
+      new THREE.Color(0x0077b5),
+      new THREE.Color(0x38bdf8),
+      new THREE.Color(0x6366f1),
+      new THREE.Color(0x3a86ff),
+    ],
+    angle: Math.PI * 0.65,
+    distance: 3.2,
+  },
+];
+
+export default function HeroOrbs() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const container = containerRef.current;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    camera.position.z = 8;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0);
+    container.appendChild(renderer.domElement);
+
+    // Starfield
+    const starsGeometry = new THREE.BufferGeometry();
+    const starsCount = 3000;
+    const positions = new Float32Array(starsCount * 3);
+    for (let i = 0; i < starsCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 2000;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 2000;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 2000;
+    }
+    starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const starsMaterial = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 0.7,
+      sizeAttenuation: true,
+      transparent: true,
+      opacity: 1,
+    });
+    const stars = new THREE.Points(starsGeometry, starsMaterial);
+    scene.add(stars);
+
+    // Create 4 link orbs
+    const orbs = LINK_ORBS.map((cfg) => {
+      const x = Math.cos(cfg.angle) * cfg.distance;
+      const y = Math.sin(cfg.angle) * cfg.distance * 0.5;
+      return createOrb(scene, {
+        color: cfg.baseColor,
+        position: new THREE.Vector3(x, y, 0),
+        radius: 0.45,
+        colors: cfg.colors,
+      });
+    });
+
+    // Raycaster
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    const wireframeMeshes = orbs.map((o) => o.wireframe);
+
+    const onClick = (e: MouseEvent) => {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(wireframeMeshes);
+      if (intersects.length > 0) {
+        const idx = wireframeMeshes.indexOf(intersects[0].object as THREE.Mesh);
+        if (idx !== -1) {
+          const cfg = LINK_ORBS[idx];
+          if (cfg.download) {
+            const a = document.createElement('a');
+            a.href = cfg.href;
+            a.download = '';
+            a.click();
+          } else if (cfg.href.startsWith('mailto:')) {
+            window.location.href = cfg.href;
+          } else {
+            window.open(cfg.href, '_blank', 'noopener,noreferrer');
+          }
+        }
+      }
+    };
+
+    const onMove = (e: MouseEvent) => {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(wireframeMeshes);
+      container.style.cursor = intersects.length > 0 ? 'pointer' : 'default';
+    };
+
+    container.addEventListener('click', onClick);
+    container.addEventListener('mousemove', onMove);
+
+    // Animate
+    let animationId: number;
+    const animate = () => {
+      animationId = requestAnimationFrame(animate);
+      const time = Date.now() * 0.001;
+
+      orbs.forEach((orb, i) => {
+        updateOrbColor(orb, 0.003);
+        const cfg = LINK_ORBS[i];
+        const baseX = Math.cos(cfg.angle) * cfg.distance;
+        const baseY = Math.sin(cfg.angle) * cfg.distance * 0.5;
+        const floatX = Math.sin(time * 0.4 + i * 1.8) * 0.12;
+        const floatY = Math.cos(time * 0.6 + i * 1.3) * 0.08;
+        orb.wireframe.position.set(baseX + floatX, baseY + floatY, 0);
+        orb.atmosphere.position.copy(orb.wireframe.position);
+        orb.wireframe.rotation.y += 0.001;
+        orb.atmosphere.rotation.y += 0.0005;
+      });
+
+      stars.rotation.y += 0.0001;
+      renderer.render(scene, camera);
+    };
+    animate();
+
+    const onResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', onResize);
+      container.removeEventListener('click', onClick);
+      container.removeEventListener('mousemove', onMove);
+      if (container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
+      }
+      renderer.dispose();
+      starsGeometry.dispose();
+      starsMaterial.dispose();
+      orbs.forEach((o) => {
+        o.wireframe.geometry.dispose();
+        (o.wireframe.material as THREE.Material).dispose();
+        o.atmosphere.geometry.dispose();
+        (o.atmosphere.material as THREE.Material).dispose();
+      });
+    };
+  }, []);
+
+  return <div ref={containerRef} className="absolute inset-0 z-10" />;
+}
