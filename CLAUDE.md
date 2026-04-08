@@ -275,16 +275,27 @@ portfolio/
 
 ## 📊 Current Project State
 
+**2 branches actives :**
+- `main` — V1 glacé/Apple/anthracite (stable, déployée)
+- `v2-dark-luminous` — V2 dark luminous (en cours)
+
+### V1 (main)
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 5 en cours | Refonte DA glacé + bulles contact + 5 projets |
-| Config | ✅ Optimisé | System font stack (Apple), anthracite, SSG, SEO |
-| Tests | 🔄 Pas encore | TDD à implémenter |
-| Git | ✅ Committé + pushé | Synchronisé avec GitHub |
+| Code | ✅ Stable | DA glacé + bulles contact + 6 projets |
 | Build | ✅ Passing | 0 errors TypeScript |
-| Deploy | 🔄 À redéployer | Après validation refonte |
+| Deploy | ✅ Vercel | Production |
 
-**Dernière action (session 2026-03-18):** Background constellation/plexus (lignes entre particules proches, attraction souris, glow), couleurs accent par projet dans ProjectDetail (titres de section, numéros défis, icônes tech, bordures), icônes tech complétées sur les 5 projets (60/60 couverts).
+### V2 (v2-dark-luminous)
+| Aspect | Status | Details |
+|--------|--------|---------|
+| Code | 🔄 En cours | Single-page scroll, Three.js shaders, GlowCards |
+| Config | ✅ OK | Space Grotesk, design tokens v2, Three.js installé |
+| Build | ✅ Passing | 0 errors TypeScript |
+| Git | ✅ Pushé | Synchronisé avec GitHub |
+| Deploy | 🔄 Pas encore | Après validation design |
+
+**Dernière action (session 2026-04-08):** Création branche v2-dark-luminous. Refonte complète du portfolio : shader aurora Three.js en fond, orbes wireframe 3D (CV/Email/GitHub/LinkedIn) avec color cycling + labels, starfield global, GlowCards data-glow avec tracking curseur, carousel 3D projets, single-page scroll.
 
 **Projets (5 projets):**
 - LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
@@ -303,41 +314,31 @@ portfolio/
 - LinkedIn: https://www.linkedin.com/in/nathan-skwarek-8a3723252/
 - GitHub: https://github.com/solanathouu
 
-**Design — Glacé / Apple / Premium (refonte session 2026-03-15):**
-- Background anthracite (#303030)
-- **System font stack** : -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue (identique au hero NATHAN)
-- Space Mono uniquement pour Preloader ASCII
-- Direction artistique : glacé, luxe, Apple — plus de neo-brutalist
-- Cartes : glass morphism (backdrop-blur, rgba backgrounds, rounded-2xl, no borders)
-- Hover : scale subtil + ombre douce + reflet lumineux glissant (shimmer)
-- Projects : Bento grid asymétrique (2col×2row + 2×1col + full width)
-- ProjectDetail : layout centré îlot (900px max), tech stack avec logos react-icons, hero image bannière
-- Skills & Contact : chips glass arrondis avec logos en couleur, layout flex-wrap centré
-- Section headers unifiés : clamp(2.5rem, 5vw, 3.5rem), letterSpacing -0.02em, description rgba(255,255,255,0.4)
-- Contact : bulles organiques (GitHub, LinkedIn, Email, CV) expulsées de l'avatar pendant le scroll rotation (Framer Motion useAnimation, 3 phases : birth → expulsion → float infini)
-- Bulles : icônes Si/Hi (couleurs marque), 68px, backdrop-blur, border-radius morphing organique, radial gradient bulle de savon
-- Background constellation/plexus : 80 particules connectées par lignes, attraction souris, glow, micro-turbulence
-- Scrollbars cachées, scroll fonctionnel
-- Preloader lié au vrai window.load (min 800ms)
-- Avatar rotation 360° une seule fois par page load
-- Avatar expose `progress` via `onProgressChange` callback pour synchroniser les bulles
+**Design V1 — Glacé / Apple / Premium (branche main) :**
+- Background anthracite (#303030), system font stack Apple, constellation canvas, avatar 3D scroll-locked, bulles organiques contact
 
-**Scroll indicator (Hero):**
-- Position ajustable dans `src/components/sections/Hero.tsx` ligne ~63
-- Utilise `style={{ bottom: '40px' }}` — modifier la valeur pour ajuster
-- Visible au chargement, disparait apres rotation avatar
+**Design V2 — Dark Luminous (branche v2-dark-luminous) :**
+- Background #050508 (quasi-noir)
+- Shader aurora Three.js plein écran (FBM noise, 35 bandes lumineuses)
+- Starfield 3000 particules (fixed, visible sur tout le site)
+- Orbes wireframe 3D avec glow atmosphérique fresnel + color cycling (5 couleurs par orbe)
+- GlowCards avec système data-glow complet (tracking curseur global, ::before/::after border glow, inner blur)
+- Carousel 3D projets (perspective, rotateY ±15°, navigation clavier)
+- Typo Space Grotesk (géométrique, futuriste)
+- Tokens CSS : --accent-violet #7850ff, --accent-cyan #00c8ff, --accent-rose #ff3c78
+- Single-page scroll : Hero (orbes liens) → Projets (carousel) → Skills (GlowCards) → Contact (GlowCards)
+- Pages détail projet : InnerOrb (wireframe vu de l'intérieur) + BackButton
 
 ## 🎯 Next Immediate Action
 
-**Continuer la refonte Phase 5 :**
+**V2 (branche v2-dark-luminous) :**
+1. **Polish visuel** — ajuster positions orbes, responsive mobile, tailles
+2. **Tests responsive mobile/tablet**
+3. **Performance** — vérifier FPS shader sur mobile, lazy load Three.js
+4. **Deployer v2 sur Vercel** (ou preview branch)
 
-1. ~~**Compléter le projet Hackathon Payfit SEO**~~ ✅ DONE
-2. **Ajouter screenshots Oppy** — l'utilisateur fournira des captures supplémentaires
-3. **Vérifier cohérence DA** — header, footer, 404 pages (encore en style neo-brutalist ?)
-4. **Compresser payfit-presentation.pdf** (28Mo actuellement, lourd pour Vercel)
-5. **Tests responsive mobile/tablet**
-6. **Lighthouse performance audit**
-7. **Deployer sur Vercel**
+**V1 (branche main) :**
+- Stable, rien à faire sauf si besoin de hotfix
 
 ## 🔧 Performance Guidelines
 
@@ -416,6 +417,7 @@ Valeurs recommandées:
 
 ---
 
-**Last updated:** 2026-03-18
-**Status:** Phase 5 In Progress — DA glacé/Apple, constellation bg, couleurs accent projets, 60/60 icônes tech
-**Next:** Screenshots Oppy, cohérence DA (header/footer/404), compresser PDF Payfit, responsive, déployer
+**Last updated:** 2026-04-08
+**Status:** V2 en cours sur branche `v2-dark-luminous` — single-page scroll, shader aurora, orbes wireframe, GlowCards, carousel 3D
+**V1 stable sur `main`**
+**Next:** Polish v2 (responsive, perf), puis déployer
