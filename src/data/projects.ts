@@ -296,7 +296,64 @@ export const projects: Project[] = [
       'Coût opérationnel de 0.30€/mois en appels API',
     ],
   },
-  // PROJECT 5 - Oppy (Hackathon Gemini)
+  // PROJECT 5 - DataGouv Prospection B2B
+  {
+    id: 'datagouv-prospection',
+    title: 'DataGouv Prospection B2B',
+    description:
+      'Outil de prospection B2B exploitant les données ouvertes françaises avec chatbot Gemini, carte interactive Leaflet et CRM intégré. Recherche par conversation naturelle.',
+    longDescription:
+      'DataGouv Prospection B2B est un outil conçu pour les commerciaux non-techniques qui souhaitent exploiter les données ouvertes françaises pour leur prospection. L\'application combine l\'API Recherche Entreprises et le protocole MCP DataGouv pour enrichir les fiches entreprises avec des datasets publics (subventions, marchés publics, données financières). Un chatbot Gemini permet de rechercher des entreprises en langage naturel ("trouve-moi des boulangeries à Lyon avec plus de 10 salariés"). Le CRM intégré permet d\'organiser les prospects en listes, de les exporter en CSV/Excel, et de suivre l\'activité via un dashboard avec KPIs en temps réel.',
+    tags: ['Next.js', 'TypeScript', 'Gemini', 'SQLite', 'Leaflet'],
+    thumbnail: '/projects/datagouv-thumb.png',
+    media: [
+      {
+        type: 'image',
+        url: '/projects/datagouv-thumb.png',
+        caption: 'Interface de recherche avec carte interactive',
+      },
+      {
+        type: 'image',
+        url: '/projects/datagouv-1.png',
+        caption: 'Chatbot Gemini — recherche en langage naturel',
+      },
+    ],
+    githubUrl: 'https://github.com/solanathouu/mcp-gouv',
+    featured: true,
+    year: '2026',
+    role: 'Full-Stack Development',
+    technologies: [
+      {
+        category: 'Frontend',
+        items: ['Next.js 15', 'TypeScript', 'Tailwind CSS', 'shadcn/ui', 'Leaflet', 'Recharts'],
+      },
+      {
+        category: 'Backend & Data',
+        items: ['SQLite', 'Drizzle ORM', 'API Routes (App Router)', 'SSE Streaming'],
+      },
+      {
+        category: 'IA',
+        items: ['Google Gemini 2.0 Flash', 'Interprétation NL', 'Synthèse contextuelle'],
+      },
+      {
+        category: 'APIs & Protocoles',
+        items: ['API Recherche Entreprises', 'MCP DataGouv', 'Open Data français'],
+      },
+    ],
+    challenges: [
+      'Intégrer le protocole MCP DataGouv pour enrichir les fiches entreprises avec des datasets publics en temps réel',
+      'Implémenter un chatbot SSE streaming avec Gemini qui interprète les requêtes en langage naturel et les convertit en filtres de recherche',
+      'Construire un cache intelligent SQLite avec TTL de 7 jours pour éviter de surcharger les APIs publiques',
+      'Combiner carte Leaflet interactive et résultats de recherche avec géolocalisation en temps réel',
+    ],
+    outcomes: [
+      '4 pages complètes : recherche, chatbot, listes, dashboard',
+      '10 routes API avec cache, export et streaming SSE',
+      '34 tests unitaires — build production clean',
+      'Score Rodin 7/10 après 2 audits qualité',
+    ],
+  },
+  // PROJECT 6 - Oppy (Hackathon Gemini)
   {
     id: 'oppy',
     title: 'Oppy — Hackathon Gemini 3',
