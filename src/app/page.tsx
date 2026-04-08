@@ -1,3 +1,5 @@
+'use client';
+
 import dynamic from 'next/dynamic';
 import HubName from '@/components/hub/HubName';
 import QuickLinks from '@/components/hub/QuickLinks';

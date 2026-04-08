@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio V2 — Design Overview</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cabinet+Grotesk:wght@700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #050508;
+    color: #e8e8f0;
+    font-family: 'Space Grotesk', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .page-header {
+    padding: 40px 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .page-header h1 {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .page-header .badge {
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: rgba(120,80,255,0.15);
+    color: #a78bfa;
+    letter-spacing: 0.05em;
+  }
+
+  /* ============ SECTION LAYOUT ============ */
+  .section {
+    padding: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .section-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+    max-width: 600px;
+    margin-bottom: 40px;
+  }
+
+  /* ============ HUB MOCKUP ============ */
+  .hub-mockup {
+    width: 100%;
+    height: 500px;
+    border-radius: 16px;
+    background: radial-gradient(ellipse at 50% 40%, rgba(60,20,120,0.3) 0%, rgba(5,5,8,1) 70%);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* Aurora shader simulation */
+  .hub-mockup::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 600px 200px at 30% 60%, rgba(100,60,255,0.12) 0%, transparent 100%),
+      radial-gradient(ellipse 400px 300px at 70% 40%, rgba(0,180,255,0.08) 0%, transparent 100%),
+      radial-gradient(ellipse 300px 200px at 50% 70%, rgba(255,0,120,0.06) 0%, transparent 100%);
+    animation: auroraShift 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes auroraShift {
+    0% { opacity: 0.6; transform: translateX(-20px); }
+    100% { opacity: 1; transform: translateX(20px); }
+  }
+
+  /* Stars */
+  .stars {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.2), transparent),
+      radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 15% 85%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,0.35), transparent),
+      radial-gradient(1px 1px at 45% 45%, rgba(255,255,255,0.25), transparent),
+      radial-gradient(1px 1px at 60% 30%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 25% 70%, rgba(255,255,255,0.3), transparent);
+  }
+
+  /* Center name */
+  .hub-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 3;
+  }
+
+  .hub-name h2 {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #fff 40%, #a78bfa 70%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 6px;
+  }
+
+  .hub-name p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* Orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(.4,2,.3,1), box-shadow 0.4s;
+  }
+
+  .orb:hover {
+    transform: scale(1.15);
+  }
+
+  .orb-projects {
+    width: 100px; height: 100px;
+    top: 18%; left: 22%;
+    background: radial-gradient(circle at 35% 35%, rgba(120,80,255,0.5), rgba(120,80,255,0.1) 70%);
+    box-shadow: 0 0 40px rgba(120,80,255,0.3), inset 0 0 20px rgba(120,80,255,0.2);
+    animation: float1 6s ease-in-out infinite;
+  }
+
+  .orb-skills {
+    width: 90px; height: 90px;
+    top: 22%; right: 20%;
+    background: radial-gradient(circle at 35% 35%, rgba(0,200,255,0.5), rgba(0,200,255,0.1) 70%);
+    box-shadow: 0 0 40px rgba(0,200,255,0.3), inset 0 0 20px rgba(0,200,255,0.2);
+    animation: float2 7s ease-in-out infinite;
+  }
+
+  .orb-contact {
+    width: 85px; height: 85px;
+    bottom: 20%; left: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle at 35% 35%, rgba(255,60,120,0.5), rgba(255,60,120,0.1) 70%);
+    box-shadow: 0 0 40px rgba(255,60,120,0.3), inset 0 0 20px rgba(255,60,120,0.2);
+    animation: float3 5.5s ease-in-out infinite;
+  }
+
+  .orb span {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.05em;
+  }
+
+  @keyframes float1 {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-12px) translateX(5px); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-8px) translateX(-7px); }
+  }
+  @keyframes float3 {
+    0%, 100% { transform: translateX(-50%) translateY(0px); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+  }
+
+  /* Quick links */
+  .quick-links {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    display: flex;
+    gap: 14px;
+    z-index: 3;
+  }
+
+  .quick-link {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    transition: all 0.3s;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+  }
+
+  .quick-link:hover {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    box-shadow: 0 0 16px rgba(255,255,255,0.1);
+  }
+
+  /* ============ CAROUSEL MOCKUP ============ */
+  .carousel-mockup {
+    width: 100%;
+    height: 420px;
+    border-radius: 16px;
+    background: radial-gradient(ellipse at 50% 80%, rgba(30,10,60,0.4) 0%, rgba(5,5,8,1) 70%);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+  }
+
+  .carousel-card {
+    position: absolute;
+    width: 320px;
+    height: 300px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(.4,2,.3,1);
+  }
+
+  .carousel-card.center {
+    z-index: 3;
+    transform: translateX(0) scale(1) rotateY(0deg);
+    box-shadow: 0 0 60px rgba(120,80,255,0.15);
+  }
+
+  .carousel-card.left {
+    z-index: 2;
+    transform: translateX(-280px) scale(0.85) rotateY(15deg);
+    opacity: 0.7;
+  }
+
+  .carousel-card.right {
+    z-index: 2;
+    transform: translateX(280px) scale(0.85) rotateY(-15deg);
+    opacity: 0.7;
+  }
+
+  .carousel-card-inner {
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(12px);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .carousel-card-img {
+    flex: 1;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(120,80,255,0.15), rgba(0,180,255,0.1));
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+  }
+
+  .carousel-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .carousel-card-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.5;
+  }
+
+  .carousel-card-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .carousel-card-tags span {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* Nav arrows */
+  .carousel-nav {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 16px;
+    z-index: 5;
+  }
+
+  .carousel-btn {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgba(255,255,255,0.6);
+    font-size: 16px;
+    transition: all 0.3s;
+    backdrop-filter: blur(8px);
+  }
+
+  .carousel-btn:hover {
+    background: rgba(120,80,255,0.2);
+    border-color: rgba(120,80,255,0.4);
+    color: #fff;
+  }
+
+  /* ============ GLOW CARD DEMO ============ */
+  .glow-demo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .glow-card {
+    height: 200px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px);
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .glow-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), var(--glow-color) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+
+  .glow-card:hover::before {
+    opacity: 1;
+  }
+
+  .glow-card:hover {
+    border-color: rgba(255,255,255,0.12);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+
+  .glow-card.purple { --glow-color: rgba(120,80,255,0.08); }
+  .glow-card.blue { --glow-color: rgba(0,180,255,0.08); }
+  .glow-card.pink { --glow-color: rgba(255,60,120,0.08); }
+
+  .glow-card .icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .glow-card h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .glow-card p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ============ TRANSITION DEMO ============ */
+  .transition-demo {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .transition-frame {
+    height: 280px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .transition-frame.before {
+    background: radial-gradient(ellipse at 50% 40%, rgba(60,20,120,0.3), #050508 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .transition-frame.after {
+    background: #050508;
+    padding: 24px;
+  }
+
+  .transition-orb {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, rgba(120,80,255,0.6), rgba(120,80,255,0.1) 70%);
+    box-shadow: 0 0 50px rgba(120,80,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.8);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 50px rgba(120,80,255,0.4); }
+    50% { box-shadow: 0 0 80px rgba(120,80,255,0.6); }
+  }
+
+  .transition-arrow {
+    text-align: center;
+    font-size: 24px;
+    color: rgba(255,255,255,0.2);
+    animation: arrowPulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes arrowPulse {
+    0%, 100% { opacity: 0.3; transform: translateX(0); }
+    50% { opacity: 0.8; transform: translateX(4px); }
+  }
+
+  .after-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .after-header .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #7850ff;
+    box-shadow: 0 0 12px rgba(120,80,255,0.5);
+  }
+
+  .after-header span {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .after-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .after-card {
+    height: 80px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 12px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ============ TECH STACK ============ */
+  .tech-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  .tech-chip {
+    padding: 8px 16px;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .tech-chip .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+  }
+
+  .tech-chip .dot.purple { background: #a78bfa; }
+  .tech-chip .dot.blue { background: #38bdf8; }
+  .tech-chip .dot.green { background: #4ade80; }
+  .tech-chip .dot.orange { background: #fb923c; }
+
+  /* ============ FOOTER ============ */
+  .design-footer {
+    padding: 40px 60px;
+    text-align: center;
+    color: rgba(255,255,255,0.2);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Portfolio V2 — Design Spec</h1>
+  <span class="badge">Dark Luminous</span>
+</div>
+
+<!-- SECTION 1: Hub Central -->
+<div class="section">
+  <div class="section-label">01 — Page d'accueil</div>
+  <div class="section-title">Hub Central</div>
+  <div class="section-desc">
+    Shader aurora/anneaux chromatiques en plein ecran. Ton nom au centre en gradient lumineux.
+    3 orbes flottantes avec glow atmospherique (Projets, Competences, Contact).
+    4 quick-links en bas (CV, Mail, GitHub, LinkedIn).
+  </div>
+  <div class="hub-mockup">
+    <div class="stars"></div>
+    <div class="hub-name">
+      <h2>Nathan Skwarek</h2>
+      <p>Data Analyst & Developer</p>
+    </div>
+    <div class="orb orb-projects"><span>Projets</span></div>
+    <div class="orb orb-skills"><span>Skills</span></div>
+    <div class="orb orb-contact"><span>Contact</span></div>
+    <div class="quick-links">
+      <div class="quick-link" title="CV">CV</div>
+      <div class="quick-link" title="Email">@</div>
+      <div class="quick-link" title="GitHub">GH</div>
+      <div class="quick-link" title="LinkedIn">in</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: Transition -->
+<div class="section">
+  <div class="section-label">02 — Transition orbe → page</div>
+  <div class="section-title">Zoom-In Immersif</div>
+  <div class="section-desc">
+    Clic sur une orbe → elle grossit et avale l'ecran (scale + opacity).
+    Le shader s'attenue en fond. La page de destination apparait avec le contenu.
+  </div>
+  <div class="transition-demo">
+    <div class="transition-frame before">
+      <div class="transition-orb">Projets</div>
+    </div>
+    <div class="transition-arrow">→</div>
+    <div class="transition-frame after">
+      <div class="after-header">
+        <div class="dot"></div>
+        <span>Projets</span>
+      </div>
+      <div class="after-cards">
+        <div class="after-card">LaBonneNote<br>RAG Chatbot</div>
+        <div class="after-card">Tube<br>Metro App</div>
+        <div class="after-card">Scraper B2B<br>Data Pipeline</div>
+        <div class="after-card">PayFit SEO<br>Automation</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: Projects Carousel -->
+<div class="section">
+  <div class="section-label">03 — Page Projets</div>
+  <div class="section-title">Carousel 3D</div>
+  <div class="section-desc">
+    Les projets sont presentes dans un carousel avec perspective 3D.
+    Carte active au centre en grand, adjacentes en retrait avec rotateY.
+    Description animee mot par mot (blur → clear). Navigation fleches + clavier.
+  </div>
+  <div class="carousel-mockup">
+    <div class="carousel-card left">
+      <div class="carousel-card-inner">
+        <div class="carousel-card-img">🔍</div>
+        <div class="carousel-card-title">Scraper B2B</div>
+        <div class="carousel-card-desc">+8800 produits IT</div>
+      </div>
+    </div>
+    <div class="carousel-card center">
+      <div class="carousel-card-inner">
+        <div class="carousel-card-img">🎓</div>
+        <div class="carousel-card-title">LaBonneNote</div>
+        <div class="carousel-card-desc">Assistant educatif IA avec chatbot RAG et quiz auto-generes</div>
+        <div class="carousel-card-tags">
+          <span>Python</span>
+          <span>FastAPI</span>
+          <span>ChromaDB</span>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-card right">
+      <div class="carousel-card-inner">
+        <div class="carousel-card-img">🚇</div>
+        <div class="carousel-card-title">Tube</div>
+        <div class="carousel-card-desc">Metro parisien</div>
+      </div>
+    </div>
+    <div class="carousel-nav">
+      <div class="carousel-btn">←</div>
+      <div class="carousel-btn">→</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: Skills & Detail pages -->
+<div class="section">
+  <div class="section-label">04 — Pages Skills & Contact</div>
+  <div class="section-title">GlowCards Interactives</div>
+  <div class="section-desc">
+    Cartes avec spotlight radial qui suit le curseur. Bordures lumineuses reactives.
+    Skills groupes par categorie. Contact avec bulles/liens lumineux.
+  </div>
+  <div class="glow-demo">
+    <div class="glow-card purple">
+      <div class="icon">🐍</div>
+      <h4>Langages</h4>
+      <p>Python, SQL, JavaScript, Anglais</p>
+    </div>
+    <div class="glow-card blue">
+      <div class="icon">📊</div>
+      <h4>Data & Analyse</h4>
+      <p>Excel, Scraping, Dataiku, Power BI, Tableau</p>
+    </div>
+    <div class="glow-card pink">
+      <div class="icon">🛠</div>
+      <h4>Outils</h4>
+      <p>Git, GitHub, VS Code, N8N, Make, Notion</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: Tech Stack -->
+<div class="section">
+  <div class="section-label">05 — Stack technique</div>
+  <div class="section-title">Technologies V2</div>
+  <div class="section-desc">
+    Meme base Next.js + TypeScript + Tailwind. Ajout de Three.js pour les shaders et les orbes 3D.
+  </div>
+  <div class="tech-row">
+    <div class="tech-chip"><span class="dot blue"></span> Next.js 14</div>
+    <div class="tech-chip"><span class="dot blue"></span> TypeScript</div>
+    <div class="tech-chip"><span class="dot blue"></span> Tailwind CSS</div>
+    <div class="tech-chip"><span class="dot purple"></span> Three.js</div>
+    <div class="tech-chip"><span class="dot purple"></span> Framer Motion</div>
+    <div class="tech-chip"><span class="dot green"></span> React Icons</div>
+    <div class="tech-chip"><span class="dot orange"></span> Space Grotesk</div>
+  </div>
+</div>
+
+<!-- SECTION 6: Typography -->
+<div class="section">
+  <div class="section-label">06 — Typographie</div>
+  <div class="section-title" style="font-family: 'Space Grotesk', sans-serif;">Space Grotesk</div>
+  <div class="section-desc">
+    Geometrique, technique, lisible. Poids 300-700. Letterspacing serre sur les titres (-0.03em),
+    aere sur les labels (0.15em). Parfait pour l'ambiance futuriste/premium.
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+    <div style="font-size: 36px; font-weight: 700; letter-spacing: -0.03em; background: linear-gradient(135deg, #fff 40%, #a78bfa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Nathan Skwarek</div>
+    <div style="font-size: 24px; font-weight: 500; color: rgba(255,255,255,0.7);">Projets & Competences</div>
+    <div style="font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.4); line-height: 1.6;">Assistant educatif intelligent pour collegiens avec chatbot RAG, bibliotheque de 24 000+ articles et quiz auto-generes.</div>
+    <div style="font-size: 11px; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.25);">Data Analyst & Developer</div>
+  </div>
+</div>
+
+<div class="design-footer">
+  Portfolio V2 — Dark Luminous — Design Spec — 2026
+</div>
+
+</body>
+</html>
