@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function SkillsPage() {
   return (
-    <PageShell title="Compétences" subtitle="Skills">
+    <PageShell title="Compétences" subtitle="Skills" orbColor="#00c8ff">
       <SkillsGrid />
     </PageShell>
   );

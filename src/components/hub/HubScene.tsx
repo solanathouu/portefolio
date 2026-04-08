@@ -100,6 +100,8 @@ export default function HubScene() {
       color: 0xffffff,
       size: 0.7,
       sizeAttenuation: true,
+      transparent: true,
+      opacity: 1,
     });
     const stars = new THREE.Points(starsGeometry, starsMaterial);
     scene.add(stars);
@@ -165,41 +167,45 @@ export default function HubScene() {
       const now = Date.now();
       const time = now * 0.001;
 
-      // Handle zoom-in transition
+      // Handle zoom-in transition — camera flies INTO the clicked orb
       const tr = transitionRef.current;
       if (tr?.active) {
         const elapsed = now - tr.startTime;
         const progress = Math.min(elapsed / TRANSITION_DURATION, 1);
-        // Ease out cubic
-        const eased = 1 - Math.pow(1 - progress, 3);
+        // Ease in-out cubic
+        const eased = progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
 
         const targetOrb = orbs[tr.orbIndex];
+        const orbPos = targetOrb.wireframe.position;
 
-        // Scale the clicked orb up massively
-        const scale = 1 + eased * 18;
-        targetOrb.wireframe.scale.set(scale, scale, scale);
-        targetOrb.atmosphere.scale.set(scale, scale, scale);
+        // Camera flies towards the orb center — zooming INTO it
+        const startZ = 8;
+        camera.position.x = orbPos.x * eased;
+        camera.position.y = orbPos.y * eased;
+        camera.position.z = startZ - (startZ - orbPos.z) * eased;
+        camera.lookAt(orbPos);
 
-        // Move orb towards camera
-        targetOrb.wireframe.position.z = eased * 6;
-        targetOrb.atmosphere.position.z = eased * 6;
-
-        // Fade other orbs out
+        // Fade out non-target orbs
         orbs.forEach((orb, i) => {
           if (i !== tr.orbIndex) {
             const mat = orb.wireframe.material as THREE.MeshBasicMaterial;
-            mat.opacity = Math.max(0, 0.5 * (1 - eased * 2));
+            mat.opacity = Math.max(0, 0.5 * (1 - eased * 3));
             const glowMat = orb.atmosphere.material as THREE.ShaderMaterial;
-            glowMat.opacity = Math.max(0, 1 - eased * 2);
+            glowMat.opacity = Math.max(0, 1 - eased * 3);
           }
         });
 
-        // Flash overlay to white/color then fade
+        // Fade stars
+        starsMaterial.opacity = 1 - eased;
+
+        // Subtle overlay at the very end for smooth page transition
         if (overlayRef.current) {
-          if (progress < 0.6) {
-            overlayRef.current.style.opacity = String(eased * 0.8);
-          } else {
-            overlayRef.current.style.opacity = '1';
+          const fadeStart = 0.7;
+          if (progress > fadeStart) {
+            const fadeProgress = (progress - fadeStart) / (1 - fadeStart);
+            overlayRef.current.style.opacity = String(fadeProgress);
           }
         }
 
@@ -271,11 +277,11 @@ export default function HubScene() {
   return (
     <>
       <div ref={containerRef} className="fixed inset-0 z-10" />
-      {/* Transition overlay — flashes the orb color then goes black */}
+      {/* Transition overlay — subtle fade at the very end for smooth handoff */}
       <div
         ref={overlayRef}
-        className="fixed inset-0 z-40 pointer-events-none bg-black"
-        style={{ opacity: 0, transition: 'none' }}
+        className="fixed inset-0 z-40 pointer-events-none"
+        style={{ opacity: 0, background: 'var(--bg)' }}
       />
     </>
   );

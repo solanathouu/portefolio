@@ -1,25 +1,36 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
-import ShaderBackground from '@/components/three/ShaderBackground';
 import BackButton from '@/components/ui/BackButton';
+
+const InnerOrb = dynamic(
+  () => import('@/components/three/InnerOrb'),
+  { ssr: false }
+);
 
 interface PageShellProps {
   children: React.ReactNode;
   title: string;
   subtitle?: string;
+  orbColor?: string;
 }
 
-export default function PageShell({ children, title, subtitle }: PageShellProps) {
+export default function PageShell({
+  children,
+  title,
+  subtitle,
+  orbColor = '#7850ff',
+}: PageShellProps) {
   return (
     <>
-      <ShaderBackground opacity={0.15} />
+      <InnerOrb color={orbColor} />
       <BackButton />
       <motion.main
         className="relative z-10 min-h-screen pt-24 pb-16 px-6"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
       >
         <div className="max-w-6xl mx-auto">
           <header className="mb-16 text-center">

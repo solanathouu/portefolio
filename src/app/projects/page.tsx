@@ -10,7 +10,7 @@ const ProjectCarousel = dynamic(
 
 export default function ProjectsPage() {
   return (
-    <PageShell title="Projets" subtitle="Portfolio">
+    <PageShell title="Projets" subtitle="Portfolio" orbColor="#7850ff">
       <ProjectCarousel />
     </PageShell>
   );

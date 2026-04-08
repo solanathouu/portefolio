@@ -5,9 +5,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import type { Project } from '@/data/projects';
+import dynamic from 'next/dynamic';
 import GlowCard from '@/components/ui/GlowCard';
 import BackButton from '@/components/ui/BackButton';
-import ShaderBackground from '@/components/three/ShaderBackground';
+
+const InnerOrb = dynamic(
+  () => import('@/components/three/InnerOrb'),
+  { ssr: false }
+);
 
 interface ProjectDetailProps {
   project: Project;
@@ -24,7 +29,7 @@ export default function ProjectDetail({
 
   return (
     <>
-      <ShaderBackground opacity={0.1} />
+      <InnerOrb color="#7850ff" />
       <BackButton />
       <motion.main
         className="relative z-10 min-h-screen pt-24 pb-16 px-6"

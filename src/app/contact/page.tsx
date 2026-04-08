@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <PageShell title="Contact" subtitle="Get in touch">
+    <PageShell title="Contact" subtitle="Get in touch" orbColor="#ff3c78">
       <ContactLinks />
     </PageShell>
   );
