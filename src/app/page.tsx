@@ -21,10 +21,7 @@ const HeroOrbs = dynamic(
   { ssr: false }
 );
 
-const ProjectCarousel = dynamic(
-  () => import('@/components/projects/ProjectCarousel'),
-  { ssr: false }
-);
+import ProjectBentoGrid from '@/components/projects/ProjectBentoGrid';
 
 export default function Home() {
   return (
@@ -49,7 +46,7 @@ export default function Home() {
       <section className="relative z-10 py-24 px-6" id="projects">
         <div className="max-w-6xl mx-auto">
           <SectionHeader title="Projets" subtitle="Portfolio" />
-          <ProjectCarousel />
+          <ProjectBentoGrid />
         </div>
       </section>
 
