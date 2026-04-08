@@ -86,26 +86,6 @@ export default function HeroOrbs() {
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
 
-    // Starfield
-    const starsGeometry = new THREE.BufferGeometry();
-    const starsCount = 3000;
-    const positions = new Float32Array(starsCount * 3);
-    for (let i = 0; i < starsCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 2000;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 2000;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 2000;
-    }
-    starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const starsMaterial = new THREE.PointsMaterial({
-      color: 0xffffff,
-      size: 0.7,
-      sizeAttenuation: true,
-      transparent: true,
-      opacity: 1,
-    });
-    const stars = new THREE.Points(starsGeometry, starsMaterial);
-    scene.add(stars);
-
     // Create 4 link orbs
     const orbs = LINK_ORBS.map((cfg) => {
       const x = Math.cos(cfg.angle) * cfg.distance;
@@ -176,7 +156,6 @@ export default function HeroOrbs() {
         orb.atmosphere.rotation.y += 0.0005;
       });
 
-      stars.rotation.y += 0.0001;
       renderer.render(scene, camera);
     };
     animate();
@@ -197,8 +176,6 @@ export default function HeroOrbs() {
         container.removeChild(renderer.domElement);
       }
       renderer.dispose();
-      starsGeometry.dispose();
-      starsMaterial.dispose();
       orbs.forEach((o) => {
         o.wireframe.geometry.dispose();
         (o.wireframe.material as THREE.Material).dispose();

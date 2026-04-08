@@ -11,6 +11,11 @@ const ShaderBackground = dynamic(
   { ssr: false }
 );
 
+const Starfield = dynamic(
+  () => import('@/components/three/Starfield'),
+  { ssr: false }
+);
+
 const HeroOrbs = dynamic(
   () => import('@/components/hub/HeroOrbs'),
   { ssr: false }
@@ -25,6 +30,7 @@ export default function Home() {
   return (
     <>
       <ShaderBackground />
+      <Starfield />
 
       {/* Hero — full screen with orbs */}
       <section className="relative h-screen w-full overflow-hidden">
