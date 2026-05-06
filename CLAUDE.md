@@ -335,15 +335,27 @@ portfolio/
 
 ## 🎯 Next Immediate Action
 
-**Continuer la refonte Phase 5 :**
+**V1 livrée et pushée (commit `d44b3fd`).** Restent :
 
-1. ~~**Compléter le projet Hackathon Payfit SEO**~~ ✅ DONE
-2. **Ajouter screenshots Oppy** — l'utilisateur fournira des captures supplémentaires
-3. **Vérifier cohérence DA** — header, footer, 404 pages (encore en style neo-brutalist ?)
-4. **Compresser payfit-presentation.pdf** (28Mo actuellement, lourd pour Vercel)
-5. **Tests responsive mobile/tablet**
-6. **Lighthouse performance audit**
-7. **Deployer sur Vercel**
+1. **Logos manquants à finaliser** : DataGouv (placeholder en place via Marianne), LaBonneNote, Oppy — patterns prompts dans le journal de session 2026-05-06
+2. **URLs LinkedIn** à remplir dans `linkedinUrl?` quand les drafts sont publiés (Mirakl UC1, SwapJob, DataGouv)
+3. **Supprimer manuellement** `obsidian-vault/linkedin/post-hackathon-mirakl-victoire.md` (sandbox bloqué)
+4. **Compresser** `payfit-presentation.pdf` (28 Mo, trop lourd pour Vercel)
+5. **Tests responsive** mobile/tablet
+6. **Lighthouse** perf + a11y audit
+7. **Deploy Vercel**
+
+## 🆕 Visual Identity Helpers (V1)
+
+Ajouts dans `Project` interface pour personnaliser le rendu cover par projet :
+- `coverFit?: 'cover' | 'contain'` — `contain` pour les logos (centré + padding)
+- `coverBackground?: string` — couleur/gradient de fond derrière le logo (matche les bords du logo pour seam invisible)
+- `coverPadding?: { card?: number; hero?: number }` — override du padding (default 40 / 60 px)
+
+Patterns appliqués :
+- **Logos en cover** : Mirakl (`mirakl-logo.png`), SwapJob (`replit-color.png` sur dark navy), Eugenia (`eugenia-logo.png` sur `#7f050d`), Tube (`tube.png` sur blanc, padding 70/100), DataGouv (`datagouv-marianne.png` sur blanc), B2B Scraper (`scraper-miniature.png` sur `#0B182D`), PayFit (`payfit-logo.png` sur blanc)
+- **Captures de l'app** descendues en `media[1+]` (images supplémentaires sur la page détail)
+- **Placeholders** créés via Python+Pillow quand pas de logo (Tube, DataGouv, Scraper) — remplacés au fur et à mesure
 
 ## 🔧 Performance Guidelines
 
