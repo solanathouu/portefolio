@@ -16,7 +16,7 @@ import {
   FaDatabase, FaServer, FaCloud, FaSpider, FaGlobe, FaFileExport,
   FaLink, FaShieldAlt, FaKey, FaRobot, FaProjectDiagram, FaCogs,
   FaCode, FaSearch, FaBolt, FaBrain, FaNewspaper, FaImages,
-  FaSyncAlt, FaIcons, FaHdd, FaPencilAlt, FaMagic,
+  FaSyncAlt, FaIcons, FaHdd, FaPencilAlt, FaMagic, FaLinkedin,
 } from 'react-icons/fa';
 import Image from 'next/image';
 import type { IconType } from 'react-icons';
@@ -183,6 +183,9 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
               borderRadius: '20px',
               overflow: 'hidden',
               marginBottom: '48px',
+              background: project.coverFit === 'contain'
+                ? (project.coverBackground ?? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)')
+                : undefined,
             }}
           >
             <Image
@@ -190,16 +193,21 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
               alt={project.title}
               fill
               sizes="900px"
-              style={{ objectFit: 'cover' }}
+              style={{
+                objectFit: project.coverFit ?? 'cover',
+                padding: project.coverFit === 'contain' ? `${project.coverPadding?.hero ?? 60}px` : 0,
+              }}
               priority
             />
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background: `linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%), linear-gradient(135deg, ${accent}15 0%, transparent 40%)`,
-              }}
-            />
+            {project.coverFit !== 'contain' && (
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: `linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%), linear-gradient(135deg, ${accent}15 0%, transparent 40%)`,
+                }}
+              />
+            )}
           </div>
         )}
 
@@ -299,6 +307,32 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
               >
                 <FiExternalLink style={{ width: 18, height: 18 }} />
                 Voir le projet
+              </a>
+            )}
+            {project.linkedinUrl && (
+              <a
+                href={project.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '10px 24px',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  color: '#ffffff',
+                  borderRadius: '12px',
+                  backgroundColor: 'rgba(255,255,255,0.1)',
+                  backdropFilter: 'blur(12px)',
+                  transition: 'background-color 0.3s',
+                  textDecoration: 'none',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.18)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; }}
+              >
+                <FaLinkedin style={{ width: 18, height: 18, color: '#0A66C2' }} />
+                Post LinkedIn
               </a>
             )}
           </div>

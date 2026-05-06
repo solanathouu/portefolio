@@ -51,47 +51,75 @@ export default function Projects() {
           </div>
         </motion.div>
 
-        {/* Bento Grid — inline grid for reliability */}
+        {/* Bento Grid — 9 projets, pattern asymétrique étendu */}
         <div
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
-            gridTemplateRows: '300px 300px 300px 250px',
+            gridTemplateRows: '300px 300px 300px 250px 300px 300px',
             gap: '16px',
           }}
         >
-          {/* Project 1 — left column, spans 2 rows */}
+          {/* P1 (tall) — col 1, rows 1-2 */}
           {projects[0] && (
             <div style={{ gridColumn: '1', gridRow: '1 / 3' }}>
               <ProjectCard project={projects[0]} index={0} />
             </div>
           )}
 
-          {/* Project 2 — right column, row 1 */}
+          {/* P2 — col 2, row 1 */}
           {projects[1] && (
             <div style={{ gridColumn: '2', gridRow: '1' }}>
               <ProjectCard project={projects[1]} index={1} />
             </div>
           )}
 
-          {/* Project 3 — right column, row 2 */}
+          {/* P3 — col 2, row 2 */}
           {projects[2] && (
             <div style={{ gridColumn: '2', gridRow: '2' }}>
               <ProjectCard project={projects[2]} index={2} />
             </div>
           )}
 
-          {/* Project 4 — left column, row 3 */}
+          {/* P4 — col 1, row 3 */}
           {projects[3] && (
             <div style={{ gridColumn: '1', gridRow: '3' }}>
               <ProjectCard project={projects[3]} index={3} />
             </div>
           )}
 
-          {/* Project 5 — right column, row 3 */}
+          {/* P5 — col 2, row 3 */}
           {projects[4] && (
             <div style={{ gridColumn: '2', gridRow: '3' }}>
               <ProjectCard project={projects[4]} index={4} />
+            </div>
+          )}
+
+          {/* P6 (wide) — full width, row 4 */}
+          {projects[5] && (
+            <div style={{ gridColumn: '1 / 3', gridRow: '4' }}>
+              <ProjectCard project={projects[5]} index={5} />
+            </div>
+          )}
+
+          {/* P7 — col 1, row 5 */}
+          {projects[6] && (
+            <div style={{ gridColumn: '1', gridRow: '5' }}>
+              <ProjectCard project={projects[6]} index={6} />
+            </div>
+          )}
+
+          {/* P8 (tall) — col 2, rows 5-6 */}
+          {projects[7] && (
+            <div style={{ gridColumn: '2', gridRow: '5 / 7' }}>
+              <ProjectCard project={projects[7]} index={7} />
+            </div>
+          )}
+
+          {/* P9 — col 1, row 6 */}
+          {projects[8] && (
+            <div style={{ gridColumn: '1', gridRow: '6' }}>
+              <ProjectCard project={projects[8]} index={8} />
             </div>
           )}
         </div>

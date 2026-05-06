@@ -28,12 +28,19 @@ interface Project {
   id: string
   title: string
   description: string
+  longDescription?: string
   tags: string[]
   thumbnail: string
-  media: { type: 'image' | 'video' | 'gif', url: string }[]
+  media: { type: 'image' | 'video' | 'gif', url: string, caption?: string, linkUrl?: string }[]
   demoUrl?: string
   githubUrl?: string
+  linkedinUrl?: string  // Lien post LinkedIn associé
   featured: boolean
+  year?: string
+  role?: string
+  technologies?: { category: string, items: string[] }[]
+  challenges?: string[]
+  outcomes?: string[]
 }
 ```
 

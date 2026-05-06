@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dossier d'enquête — Eugenia School</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   DOSSIER D'ENQUÊTE — Eugenia School
+   Direction A : papier crème · encre · marqueur rouge · ocre
+   ========================================================= */
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow-x: hidden; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+button { font: inherit; background: none; border: none; cursor: pointer; }
+
+/* ---------- Tokens ---------- */
+:root {
+  --paper: #F5F1E8;
+  --paper-warm: #EFE9D9;
+  --paper-deep: #E5DDC9;
+  --ink: #0A0A0A;
+  --ink-2: #2C2620;
+  --ink-3: #524739;
+  --muted: #7A6D5C;
+  --rule: rgba(10, 10, 10, 0.14);
+  --rule-soft: rgba(10, 10, 10, 0.07);
+  --red: #C8302A;
+  --red-deep: #9E1F1A;
+  --red-soft: rgba(200, 48, 42, 0.10);
+  --ochre: #B88838;
+  --ochre-soft: rgba(184, 136, 56, 0.22);
+  --green: #4A6B3A;
+  --green-soft: rgba(74, 107, 58, 0.10);
+
+  --f-display: 'Fraunces', 'Times New Roman', serif;
+  --f-body: 'Inter Tight', system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --pad-y: clamp(2.5rem, 6vh, 4.5rem);
+  --pad-x: clamp(2rem, 6vw, 6rem);
+  --gap: clamp(0.6rem, 1.2vw, 1.2rem);
+  --gap-l: clamp(1.2rem, 2.4vw, 2.4rem);
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---------- Body ---------- */
+body {
+  font-family: var(--f-body);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: clamp(0.85rem, 1.05vw, 1rem);
+  line-height: 1.55;
+  font-feature-settings: "ss01", "cv01";
+}
+
+/* ---------- 16. Grain overlay ---------- */
+.grain {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 1000;
+  opacity: 0.55; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch' seed='3'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.vignette {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 999;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(40, 30, 15, 0.18) 100%);
+}
+
+
+/* ---------- 18. Scroll progress ---------- */
+.progress {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--rule-soft);
+  z-index: 1200;
+}
+.progress-bar {
+  height: 100%; width: 0;
+  background: var(--red);
+  transition: width 0.4s var(--ease);
+}
+
+/* ---------- Slide base ---------- */
+.slide {
+  position: relative;
+  width: 100vw; height: 100vh; height: 100dvh;
+  scroll-snap-align: start;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: var(--pad-y) var(--pad-x);
+  overflow: hidden;
+  background: var(--paper);
+}
+.slide.warm { background: var(--paper-warm); }
+.slide.deep { background: var(--paper-deep); }
+
+/* Header / footer rules */
+.slide-head, .slide-foot {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+.slide-foot {
+  border-bottom: none;
+  border-top: 1px solid var(--rule);
+  padding-top: 0.6rem; padding-bottom: 0;
+}
+.slide-foot .pageno {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.slide-body {
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: clamp(1rem, 3vh, 2rem) 0;
+  position: relative;
+}
+
+/* ---------- Typography ---------- */
+.kicker {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--red);
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.kicker::before {
+  content: ''; width: 24px; height: 1px;
+  background: var(--red);
+}
+.h-display {
+  font-family: var(--f-display);
+  font-weight: 360;
+  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 1;
+  font-size: clamp(2.4rem, 6.4vw, 5.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.h-display em {
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 60, "WONK" 1;
+  color: var(--ink-2);
+}
+.h-section {
+  font-family: var(--f-display);
+  font-weight: 380;
+  font-variation-settings: "opsz" 144, "WONK" 1;
+  font-size: clamp(1.8rem, 4.4vw, 3.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.h-section em {
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 80;
+  color: var(--ink-2);
+}
+.h-stat {
+  font-family: var(--f-display);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "WONK" 1;
+  font-size: clamp(8rem, 22vw, 18rem);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+}
+.h-card {
+  font-family: var(--f-display);
+  font-weight: 460;
+  font-size: clamp(1.05rem, 1.45vw, 1.35rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.lede {
+  font-family: var(--f-display);
+  font-weight: 360;
+  font-style: italic;
+  font-variation-settings: "opsz" 36, "SOFT" 100;
+  font-size: clamp(1.05rem, 1.55vw, 1.35rem);
+  line-height: 1.45;
+  color: var(--ink-2);
+  max-width: 56ch;
+}
+.mono {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.label {
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.red { color: var(--red); }
+.ochre { color: var(--ochre); }
+.green { color: var(--green); }
+.ink-2 { color: var(--ink-2); }
+.muted { color: var(--muted); }
+
+/* ---------- Marginalia ---------- */
+.margin-note {
+  position: absolute;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--ink-2);
+  max-width: 220px;
+  line-height: 1.5;
+}
+.margin-note.right { right: 2rem; }
+.margin-note.left  { left: 2rem; }
+.margin-note .arrow {
+  display: inline-block;
+  margin-right: 6px;
+  color: var(--red);
+  transform: rotate(-8deg);
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 14px;
+}
+.margin-note .ref {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+@media (max-width: 1000px) { .margin-note { display: none; } }
+
+/* ---------- Crosshair brackets ---------- */
+.bracket {
+  position: relative; display: inline-block;
+  padding: 0.35em 0.6em;
+}
+.bracket::before, .bracket::after {
+  content: '';
+  position: absolute;
+  width: 14px; height: 14px;
+  border: 1px solid var(--red);
+}
+.bracket::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+.bracket::after  { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+/* ---------- Stamp ---------- */
+.stamp {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--f-mono);
+  font-weight: 700;
+  font-size: clamp(0.75rem, 1vw, 0.95rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+  border: 2px solid var(--red);
+  padding: 0.5em 0.9em;
+  background: transparent;
+  position: relative;
+  white-space: nowrap;
+}
+.stamp::before {
+  content: ''; position: absolute;
+  inset: -3px;
+  border: 1px solid var(--red);
+  opacity: 0.4;
+  pointer-events: none;
+}
+.stamp.absolute {
+  position: absolute;
+  z-index: 4;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  border: 1px solid var(--rule);
+  background: rgba(255, 252, 244, 0.4);
+  padding: clamp(0.9rem, 1.6vw, 1.3rem);
+  display: flex; flex-direction: column;
+  gap: 0.6rem;
+  position: relative;
+}
+.card.bordered-red { border-left: 2px solid var(--red); }
+.card.bordered-ochre { border-left: 2px solid var(--ochre); }
+.card.bordered-green { border-left: 2px solid var(--green); }
+.card .verdict {
+  position: absolute;
+  top: 0.8rem; right: 0.8rem;
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border: 1px solid currentColor;
+}
+.card .verdict.faux { color: var(--red); }
+.card .verdict.vrai { color: var(--green); }
+
+/* Card flip */
+.card.flip {
+  transition: transform 0.5s var(--ease), border-color 0.3s, background 0.3s;
+  transform-style: preserve-3d;
+  perspective: 1200px;
+}
+.card.flip:hover {
+  transform: rotateX(-2deg) rotateY(3deg) translateY(-3px);
+  border-color: var(--ink);
+  background: rgba(255, 252, 244, 0.85);
+  box-shadow: 0 8px 24px -12px rgba(40, 30, 15, 0.3);
+}
+
+/* ---------- Tables ---------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(0.78rem, 0.95vw, 0.92rem);
+  font-variant-numeric: tabular-nums;
+}
+th {
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--ink);
+  font-weight: 500;
+}
+td {
+  padding: 0.55rem 0.6rem;
+  border-bottom: 1px solid var(--rule-soft);
+  color: var(--ink-2);
+  vertical-align: top;
+}
+tr:hover td { background: rgba(184, 136, 56, 0.05); }
+td.center, th.center { text-align: center; }
+td.right, th.right { text-align: right; }
+td .neg { color: var(--red); font-weight: 600; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.05em; }
+td .pos { color: var(--green); font-weight: 600; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.05em; }
+td .neu { color: var(--ochre); font-weight: 600; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.05em; }
+
+/* ---------- Bar chart ---------- */
+.bar-list { display: flex; flex-direction: column; gap: 0.6rem; }
+.bar-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 70px;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+}
+.bar-row .bar-name {
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.bar-row .bar-name.highlight { color: var(--red); font-weight: 700; }
+.bar-track {
+  height: 16px;
+  background: var(--rule-soft);
+  position: relative;
+  overflow: hidden;
+}
+.bar-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.bar-fill.red { background: var(--red); }
+.bar-fill.ochre { background: var(--ochre); }
+.bar-fill.green { background: var(--green); }
+.bar-fill.muted { background: var(--muted); }
+.bar-row .bar-val {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ---------- Score bar ---------- */
+.score-bar {
+  display: flex; align-items: baseline; gap: 0.3rem;
+}
+.score-bar .score-n {
+  font-family: var(--f-display);
+  font-weight: 320;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  line-height: 1;
+  color: var(--red);
+  font-variation-settings: "opsz" 144, "WONK" 1;
+}
+.score-bar .score-d {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+/* ---------- Underline draw ---------- */
+.uline {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+.uline svg {
+  position: absolute;
+  left: -2%; right: -2%;
+  bottom: -8px; width: 104%;
+  height: 14px;
+  overflow: visible;
+  pointer-events: none;
+}
+.uline svg path {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 360;
+  stroke-dashoffset: 360;
+}
+
+/* ---------- Highlight sweep ---------- */
+.sweep {
+  position: relative;
+  display: inline-block;
+  padding: 0 4px;
+  z-index: 1;
+}
+.sweep::before {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0.05em;
+  width: 0; height: 0.55em;
+  background: var(--ochre-soft);
+  z-index: -1;
+}
+
+/* ---------- Phases ---------- */
+.phases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  position: relative;
+}
+.phase-card {
+  border: 1px solid var(--rule);
+  padding: 1.1rem 1.2rem;
+  background: var(--paper);
+  position: relative;
+  z-index: 2;
+  display: flex; flex-direction: column; gap: 0.6rem;
+}
+.phase-card .ph-num {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--red);
+  text-transform: uppercase;
+}
+.phase-card.p1 { border-top: 3px solid var(--red); }
+.phase-card.p2 { border-top: 3px solid var(--ochre); }
+.phase-card.p3 { border-top: 3px solid var(--green); }
+.phase-connector {
+  position: absolute;
+  top: 30px; left: 0; right: 0;
+  height: 1px;
+  z-index: 1;
+  pointer-events: none;
+}
+.phase-connector svg {
+  width: 100%; height: 1px;
+  overflow: visible;
+}
+.phase-connector svg line {
+  stroke: var(--rule);
+  stroke-width: 1;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+/* ---------- Specific decoratives ---------- */
+.corner-fold {
+  position: absolute;
+  top: 0; right: 0;
+  width: 56px; height: 56px;
+  background: linear-gradient(225deg, var(--paper-deep) 50%, transparent 50%);
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.rule-h {
+  height: 1px;
+  background: var(--rule);
+}
+.rule-h.thick { height: 2px; background: var(--ink); }
+.rule-h.dashed { background: none; border-top: 1px dashed var(--rule); }
+
+.footnote {
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  line-height: 1.6;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--rule-soft);
+}
+.footnote .num {
+  color: var(--red);
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+/* ---------- Layouts ---------- */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-l); }
+.three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+.four-col { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
+.col-stack { display: flex; flex-direction: column; gap: var(--gap); }
+@media (max-width: 900px) { .two-col, .three-col, .four-col { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .two-col, .three-col, .four-col { grid-template-columns: 1fr; } }
+
+/* ---------- Reveal stagger ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.85s var(--ease) calc(var(--i, 0) * 70ms),
+    transform 0.85s var(--ease) calc(var(--i, 0) * 70ms);
+}
+.in .reveal { opacity: 1; transform: none; }
+
+/* ---------- Bar grow ---------- */
+.in .bar-fill {
+  transform: scaleX(var(--w, 1));
+  transition: transform 1.3s var(--ease-in) calc(0.4s + var(--i, 0) * 90ms);
+}
+
+/* ---------- Underline draw activation ---------- */
+.in .uline svg path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.1s var(--ease-in) 0.5s;
+}
+
+/* ---------- Stamp drop ---------- */
+.stamp.drop {
+  opacity: 0;
+  transform: scale(2.6) rotate(-32deg);
+  transition: opacity 0.5s var(--ease), transform 0.6s var(--ease-spring) 0.4s;
+}
+.in .stamp.drop { opacity: 1; transform: scale(1) rotate(-9deg); }
+.stamp.drop.r2 { transition-delay: 0.6s; }
+
+/* ---------- Glitch flash ---------- */
+@keyframes glitch-flash {
+  0%   { background: transparent; transform: translateX(0); }
+  10%  { background: var(--red-soft); transform: translateX(-2px); }
+  20%  { background: transparent; transform: translateX(3px); }
+  30%  { background: var(--red-soft); transform: translateX(0); }
+  40%  { background: transparent; }
+  100% { background: transparent; transform: translateX(0); }
+}
+.in .glitch { animation: glitch-flash 0.7s var(--ease-in) 0.3s 1; }
+
+/* ---------- Split reveal ---------- */
+.split-l { opacity: 0; transform: translateX(-50px); transition: opacity 0.9s var(--ease) 0.2s, transform 0.9s var(--ease) 0.2s; }
+.split-r { opacity: 0; transform: translateX(50px);  transition: opacity 0.9s var(--ease) 0.2s, transform 0.9s var(--ease) 0.2s; }
+.in .split-l, .in .split-r { opacity: 1; transform: none; }
+
+/* ---------- Highlight sweep activation ---------- */
+.in .sweep::before { width: 100%; transition: width 0.85s var(--ease-in) 0.7s; }
+
+/* ---------- Step lock connector ---------- */
+.in .phase-connector svg line { stroke-dashoffset: 0; transition: stroke-dashoffset 1.6s var(--ease-in) 0.7s; }
+
+/* ---------- Slide-level entry ---------- */
+.slide.crossfade .slide-body { opacity: 0; transform: scale(0.985); transition: opacity 0.7s var(--ease) 0.1s, transform 0.7s var(--ease) 0.1s; }
+.slide.crossfade.in .slide-body { opacity: 1; transform: none; }
+
+.slide.wipe::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  z-index: 5;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  transition: clip-path 1.1s var(--ease) 0.05s;
+  pointer-events: none;
+}
+.slide.wipe.in::after { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+
+/* ---------- Type-on (cover) ---------- */
+.typed { display: inline-block; min-height: 1em; }
+.typed .caret {
+  display: inline-block;
+  width: 0.06em; background: var(--red);
+  margin-left: 0.04em;
+  animation: caret-blink 1s steps(1) infinite;
+  vertical-align: -0.05em;
+}
+@keyframes caret-blink { 0%, 50% { opacity: 1; } 50.1%, 100% { opacity: 0; } }
+.typed.done .caret { display: none; }
+
+/* ---------- Cover specific ---------- */
+.cover-meta {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+.cover-meta .left { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); line-height: 1.7; }
+.cover-meta .right { font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-align: right; line-height: 1.7; }
+.cover-meta .center {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 360;
+  font-size: 13px;
+  color: var(--ink-2);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Hero number layout ---------- */
+.hero-num {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: end;
+  position: relative;
+}
+.hero-num .digits {
+  display: flex; align-items: baseline; gap: 0.6rem;
+  position: relative;
+}
+.hero-num .digits .denom {
+  font-family: var(--f-display);
+  font-weight: 320;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  color: var(--ink-2);
+  letter-spacing: -0.03em;
+}
+.hero-num .desc {
+  display: flex; flex-direction: column;
+  gap: 0.7rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--rule);
+}
+.hero-num .desc .lede { max-width: 32ch; }
+
+/* ---------- Quote / citation ---------- */
+.quote {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 360;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  line-height: 1.18;
+  color: var(--ink);
+  position: relative;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--red);
+  max-width: 32ch;
+}
+.quote::before { content: '« '; color: var(--red); }
+.quote::after { content: ' »'; color: var(--red); }
+
+/* ---------- Metric row ---------- */
+.metric {
+  display: flex; align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.4rem 0;
+}
+.metric .v {
+  font-family: var(--f-display);
+  font-weight: 340;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-variation-settings: "opsz" 144, "WONK" 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.metric .v.red { color: var(--red); }
+.metric .v.green { color: var(--green); }
+.metric .v.ochre { color: var(--ochre); }
+.metric .l {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex: 1;
+  border-bottom: 1px dotted var(--rule);
+  padding-bottom: 4px;
+}
+
+/* ---------- Schema grid ---------- */
+.schema-cell {
+  border: 1px solid var(--rule);
+  padding: 0.8rem;
+  display: flex; flex-direction: column;
+  gap: 0.3rem;
+  text-align: left;
+  background: var(--paper);
+  position: relative;
+}
+.schema-cell .num {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--red);
+  text-transform: uppercase;
+}
+.schema-cell .name {
+  font-family: var(--f-display);
+  font-size: 1rem;
+  font-weight: 460;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.schema-cell .desc {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ---------- Quick-wins fix box ---------- */
+.fix-row {
+  display: grid;
+  grid-template-columns: 32px 1.2fr 1.4fr 0.7fr 0.5fr;
+  gap: 1rem;
+  align-items: start;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.fix-row:last-child { border-bottom: none; }
+.fix-row .fnum {
+  font-family: var(--f-display);
+  font-weight: 320;
+  font-size: 1.6rem;
+  color: var(--red);
+  font-variation-settings: "opsz" 144, "WONK" 1;
+  line-height: 1;
+  font-style: italic;
+}
+.fix-row .fcell {
+  font-size: clamp(0.78rem, 0.9vw, 0.92rem);
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.fix-row .fcell.before { color: var(--red); }
+.fix-row .fcell.after { color: var(--green); }
+.fix-row .fcell.impact strong { color: var(--ink); }
+.fix-row .fcell.time {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ochre);
+  text-transform: uppercase;
+  text-align: right;
+}
+.fix-head {
+  display: grid;
+  grid-template-columns: 32px 1.2fr 1.4fr 0.7fr 0.5fr;
+  gap: 1rem;
+  padding: 0.4rem 0 0.6rem;
+  border-bottom: 1px solid var(--ink);
+}
+.fix-head span {
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- Small bullet list ---------- */
+ul.clean {
+  list-style: none;
+  display: flex; flex-direction: column;
+  gap: 0.4rem;
+}
+ul.clean li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: clamp(0.78rem, 0.9vw, 0.9rem);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+ul.clean li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.7em;
+  width: 8px; height: 1px;
+  background: var(--ink);
+}
+ul.clean li.bad::before { background: var(--red); }
+ul.clean li.good::before { background: var(--green); }
+ul.clean li code {
+  font-family: var(--f-mono);
+  font-size: 0.85em;
+  background: var(--paper-deep);
+  padding: 1px 5px;
+}
+
+/* ---------- Hint at bottom ---------- */
+.kbd-hint {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  opacity: 0.7;
+  z-index: 800;
+  pointer-events: none;
+  display: flex; gap: 1.2rem; align-items: center;
+}
+.kbd-hint kbd {
+  border: 1px solid var(--rule);
+  padding: 1px 5px;
+  font-size: 9px;
+}
+
+/* ---------- Top-right action buttons ---------- */
+.action-bar {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1300;
+  display: flex;
+  gap: 6px;
+}
+.action-btn {
+  width: 38px;
+  height: 38px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+  transition: background 0.25s var(--ease), color 0.25s, border-color 0.25s;
+  padding: 0;
+}
+.action-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.action-btn svg { width: 16px; height: 16px; display: block; }
+.action-btn.active {
+  background: var(--red);
+  color: var(--paper);
+  border-color: var(--red);
+}
+.action-btn .ic-off { display: none; }
+.action-btn.active .ic-on { display: none; }
+.action-btn.active .ic-off { display: block; }
+.fs-btn .fs-exit { display: none; }
+:fullscreen .fs-btn .fs-enter { display: none; }
+:fullscreen .fs-btn .fs-exit { display: block; }
+
+/* ---------- Inline link (hyperlink in body) ---------- */
+.inline-link {
+  color: var(--red);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(200, 48, 42, 0.4);
+  transition: border-color 0.2s, background 0.2s;
+  padding: 0 2px;
+  font-weight: 500;
+}
+.inline-link:hover {
+  border-bottom-color: var(--red);
+  background: rgba(200, 48, 42, 0.08);
+}
+
+/* ---------- Article CTA button ---------- */
+.article-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.65rem 1.05rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid var(--ink);
+  white-space: nowrap;
+  transition: background 0.25s var(--ease), color 0.25s, transform 0.2s var(--ease-spring);
+}
+.article-cta:hover {
+  background: var(--red);
+  border-color: var(--red);
+  transform: translateY(-2px);
+}
+.article-cta svg { transition: transform 0.25s var(--ease); }
+.article-cta:hover svg { transform: translate(2px, -2px); }
+
+/* ---------- Edit mode ---------- */
+body.edit-mode [contenteditable="true"] {
+  outline: 1px dashed rgba(200, 48, 42, 0.4);
+  outline-offset: 2px;
+  cursor: text;
+  transition: outline-color 0.2s, background 0.2s;
+}
+body.edit-mode [contenteditable="true"]:hover {
+  outline-color: var(--red);
+  background: rgba(200, 48, 42, 0.04);
+}
+body.edit-mode [contenteditable="true"]:focus {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+  background: rgba(255, 252, 244, 0.85);
+}
+body.edit-mode .edit-banner {
+  position: fixed;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem 0.9rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  z-index: 1500;
+  pointer-events: none;
+  display: flex; gap: 0.8rem; align-items: center;
+}
+.edit-banner { display: none; }
+.edit-banner .dot {
+  width: 6px; height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  animation: edit-pulse 1.2s ease-in-out infinite;
+}
+@keyframes edit-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.4); }
+}
+
+/* ---------- Save toast ---------- */
+.toast {
+  position: fixed;
+  bottom: 5.6rem;
+  left: 50%;
+  transform: translate(-50%, 16px);
+  padding: 0.6rem 1rem;
+  background: var(--green);
+  color: var(--paper);
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  z-index: 1500;
+  pointer-events: none;
+  display: flex; gap: 0.6rem; align-items: center;
+  opacity: 0;
+  transition: opacity 0.25s var(--ease), transform 0.4s var(--ease);
+}
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.toast.err { background: var(--red); }
+.toast svg { width: 14px; height: 14px; }
+
+/* ---------- Final slide ---------- */
+.final-quote {
+  font-family: var(--f-display);
+  font-weight: 320;
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 80, "WONK" 1;
+  font-size: clamp(2rem, 5.2vw, 4.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  max-width: 22ch;
+}
+.final-quote .accent { color: var(--red); }
+
+/* ---------- Responsive ---------- */
+@media (max-height: 720px) {
+  :root { --pad-y: 2rem; --pad-x: 3rem; }
+  .h-display { font-size: clamp(2rem, 5vw, 4rem); }
+  .h-stat { font-size: clamp(6rem, 16vw, 12rem); }
+}
+@media (max-width: 700px) {
+  :root { --pad-y: 1.5rem; --pad-x: 1.5rem; }
+  .slide-head, .slide-foot { font-size: 8.5px; }
+  .margin-note { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="vignette"></div>
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+<div class="action-bar">
+  <button class="action-btn" id="editBtn" aria-label="Mode édition" title="Mode édition (E)">
+    <svg class="ic-on" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square">
+      <path d="M2 14L4 10L11 3L13 5L6 12L2 14Z"/><path d="M10 4L12 6"/>
+    </svg>
+    <svg class="ic-off" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square">
+      <path d="M3 3L13 13"/><path d="M13 3L3 13"/>
+    </svg>
+  </button>
+  <button class="action-btn fs-btn" id="fsBtn" aria-label="Plein écran" title="Plein écran (F)">
+    <svg class="fs-enter" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square">
+      <path d="M2 6V2H6"/><path d="M14 6V2H10"/><path d="M2 10V14H6"/><path d="M14 10V14H10"/>
+    </svg>
+    <svg class="fs-exit" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square">
+      <path d="M6 2V6H2"/><path d="M10 2V6H14"/><path d="M6 14V10H2"/><path d="M10 14V10H14"/>
+    </svg>
+  </button>
+</div>
+<div class="edit-banner"><span class="dot"></span><span>Mode édition · cliquez sur un texte pour le modifier · <kbd>Ctrl+S</kbd> pour enregistrer · <kbd>E</kbd> pour quitter</span></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="kbd-hint"><span><kbd>↓</kbd> SUIVANT</span><span><kbd>↑</kbd> RETOUR</span><span><kbd>F</kbd> PLEIN ÉCRAN</span><span><kbd>E</kbd> ÉDITER</span><span><kbd>B</kbd> ARTICLE</span><span><kbd>W</kbd> WIKIPEDIA</span></div>
+
+<!-- ============================================
+     01 — COUVERTURE
+     ============================================ -->
+<section class="slide cover crossfade" data-label="Couverture">
+  <header class="slide-head">
+    <span>Dossier · Eugenia School · M1 Search Visibility 2026</span>
+    <span>Pièce N° I — Couverture</span>
+  </header>
+  <div class="slide-body" style="justify-content: space-between;">
+    <div style="display:flex; flex-direction:column; gap: 1.6rem; padding-top: 2rem;">
+      <span class="kicker reveal" style="--i:0;">Dossier d'enquête · N° 001 / 2026</span>
+      <h1 class="h-display reveal" style="--i:1;">
+        <span class="typed" id="cover-typed"></span><br>
+        <em>School</em>
+      </h1>
+      <p class="lede reveal" style="--i:2; max-width: 48ch;">
+        Étude de visibilité numérique d'une école d'IA &amp; Business du 10<sup>e</sup> arrondissement de Paris — pourquoi, malgré un produit solide, son nom reste introuvable sur les moteurs et les intelligences artificielles.
+      </p>
+    </div>
+
+    <div class="cover-meta reveal" style="--i:4;">
+      <div class="left">
+        Auteur · Nathan Skwarek<br>
+        Module · Search Visibility Strategy 2026<br>
+        Promotion · M1
+      </div>
+      <div class="center">— audit conduit du 25 mars au 1<sup>er</sup> avril 2026 —</div>
+      <div class="right">
+        www.eugeniaschool.com<br>
+        Paris 10<sup>e</sup> · Station F<br>
+        18 rue de Paradis
+      </div>
+    </div>
+  </div>
+  <footer class="slide-foot">
+    <span>Confidentiel · Usage pédagogique</span>
+    <span class="pageno">001 / 008</span>
+  </footer>
+  <div class="corner-fold"></div>
+</section>
+
+<!-- ============================================
+     02 — VERDICT 2/10 + MÉTHODOLOGIE
+     ============================================ -->
+<section class="slide warm crossfade" data-label="Verdict 2/10">
+  <header class="slide-head">
+    <span>Pièce N° II — Verdict initial</span>
+    <span>Score global · Méthodologie</span>
+  </header>
+  <div class="slide-body">
+    <div class="hero-num">
+      <div class="digits">
+        <span class="h-stat reveal" style="--i:0;" id="bigScore">2</span>
+        <span class="denom reveal" style="--i:1;">/ 10</span>
+      </div>
+      <div class="desc">
+        <span class="kicker reveal" style="--i:2;">Verdict</span>
+        <h2 class="h-section reveal" style="--i:3;">Un bon produit, <em>une présence numérique<br>quasi inexistante.</em></h2>
+        <p class="lede reveal" style="--i:4;">
+          Eugenia School arrive dernière sur six écoles auditées : volume de contenu, SEO technique, données structurées, citations IA. Aucun de ces signaux ne fonctionne aujourd'hui.
+        </p>
+      </div>
+    </div>
+
+    <div class="margin-note right" style="top: 28%; max-width: 200px;">
+      <span class="ref">Note marginale §2.1</span>
+      <span class="arrow">→</span>Sur six écoles auditées avec le même protocole, Eugenia obtient le score le plus bas <em>tous critères confondus</em>.
+    </div>
+
+    <div class="stamp drop absolute" style="bottom: 32%; right: 8%;">Invisible</div>
+
+    <!-- Méthodologie compactée -->
+    <div class="reveal" style="--i:5; margin-top: 1.8rem; padding-top: 1rem; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 110px 1fr 1fr; gap: 1.4rem; align-items: start;">
+      <span class="label" style="padding-top: 2px;">Méthodologie<br>de l'enquête</span>
+      <div>
+        <span class="label" style="display:block; margin-bottom:0.3rem; color: var(--ink-2);">A · Outils automatisés</span>
+        <p class="ink-2" style="font-size: clamp(0.78rem, 0.9vw, 0.9rem); line-height: 1.5;">Crawl4AI · Lighthouse 13.0.3 · API OpenAI gpt-4o-mini · API Gemini 2.5-flash-lite · Claude Opus 4.6.</p>
+      </div>
+      <div>
+        <span class="label" style="display:block; margin-bottom:0.3rem; color: var(--ink-2);">B · Vérifications manuelles</span>
+        <p class="ink-2" style="font-size: clamp(0.78rem, 0.9vw, 0.9rem); line-height: 1.5;">5 captures <em>google.fr</em> · ChatGPT + Gemini grand public · 6 annuaires éducation · YouTube · Trustpilot · Knowledge Panel · Perplexity (6 requêtes).</p>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-foot">
+    <span>16 pages site · 28 articles blog · 5 concurrents · 4 IA · 13 requêtes Google</span>
+    <span class="pageno">002 / 008</span>
+  </footer>
+</section>
+
+<!-- ============================================
+     03 — § I-II AUDIT EXTERNE · GOOGLE + IA
+     ============================================ -->
+<section class="slide crossfade glitch wipe" data-label="§ I-II · Audit externe">
+  <header class="slide-head">
+    <span>§ I-II — Audit externe · Google &amp; IA</span>
+    <span>Pièce N° III</span>
+  </header>
+  <div class="slide-body">
+    <span class="kicker reveal" style="--i:0;">Sections I + II · invisibilité totale, marque OK</span>
+    <h2 class="h-section reveal" style="--i:1; margin-top: 0.6rem;">Invisible sur <em>Google</em>. Invisible sur les <em>IA</em>.</h2>
+
+    <div class="two-col" style="margin-top: 1rem; gap: 2rem; align-items: start;">
+      <!-- Left: Google -->
+      <div class="reveal" style="--i:2;">
+        <div style="display:flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+          <div class="label red">A · Google · score 3/10</div>
+          <span class="label">0 / 13 requêtes</span>
+        </div>
+        <table>
+          <tr><th>Requête</th><th class="center">Eugenia</th><th>Top 3 (extraits)</th></tr>
+          <tr><td>école IA Paris</td><td class="center"><span class="neg">NON</span></td><td>IA Institut, PSL</td></tr>
+          <tr><td>meilleure école data France</td><td class="center"><span class="neg">NON</span></td><td>ENSAE, <strong class="red">Jedha</strong></td></tr>
+          <tr><td>alternatives Parcoursup</td><td class="center"><span class="neg">NON</span></td><td><strong class="red">Jedha</strong>, IA Institut</td></tr>
+          <tr><td>classement école data</td><td class="center"><span class="neg">NON</span></td><td><strong class="red">Jedha</strong>, M-Masters</td></tr>
+          <tr><td>bootcamp data Paris</td><td class="center"><span class="neg">NON</span></td><td>Hi! PARIS, <strong class="red">Jedha</strong></td></tr>
+        </table>
+        <p class="ink-2" style="font-size:0.82rem; margin-top: 0.55rem; line-height: 1.45;">+ 8 autres requêtes testées, toutes <span class="red">NON</span>. <strong class="red">Jedha</strong> apparaît dans 7/7 secondaires. <strong>Marque OK</strong> — Knowledge Panel actif (5/5, 27 avis).</p>
+      </div>
+
+      <!-- Right: IA -->
+      <div class="reveal" style="--i:3;">
+        <div style="display:flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+          <div class="label red">B · IA (GEO) · score 1,5/10</div>
+          <span class="label">0 / 20 citations</span>
+        </div>
+        <div class="two-col" style="gap: 0.5rem;">
+          <div class="card flip bordered-red" style="padding: 0.5rem 0.7rem;">
+            <span class="verdict faux">Faux</span>
+            <h3 class="h-card" style="font-size: 0.95rem;">ChatGPT</h3>
+            <p class="ink-2" style="font-size:0.76rem;">« École à <strong class="red">Genève</strong>… »</p>
+          </div>
+          <div class="card flip bordered-red" style="padding: 0.5rem 0.7rem;">
+            <span class="verdict faux">Faux</span>
+            <h3 class="h-card" style="font-size: 0.95rem;">Gemini</h3>
+            <p class="ink-2" style="font-size:0.76rem;">« École à <strong class="red">Montréal</strong>… »</p>
+          </div>
+        </div>
+        <div class="bar-list" style="margin-top: 0.7rem;">
+          <div class="bar-row" style="--i:0;"><span class="bar-name">Jedha</span><div class="bar-track"><div class="bar-fill red" style="--w: 0.83;"></div></div><span class="bar-val">5/6</span></div>
+          <div class="bar-row" style="--i:1;"><span class="bar-name">aivancity</span><div class="bar-track"><div class="bar-fill ochre" style="--w: 0.33;"></div></div><span class="bar-val">2/6</span></div>
+          <div class="bar-row" style="--i:2;"><span class="bar-name highlight">Eugenia</span><div class="bar-track"><div class="bar-fill" style="--w: 0.001; background: var(--red);"></div></div><span class="bar-val red">0/6</span></div>
+        </div>
+        <p class="ink-2" style="font-size:0.82rem; margin-top: 0.55rem; line-height: 1.45;">Causes : <strong>0 Wikipedia</strong> (47,9 % des citations ChatGPT) · <strong>0 <code>llms.txt</code></strong> · <strong>0 Reddit</strong> · 2 articles presse. <a href="wikipedia-eugenia.html" target="_blank" rel="noopener" class="inline-link">Brouillon Wikipedia ↗</a></p>
+      </div>
+    </div>
+
+    <p class="footnote reveal" style="--i:4; margin-top: 1rem;">
+      <span class="num">¹</span>SERP capturées le 01/04/2026 sur <em>google.fr</em>. Tests IA grand public. La marque fonctionne (Knowledge Panel) ; la découverte non.
+    </p>
+  </div>
+  <footer class="slide-foot">
+    <span>Google 3/10 · IA 1,5/10 · marque OK · découverte KO sur les deux canaux</span>
+    <span class="pageno">003 / 008</span>
+  </footer>
+</section>
+
+<!-- ============================================
+     04 — § III CONCURRENCE · JEDHA + ALBERT
+     ============================================ -->
+<section class="slide warm crossfade wipe" data-label="§ III · Concurrence">
+  <header class="slide-head">
+    <span>§ III — Concurrence · Jedha (contenu) &amp; Albert (maturité)</span>
+    <span>Pièce N° IV</span>
+  </header>
+  <div class="slide-body">
+    <span class="kicker reveal" style="--i:0;">Section III · 6 écoles auditées · Eugenia 6e/6</span>
+    <h2 class="h-section reveal" style="--i:1; margin-top: 0.6rem;">Jedha (le <em>contenu</em>), Albert (la <em>maturité</em>). Eugenia, dernière sur six.</h2>
+
+    <div class="two-col reveal" style="--i:2; margin-top: 1rem; gap: 1.2rem;">
+      <div class="card flip bordered-red split-l">
+        <div style="display:flex; justify-content: space-between; align-items: center;">
+          <span class="label red">Jedha · roi du contenu</span>
+          <div class="stamp" style="font-size: 9px; padding: 3px 6px;">À copier</div>
+        </div>
+        <h3 class="h-card">× 15 URLs · × 6 mots · × 49 liens internes</h3>
+        <p class="ink-2" style="font-size:0.85rem;">1 039 URLs · 2 366 mots / article · 49 liens internes par article · cité 5/6 par Perplexity · note 4,96/5 sur 780 avis.</p>
+      </div>
+      <div class="card flip bordered-green split-r">
+        <span class="label green">Albert · école sœur, 5 ans d'avance</span>
+        <h3 class="h-card">331 URLs · 83 ms · 100 % Schema · Wikipedia FR + EN</h3>
+        <p class="ink-2" style="font-size:0.85rem;">Profil identique (post-bac IA, .com récent, multi-campus). Schema sur 100 % des pages. 1 044 captures Wayback (× 27 vs Eugenia).</p>
+      </div>
+    </div>
+
+    <table class="reveal" style="--i:3; margin-top: 1.2rem;">
+      <tr><th>Critère</th><th class="right">Jedha</th><th class="right">Albert</th><th class="right">Eugenia</th><th class="right">Écart Eugenia</th></tr>
+      <tr><td>URLs publiées</td><td class="right pos">1 039</td><td class="right pos">331</td><td class="right neg">63</td><td class="right"><span class="neu">× 5 — × 16</span></td></tr>
+      <tr><td>Performance moy.</td><td class="right">—</td><td class="right pos">83 ms</td><td class="right neg">537 ms</td><td class="right"><span class="neu">× 6 plus lent</span></td></tr>
+      <tr><td>Mots / page</td><td class="right pos">2 366</td><td class="right pos">2 453</td><td class="right neg">1 111</td><td class="right"><span class="neu">× 2 moins</span></td></tr>
+      <tr><td>Schema.org</td><td class="right pos">2-5 / page</td><td class="right pos">100 %</td><td class="right neg">0 %</td><td class="right">—</td></tr>
+      <tr><td>Cité par Perplexity</td><td class="right pos">5 / 6</td><td class="right">—</td><td class="right neg">0 / 6</td><td class="right">—</td></tr>
+      <tr><td>Wikipedia FR / EN</td><td class="right pos">Oui</td><td class="right pos">Oui · Oui</td><td class="right neg">Non · Non</td><td class="right">—</td></tr>
+    </table>
+
+    <div class="reveal" style="--i:4; margin-top: 1rem; padding: 0.75rem 1rem; border-left: 2px solid var(--red); background: var(--red-soft);">
+      <span class="label red">Conclusion · Section III</span>
+      <p class="ink-2" style="margin-top: 0.2rem; font-size: 0.88rem;">L'écart est <strong>mécanique</strong>, dû à un site jeune <strong>et</strong> à des choix de configuration corrigeables. Rattrapage : <strong>1-2 mois sur les fondations</strong>, puis <strong>6 mois sur le contenu</strong>.</p>
+    </div>
+  </div>
+  <footer class="slide-foot">
+    <span>Eugenia 6e / 6 · écart à rattraper en 6-12 mois</span>
+    <span class="pageno">004 / 008</span>
+  </footer>
+</section>
+
+<!-- ============================================
+     05 — § IV AUDIT INTERNE + CLASSEMENT TECHNIQUE
+     ============================================ -->
+<section class="slide crossfade wipe" data-label="§ IV · Audit interne">
+  <header class="slide-head">
+    <span>§ IV — Audit interne du site · classement technique</span>
+    <span>Pièce N° V</span>
+  </header>
+  <div class="slide-body">
+    <span class="kicker reveal" style="--i:0;">Section IV · Diagnostic interne</span>
+    <h2 class="h-section reveal" style="--i:1; margin-top: 0.6rem;">Trois chantiers, et un classement <em>sans appel.</em></h2>
+
+    <div class="two-col" style="margin-top: 1.2rem; gap: 2rem; align-items: start;">
+      <div>
+        <div class="label" style="margin-bottom: 0.6rem;">A · Trois chantiers internes</div>
+        <div class="col-stack">
+          <div class="card bordered-red reveal" style="--i:2; padding: 0.85rem 1.05rem;">
+            <span class="label red">Blog · 28 articles</span>
+            <h3 class="h-card">Contenu superficiel</h3>
+            <ul class="clean">
+              <li class="bad">Title <em>identique</em> sur 28/28 articles : « Eugenia School »</li>
+              <li class="bad">0 meta desc, 0 Schema BlogPosting, 0 canonical, 0 OG</li>
+              <li class="bad">82 % des articles &lt; 600 mots · moyenne 440 (× 11 chez Jedha)</li>
+            </ul>
+          </div>
+          <div class="card bordered-red reveal" style="--i:3; padding: 0.85rem 1.05rem;">
+            <span class="label red">Balises &amp; meta · 16 pages site</span>
+            <h3 class="h-card">Tout est à refaire</h3>
+            <ul class="clean">
+              <li class="bad">Title <strong>« Home »</strong> sur la homepage · <code>lang="en"</code></li>
+              <li class="bad">95 % des pages sans meta desc · 0 canonical</li>
+              <li class="bad">0 Schema.org · <code>/admissions</code> en 404 · 45 questions FAQ inutilisées</li>
+            </ul>
+          </div>
+          <div class="card bordered-ochre reveal" style="--i:4; padding: 0.85rem 1.05rem;">
+            <span class="label ochre">Performance</span>
+            <h3 class="h-card">Mobile <span class="red">cassé</span>, Desktop OK</h3>
+            <ul class="clean">
+              <li class="bad">Mobile 28/100 Lighthouse · LCP 17,2 s</li>
+              <li class="good">Desktop 95/100 Lighthouse</li>
+              <li class="bad">45 % des images sans <code>alt</code> · pages <code>/payment</code> dans le sitemap</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="label" style="margin-bottom: 0.6rem;">B · Classement technique · 6 homepages</div>
+        <div class="bar-list reveal" style="--i:5;">
+          <div class="bar-row" style="--i:0;"><span class="bar-name">Jedha</span><div class="bar-track"><div class="bar-fill green" style="--w: 0.80;"></div></div><span class="bar-val pos">4,0</span></div>
+          <div class="bar-row" style="--i:1;"><span class="bar-name">Liora</span><div class="bar-track"><div class="bar-fill green" style="--w: 0.78;"></div></div><span class="bar-val pos">3,9</span></div>
+          <div class="bar-row" style="--i:2;"><span class="bar-name">Le Wagon</span><div class="bar-track"><div class="bar-fill muted" style="--w: 0.62;"></div></div><span class="bar-val">3,1</span></div>
+          <div class="bar-row" style="--i:3;"><span class="bar-name">DataBird</span><div class="bar-track"><div class="bar-fill ochre" style="--w: 0.40;"></div></div><span class="bar-val neu">2,0</span></div>
+          <div class="bar-row" style="--i:4;"><span class="bar-name">aivancity</span><div class="bar-track"><div class="bar-fill ochre" style="--w: 0.38;"></div></div><span class="bar-val neu">1,9</span></div>
+          <div class="bar-row" style="--i:5;"><span class="bar-name highlight">Eugenia</span><div class="bar-track"><div class="bar-fill red" style="--w: 0.28;"></div></div><span class="bar-val red">1,4</span></div>
+        </div>
+
+        <div style="margin-top: 1rem; padding: 0.75rem 1rem; border: 1px dashed var(--rule); background: var(--green-soft);">
+          <span class="label green" style="display:block; margin-bottom: 0.3rem;">Projection · 5 corrections gratuites</span>
+          <p class="ink-2" style="font-size: 0.85rem; line-height: 1.45;">Avec titres + Schema + <code>lang="fr"</code> + canonical + JS, Eugenia passe de <strong class="red">1,4</strong> à <strong class="green">3,9 / 5</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="footnote reveal" style="--i:6; margin-top: 0.9rem;">
+      <span class="num">²</span>Le blog n'a pas publié depuis janvier 2026. Sujets bons (Parcoursup, métiers data) mais contenu trop court pour ranker.
+    </p>
+  </div>
+  <footer class="slide-foot">
+    <span>3 chantiers · 1,4 / 5 actuel · 3,9 / 5 cible avec 5 fixes</span>
+    <span class="pageno">005 / 008</span>
+  </footer>
+</section>
+
+<!-- ============================================
+     06 — ARTICLE TÉMOIN · CAS D'ÉTUDE
+     ============================================ -->
+<section class="slide crossfade" data-label="Article témoin">
+  <header class="slide-head">
+    <span>§ V — Article témoin · cas d'étude blog</span>
+    <span>Pièce N° VI</span>
+  </header>
+  <div class="slide-body">
+    <div style="display:flex; justify-content: space-between; align-items: end; gap: 2rem;">
+      <div>
+        <span class="kicker reveal" style="--i:0;">Cas d'étude · ce que doit produire le blog</span>
+        <h2 class="h-section reveal" style="--i:1; margin-top: 0.6rem;">Un article témoin, <em>taillé pour Google</em> et pour les <em>IA.</em></h2>
+        <p class="lede reveal" style="--i:2; margin-top: 0.5rem; max-width: 60ch;">
+          « ChatGPT, Claude ou Gemini : quelle IA choisir pour ses études en 2026 ? » — 2 500 mots, structure pillar, 22 marqueurs SEO / GEO / META / CONTENT cochés. L'inverse exact des 28 articles actuels.
+        </p>
+      </div>
+      <a href="article-ia-etudes-seo.html" target="_blank" rel="noopener" class="reveal article-cta" style="--i:3;">
+        <span>Ouvrir l'article</span>
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M6 3H3V13H13V10"/><path d="M9 3H13V7"/><path d="M13 3L7 9"/></svg>
+      </a>
+    </div>
+
+    <div class="four-col" style="margin-top: 1.2rem;">
+      <div class="card flip bordered-green split-l">
+        <span class="label green">A · SEO technique</span>
+        <h3 class="h-card">Meta tags complets</h3>
+        <ul class="clean">
+          <li class="good"><code>title</code> 60 car. + meta desc 160 car.</li>
+          <li class="good"><code>canonical</code> + <code>hreflang</code> FR</li>
+          <li class="good">Open Graph + Twitter Card</li>
+          <li class="good"><code>robots</code> · <code>max-snippet</code></li>
+        </ul>
+      </div>
+      <div class="card flip bordered-green reveal" style="--i:5;">
+        <span class="label green">B · GEO ready</span>
+        <h3 class="h-card">Bloc factuel + FAQ</h3>
+        <ul class="clean">
+          <li class="good">TL;DR « 30 secondes »</li>
+          <li class="good">Schema <code>FAQPage</code> · 5 Q</li>
+          <li class="good">Sommaire ancré · H2 / H3</li>
+          <li class="good">Phrases extractibles</li>
+        </ul>
+      </div>
+      <div class="card flip bordered-green reveal" style="--i:6;">
+        <span class="label green">C · E-E-A-T</span>
+        <h3 class="h-card">Auteur + dates</h3>
+        <ul class="clean">
+          <li class="good">Auteur identifié (URL profil)</li>
+          <li class="good"><code>datePublished</code> + Modified</li>
+          <li class="good">Schema <code>BlogPosting</code></li>
+          <li class="good">Wikidata <code>sameAs</code></li>
+        </ul>
+      </div>
+      <div class="card flip bordered-green split-r">
+        <span class="label green">D · Volume + structure</span>
+        <h3 class="h-card">2 500 mots</h3>
+        <ul class="clean">
+          <li class="good">9 sections + 5 FAQ</li>
+          <li class="good">Tables 3 IA × 8 critères</li>
+          <li class="good">Cas par filière</li>
+          <li class="good">Breadcrumb + 22 ancres</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reveal" style="--i:7; margin-top: 1rem; padding: 0.75rem 1rem; border-left: 2px solid var(--ochre); background: rgba(184,136,56,0.08); display: grid; grid-template-columns: auto 1fr auto; gap: 1.2rem; align-items: center;">
+      <span class="label ochre" style="white-space: nowrap;">Comparaison · article moyen Eugenia</span>
+      <p class="ink-2" style="font-size: 0.88rem; line-height: 1.45;"><strong class="red">440 mots</strong> · title identique sur 28/28 · 0 Schema · 0 meta desc · 0 canonical · 0 OG. <em>Le format actuel ne peut ranker nulle part.</em></p>
+      <span style="white-space: nowrap; font-family: var(--f-display); font-style: italic; font-size: 14px; color: var(--red);">× 5,7 mots</span>
+    </div>
+
+    <p class="footnote reveal" style="--i:8; margin-top: 0.7rem;">
+      Astuce démo · appuyez sur <kbd style="border: 1px solid var(--rule); padding: 1px 6px; font-family: var(--f-mono); font-size: 10px;">B</kbd> pour ouvrir l'article témoin dans un nouvel onglet.
+    </p>
+  </div>
+  <footer class="slide-foot">
+    <span>2 500 mots · BlogPosting + FAQPage · 22 marqueurs cochés</span>
+    <span class="pageno">006 / 008</span>
+  </footer>
+</section>
+
+<!-- ============================================
+     07 — § VI PLAN D'ACTION · QUICK WINS + 3 PHASES + LIVRABLES
+     ============================================ -->
+<section class="slide warm crossfade wipe" data-label="§ VI · Plan d'action">
+  <header class="slide-head">
+    <span>§ VI — Plan d'action · quick wins + 3 phases + livrables</span>
+    <span>Pièce N° VII</span>
+  </header>
+  <div class="slide-body">
+    <span class="kicker reveal" style="--i:0;">Section VI · Améliorations · à déployer</span>
+    <h2 class="h-section reveal" style="--i:1; margin-top: 0.5rem;">Six corrections gratuites, puis <em>douze mois pour rattraper.</em></h2>
+
+    <!-- Quick wins compact -->
+    <div class="reveal" style="--i:2; margin-top: 1rem;">
+      <div class="label" style="margin-bottom: 0.4rem;">A · Quick wins · semaine 1-2 · ~ 7 h · 0 €</div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; font-size: 0.82rem; line-height: 1.4;">
+        <div style="padding: 0.5rem 0.7rem; border-left: 2px solid var(--red); background: rgba(200,48,42,0.05);">
+          <strong class="red">1·2·3</strong> Titles uniques (homepage + 4 pages programmes + 28 articles) · CTR × 2-3
+        </div>
+        <div style="padding: 0.5rem 0.7rem; border-left: 2px solid var(--red); background: rgba(200,48,42,0.05);">
+          <strong class="red">4</strong> <code>lang="en"</code> → <code>lang="fr"</code> · E-E-A-T fixé · 5 min
+        </div>
+        <div style="padding: 0.5rem 0.7rem; border-left: 2px solid var(--red); background: rgba(200,48,42,0.05);">
+          <strong class="red">5·6</strong> Canonical + meta desc 140-160 car. · CTR + duplication · 5 h
+        </div>
+      </div>
+      <p class="ink-2" style="font-size:0.84rem; margin-top: 0.4rem;">Score technique <strong class="red">1,4</strong> → <strong class="green">3,9 / 5</strong> en six semaines.</p>
+    </div>
+
+    <!-- 3 phases compact -->
+    <div class="reveal" style="--i:3; margin-top: 1rem;">
+      <div class="label" style="margin-bottom: 0.4rem;">B · Plan 12 mois · ~ 17 300 €</div>
+      <div class="phases" style="margin-top: 0.4rem;">
+        <div class="phase-card p1">
+          <span class="ph-num">Mois 1-3 · ~ 300 €</span>
+          <h3 class="h-card" style="font-size: 0.98rem;">Urgences techniques</h3>
+          <ul class="clean">
+            <li>Quick wins + 8 schémas Schema.org</li>
+            <li><code>llms.txt</code> + <code>robots.txt</code> bots IA</li>
+            <li>Lighthouse mobile · redirect <code>/admissions</code></li>
+          </ul>
+        </div>
+        <div class="phase-card p2">
+          <span class="ph-num">Mois 3-6 · ~ 5 000 €</span>
+          <h3 class="h-card" style="font-size: 0.98rem;">Construction</h3>
+          <ul class="clean">
+            <li>Pages programmes étendues 5 000+ mots</li>
+            <li>10 articles piliers (2 000-3 000 mots)</li>
+            <li>6 annuaires · avis 27 → 100+</li>
+          </ul>
+        </div>
+        <div class="phase-card p3">
+          <span class="ph-num">Mois 6-12 · ~ 12 000 €</span>
+          <h3 class="h-card" style="font-size: 0.98rem;">Domination GEO</h3>
+          <ul class="clean">
+            <li>10+ articles presse · classements</li>
+            <li><a href="wikipedia-eugenia.html" target="_blank" rel="noopener" class="inline-link">Wikipedia · brouillon prêt ↗</a></li>
+            <li>Reddit / Discord · contenus source</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Livrables compact -->
+    <div class="reveal" style="--i:4; margin-top: 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; padding: 0.75rem 1rem; border: 1px dashed var(--rule); background: rgba(74,107,58,0.05);">
+      <div>
+        <span class="label green" style="display:block; margin-bottom: 0.25rem;">Livrables prêts à déployer</span>
+        <p class="ink-2" style="font-size:0.84rem;"><strong>8 schémas JSON-LD</strong> Webflow-ready + <a href="article-ia-etudes-seo.html" target="_blank" rel="noopener" class="inline-link">article témoin ↗</a> + <a href="wikipedia-eugenia.html" target="_blank" rel="noopener" class="inline-link">brouillon Wikipedia ↗</a> + <code>llms.txt</code></p>
+      </div>
+      <div>
+        <span class="label ochre" style="display:block; margin-bottom: 0.25rem;">Cibles KPIs · 12 mois</span>
+        <p class="ink-2" style="font-size:0.84rem;">Score <strong class="red">2/10</strong> → <strong class="ochre">5/10</strong> à 6 mois → <strong class="green">7/10</strong> à 12 mois. Google : 0/13 → 7/13. IA : 0/20 → 5/20.</p>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-foot">
+    <span>6 quick wins · 3 phases · 12 mois · ~ 17 300 € · 2 → 7 / 10</span>
+    <span class="pageno">007 / 008</span>
+  </footer>
+</section>
+
+<!-- ============================================
+     08 — VERDICT FINAL
+     ============================================ -->
+<section class="slide deep crossfade" data-label="Verdict final">
+  <header class="slide-head">
+    <span>Pièce N° VIII — Verdict final</span>
+    <span>Fin du dossier</span>
+  </header>
+  <div class="slide-body" style="display: grid; grid-template-rows: 1fr auto; gap: 2rem;">
+    <div style="display:flex; flex-direction: column; justify-content: center; gap: 1.6rem;">
+      <span class="kicker reveal" style="--i:0;">Conclusion</span>
+      <h1 class="final-quote reveal" style="--i:1;">
+        Eugenia n'a pas un<br>
+        problème de <em class="muted">qualité</em>.<br>
+        Elle a un problème<br>
+        <span class="accent">d'existence.</span>
+      </h1>
+      <p class="lede reveal" style="--i:3; max-width: 50ch;">
+        Le produit est bon. Le site est invisible. Les corrections techniques sont gratuites et l'impact se mesure sous deux mois. Le reste — contenu, presse, classements — se construit en douze.
+      </p>
+    </div>
+
+    <div class="reveal" style="--i:4;">
+      <div class="rule-h thick" style="margin-bottom: 1rem;"></div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+        <div class="label">Fin du dossier · Eugenia School · 8/8</div>
+        <div class="label" style="text-align:center;">— Merci · Questions ouvertes —</div>
+        <div class="label" style="text-align:right;">N. Skwarek · M1 · Avril 2026</div>
+      </div>
+    </div>
+  </div>
+  <footer class="slide-foot">
+    <span>Dossier clos le 1<sup>er</sup> avril 2026</span>
+    <span class="pageno">008 / 008</span>
+  </footer>
+  <div class="stamp drop r2 absolute" style="top: 12%; right: 8%; font-size: 0.85rem;">Dossier · clos</div>
+</section>
+
+
+<script>
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const progressBar = document.getElementById('progressBar');
+  let currentSlide = 0;
+
+  slides.forEach((slide, i) => { slide.dataset.idx = i; });
+
+  // ------- IntersectionObserver: add .in -------
+  const seen = new WeakSet();
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        const i = parseInt(e.target.dataset.idx);
+        currentSlide = i;
+        progressBar.style.width = (((i + 1) / slides.length) * 100) + '%';
+        if (!seen.has(e.target)) {
+          seen.add(e.target);
+          if (i === 0) typeOnCover();
+          if (i === 1) countUpScore();
+        }
+      }
+    });
+  }, { threshold: 0.45 });
+
+  slides.forEach((s) => io.observe(s));
+
+  // ------- Type-on cover -------
+  function typeOnCover() {
+    const target = document.getElementById('cover-typed');
+    if (!target) return;
+    const word = 'Eugenia';
+    target.innerHTML = '<span class="caret">&nbsp;</span>';
+    let n = 0;
+    const caret = '<span class="caret">&nbsp;</span>';
+    const tick = () => {
+      n++;
+      target.innerHTML = word.slice(0, n) + caret;
+      if (n < word.length) setTimeout(tick, 110);
+      else setTimeout(() => target.classList.add('done'), 800);
+    };
+    setTimeout(tick, 600);
+  }
+
+  // ------- Number count-up (score 2/10) -------
+  function countUpScore() {
+    const el = document.getElementById('bigScore');
+    if (!el) return;
+    const target = 2;
+    const dur = 1100;
+    const start = performance.now();
+    function step(now) {
+      const t = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const v = (target * eased).toFixed(1).replace('.0', '');
+      el.textContent = v;
+      if (t < 1) requestAnimationFrame(step);
+      else el.textContent = String(target);
+    }
+    el.textContent = '0';
+    setTimeout(() => requestAnimationFrame(step), 350);
+  }
+
+  // ------- Keyboard nav -------
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+    if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault();
+      slides[Math.min(slides.length - 1, currentSlide + 1)].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      slides[Math.max(0, currentSlide - 1)].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      slides[0].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      slides[slides.length - 1].scrollIntoView({ behavior: 'smooth' });
+    } else if (e.key === 'f' || e.key === 'F') {
+      e.preventDefault();
+      toggleFullscreen();
+    } else if (e.key === 'e' || e.key === 'E') {
+      e.preventDefault();
+      toggleEditMode();
+    } else if (e.key === 'b' || e.key === 'B') {
+      e.preventDefault();
+      window.open('article-ia-etudes-seo.html', '_blank', 'noopener');
+    } else if (e.key === 'w' || e.key === 'W') {
+      e.preventDefault();
+      window.open('wikipedia-eugenia.html', '_blank', 'noopener');
+    }
+  });
+
+  // ------- Persistence (Ctrl+S / Cmd+S) -------
+  const STORE_KEY = 'eugenia-deck-edits-v1';
+
+  function ensureEditIds() {
+    let n = 0;
+    document.querySelectorAll(EDIT_SELECTORS).forEach((el) => {
+      if (!el.dataset.editId) {
+        n++;
+        el.dataset.editId = 'e' + n.toString(36).padStart(3, '0') + '-' + Math.abs(hash(el.outerHTML.slice(0, 80))).toString(36);
+      }
+    });
+  }
+  function hash(s) {
+    let h = 0;
+    for (let i = 0; i < s.length; i++) { h = (h << 5) - h + s.charCodeAt(i); h |= 0; }
+    return h;
+  }
+
+  function saveEdits() {
+    ensureEditIds();
+    const map = {};
+    document.querySelectorAll('[data-edit-id]').forEach((el) => {
+      map[el.dataset.editId] = el.innerHTML;
+    });
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify({ savedAt: Date.now(), map }));
+      showToast('Enregistré · ' + Object.keys(map).length + ' blocs', false);
+    } catch (err) {
+      showToast('Échec — ' + (err && err.message || 'localStorage'), true);
+    }
+  }
+
+  function restoreEdits() {
+    try {
+      const raw = localStorage.getItem(STORE_KEY);
+      if (!raw) return 0;
+      const data = JSON.parse(raw);
+      if (!data || !data.map) return 0;
+      ensureEditIds();
+      let count = 0;
+      document.querySelectorAll('[data-edit-id]').forEach((el) => {
+        const v = data.map[el.dataset.editId];
+        if (v != null && v !== el.innerHTML) {
+          el.innerHTML = v;
+          count++;
+        }
+      });
+      return count;
+    } catch (err) { return 0; }
+  }
+
+  function clearEdits() {
+    try {
+      localStorage.removeItem(STORE_KEY);
+      showToast('Modifications effacées · rechargez la page', false);
+    } catch (err) {
+      showToast('Échec effacement', true);
+    }
+  }
+
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg, isErr) {
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.toggle('err', !!isErr);
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  // Ctrl+S / Cmd+S — save
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+      e.preventDefault();
+      saveEdits();
+    }
+    // Ctrl+Shift+R — reset (clear localStorage, no reload)
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'R' || e.key === 'r')) {
+      e.preventDefault();
+      if (confirm('Effacer toutes les modifications enregistrées ?')) clearEdits();
+    }
+  });
+
+  // ------- Edit mode toggle -------
+  const EDIT_SELECTORS = [
+    '.h-display', '.h-section', '.h-card', '.h-stat',
+    '.lede', '.kicker', '.label', '.mono',
+    '.quote', '.final-quote',
+    '.fcell', '.fix-head span',
+    '.metric .v', '.metric .l',
+    '.bar-row .bar-name', '.bar-row .bar-val',
+    '.score-bar .score-n', '.score-bar .score-d',
+    '.schema-cell .name', '.schema-cell .desc', '.schema-cell .num',
+    '.margin-note',
+    '.footnote',
+    '.slide-head span', '.slide-foot span',
+    '.cover-meta .left', '.cover-meta .right', '.cover-meta .center',
+    '.stamp',
+    '.card p', '.card h3',
+    'ul.clean li',
+    'td', 'th',
+    'p:not(.footnote)'
+  ].join(', ');
+
+  let editMode = false;
+  function toggleEditMode() {
+    editMode = !editMode;
+    document.body.classList.toggle('edit-mode', editMode);
+    document.getElementById('editBtn').classList.toggle('active', editMode);
+    document.querySelectorAll(EDIT_SELECTORS).forEach((el) => {
+      if (editMode) {
+        el.setAttribute('contenteditable', 'true');
+        el.setAttribute('spellcheck', 'true');
+      } else {
+        el.removeAttribute('contenteditable');
+        el.removeAttribute('spellcheck');
+        if (document.activeElement === el) el.blur();
+      }
+    });
+  }
+  const editBtn = document.getElementById('editBtn');
+  if (editBtn) editBtn.addEventListener('click', toggleEditMode);
+
+  // Restore any saved edits at startup
+  const restored = restoreEdits();
+  if (restored > 0) setTimeout(() => showToast('Modifications restaurées · ' + restored + ' blocs', false), 800);
+
+  // Prevent typing from triggering scroll-snap navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.target.isContentEditable && (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageUp' || e.key === 'PageDown')) {
+      e.stopImmediatePropagation();
+    }
+  }, true);
+
+  // ------- Fullscreen toggle -------
+  function toggleFullscreen() {
+    const doc = document;
+    const el = doc.documentElement;
+    const isFs = doc.fullscreenElement || doc.webkitFullscreenElement || doc.msFullscreenElement;
+    if (!isFs) {
+      const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+      if (req) req.call(el);
+    } else {
+      const exit = doc.exitFullscreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+      if (exit) exit.call(doc);
+    }
+  }
+  const fsBtn = document.getElementById('fsBtn');
+  if (fsBtn) fsBtn.addEventListener('click', toggleFullscreen);
+
+  // ------- Reduce motion -------
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.reveal, .bar-fill, .stamp.drop, .uline svg path, .typed').forEach(el => {
+      el.style.transition = 'none';
+      el.style.animation = 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>

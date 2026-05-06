@@ -11,6 +11,9 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
   const hasImage = project.media && project.media.length > 0;
+  const fitMode = project.coverFit ?? 'cover';
+  const containBg = project.coverBackground ?? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)';
+  const containPadding = project.coverPadding?.card ?? 40;
 
   return (
     <Link
@@ -20,14 +23,28 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
     >
       {/* Screenshot background */}
       {hasImage ? (
-        <Image
-          src={project.media[0].url}
-          alt={project.media[0].caption || project.title}
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          style={{ objectFit: 'cover' }}
-          className="transition-transform duration-700 ease-out group-hover:scale-105"
-        />
+        <>
+          {fitMode === 'contain' && (
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: containBg,
+              }}
+            />
+          )}
+          <Image
+            src={project.media[0].url}
+            alt={project.media[0].caption || project.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            style={{
+              objectFit: fitMode,
+              padding: fitMode === 'contain' ? `${containPadding}px` : 0,
+            }}
+            className="transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        </>
       ) : (
         <div
           style={{

@@ -27,7 +27,7 @@ export default function Home() {
           >
             <Hero />
             <Projects />
-            <div style={{ height: '0px' }} />
+            <div style={{ height: '120px' }} />
             <Skills />
             <div style={{ height: '100px' }} />
             <Footer />

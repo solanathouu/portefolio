@@ -284,14 +284,20 @@ portfolio/
 | Build | ✅ Passing | 0 errors TypeScript |
 | Deploy | 🔄 À redéployer | Après validation refonte |
 
-**Dernière action (session 2026-03-18):** Background constellation/plexus (lignes entre particules proches, attraction souris, glow), couleurs accent par projet dans ProjectDetail (titres de section, numéros défis, icônes tech, bordures), icônes tech complétées sur les 5 projets (60/60 couverts).
+**Dernière action (session 2026-05-06):** Ajout de 4 projets au portfolio (Hackathon Mirakl, Hackathon Replit SwapJob, DataGouv, Audit SEO Eugenia) → 9 projets total. Refactor du bento grid (2 cols × 6 rows asymétrique avec P6 wide + P1/P8 tall). Ajout du champ `linkedinUrl?` dans l'interface Project + bouton LinkedIn conditionnel sur ProjectDetail.
 
-**Projets (5 projets):**
-- LaBonneNote : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
-- Tube : App mobile métro parisien, signalements temps réel, gamification, React Native/Expo/Supabase/PostGIS
-- B2B IT Catalog Scraper : Scraper Python, +8800 produits IT TD Synnex, 11 catégories, 440+ specs, CSV, zéro dépendance
-- Hackathon PayFit — SEO : Infrastructure IA de contenu, N8N veille concurrentielle, Agent GEO Audit multi-IA, Agent Maestro Dust 4 étapes, 35h économisées, 0.30€/mois API
-- Oppy — AI Copilot : Agent IA proactif (Hackathon Gemini), scan Gmail/Calendar/web, scoring urgence HuggingFace, brief d'action. GitHub: solanathouu/hack-google
+**Projets (9 projets, ordre bento) :**
+- P1 (tall) **LaBonneNote** : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
+- P2 **Hackathon Mirakl x Eugenia** : UC1 Agent Led Merchant, mascotte Leia (Spotlight UX), Calendar-Aware Restock Advisor, Next.js + gpt-4.1 + Whisper + n8n. Rôle CTO. Pitch 24/04/2026 chez Mirakl.
+- P3 **Tube** : App mobile métro parisien, signalements temps réel, gamification, React Native/Expo/Supabase/PostGIS
+- P4 **Hackathon Replit — SwapJob** : "Tinder des postes" (Mercato Forum Vies Mobiles). Algo matching Haversine + score composite. Solo. Next.js 14 + Prisma + Leaflet + Framer Motion.
+- P5 **Oppy — AI Copilot** : Agent IA proactif (Hackathon Gemini), scan Gmail/Calendar/web, scoring urgence HuggingFace, brief d'action. GitHub: solanathouu/hack-google
+- P6 (wide) **Hackathon PayFit — SEO** : Infrastructure IA de contenu, N8N veille concurrentielle, Agent GEO Audit multi-IA, Agent Maestro Dust 4 étapes, 35h économisées, 0.30€/mois API
+- P7 **B2B IT Catalog Scraper** : Scraper Python, +8800 produits IT TD Synnex, 11 catégories, 440+ specs, CSV, zéro dépendance
+- P8 (tall) **DataGouv — Prospection B2B** : 6M entreprises FR, recherche langage naturel via Gemini, MCP DataGouv. Next.js 15 + SQLite + shadcn/ui. Score Rodin 7/10. GitHub: solanathouu/mcp-gouv
+- P9 **Audit SEO & GEO — Eugenia School** : 4 IA benchmarkées, 5 sections, score 2/10. Crawl4AI + Lighthouse + Remotion + R3F. Livrable 1199 lignes, score Rodin 7,5/10.
+
+**Champ `linkedinUrl?` ajouté à l'interface `Project`** — bouton LinkedIn rendu conditionnellement sur ProjectDetail (à côté de GitHub/Demo). Posts à publier puis lier : Mirakl (`vault/linkedin/post-hackathon-mirakl.md`), SwapJob, DataGouv. SEO-hanine : pas de post.
 
 **Skills (mis à jour session 2026-03-15):**
 - Langages : Python, SQL, JavaScript, Anglais (certifié)
@@ -416,6 +422,6 @@ Valeurs recommandées:
 
 ---
 
-**Last updated:** 2026-03-18
-**Status:** Phase 5 In Progress — DA glacé/Apple, constellation bg, couleurs accent projets, 60/60 icônes tech
-**Next:** Screenshots Oppy, cohérence DA (header/footer/404), compresser PDF Payfit, responsive, déployer
+**Last updated:** 2026-05-06
+**Status:** Phase 5 In Progress — 9 projets dans le bento (4 nouveaux : Mirakl, SwapJob, DataGouv, SEO-hanine), champ `linkedinUrl?` ajouté
+**Next:** Screenshots des 4 nouveaux projets dans `public/projects/`, URLs LinkedIn quand drafts publiés, test responsive, déployer

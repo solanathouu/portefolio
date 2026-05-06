@@ -8,3 +8,6 @@ out/
 
 .vercel
 .env*.local
+
+# Playwright MCP transient artifacts
+.playwright-mcp/
