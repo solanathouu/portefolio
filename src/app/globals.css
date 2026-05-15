@@ -177,3 +177,23 @@ a:visited {
     text-wrap: balance;
   }
 }
+
+/* ═══ Responsive — mobile bento + screenshots ═══ */
+@layer utilities {
+  @media (max-width: 767px) {
+    .bento-grid {
+      grid-template-columns: 1fr !important;
+      grid-template-rows: auto !important;
+      gap: 14px !important;
+    }
+    .bento-cell {
+      grid-column: 1 !important;
+      grid-row: auto !important;
+      min-height: 240px;
+    }
+
+    .screenshots-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+}

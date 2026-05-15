@@ -525,6 +525,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
               Screenshots
             </h2>
             <div
+              className="screenshots-grid"
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(3, 1fr)',
