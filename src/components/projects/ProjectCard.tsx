@@ -3,6 +3,7 @@
 import { Project } from '@/data/projects';
 import Link from 'next/link';
 import Image from 'next/image';
+import { withBase } from '@/lib/utils/basePath';
 
 interface ProjectCardProps {
   project: Project;
@@ -34,7 +35,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             />
           )}
           <Image
-            src={project.media[0].url}
+            src={withBase(project.media[0].url)}
             alt={project.media[0].caption || project.title}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"

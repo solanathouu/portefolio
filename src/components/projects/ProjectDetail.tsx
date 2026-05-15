@@ -190,7 +190,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
             }}
           >
             <Image
-              src={project.media[0].url}
+              src={withBase(project.media[0].url)}
               alt={project.title}
               fill
               sizes="900px"
