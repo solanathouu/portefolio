@@ -269,22 +269,29 @@ portfolio/
 - [x] Lightbox : bouton "Ouvrir le PDF" cyan quand l'image a un linkUrl (scraper presentation)
 - [x] Images manquantes nettoyées : supprimé labonnenote-4.png et tube-4.png des données (fichiers inexistants)
 - [x] Ordre screenshots projets réorganisé : screenshot 3 en premier, 1 en deuxième, 2 en troisième (3 projets)
-- [ ] Tests responsive mobile/tablet
+- [x] **Section Contact à la fin du portfolio** (`src/components/sections/Contact.tsx` + branchée dans `page.tsx`) — 4 cartes glass (GitHub `solanathouu`, LinkedIn `nathan-skwarek`, Email, CV avec download), grid `auto-fit minmax(240px, 1fr)`, `id="contact"` aligné avec le lien header
+- [x] **3 photos événement Mirakl** ajoutées dans `media[]` du projet (`/projects/mirakl-event-{1,2,3}.JPG`, photos réelles uploadées par le user)
+- [x] **GitHub Pages export statique** : `next.config.ts` (`output:'export'`, `basePath:'/portefolio'` conditionnel, `images.unoptimized`, `trailingSlash`), helper `src/lib/utils/basePath.ts` (`withBase()`), wrappers manuels sur Hero CV / Contact / Skills certificats / ProjectDetail (raw `<img>` + lightbox + linkUrl) / ProjectCard `next/image` / Avatar3DLocked / Avatar3D / useImageSequence
+- [x] **Workflow CI** : `.github/workflows/deploy.yml` avec `NEXT_PUBLIC_BASE_PATH=/portefolio` au step build, `actions/configure-pages@v5` + `deploy-pages@v4`, autoredeploy à chaque push sur `main`
+- [x] **Repo `solanathouu/portefolio`** passé en PUBLIC, GitHub Pages activé via `gh api repos/.../pages -X POST -f build_type=workflow`
+- [x] **Tests responsive mobile/tablet/desktop** (375/768/1440) — `bento-grid` + `bento-cell` + `screenshots-grid` classes + `@media (max-width: 767px)` dans `@layer utilities` de `globals.css` (Tailwind 4 + Turbopack ignore les rules hors layer)
+- [x] **Site live** : https://solanathouu.github.io/portefolio/
 - [ ] Lighthouse performance audit
-- [ ] Deployer sur Vercel
+- [ ] Compresser `payfit-presentation.pdf` (28 Mo)
 
 ## 📊 Current Project State
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 5 en cours | Refonte DA glacé + bulles contact + 5 projets |
-| Config | ✅ Optimisé | System font stack (Apple), anthracite, SSG, SEO |
-| Tests | 🔄 Pas encore | TDD à implémenter |
-| Git | ✅ Committé + pushé | Synchronisé avec GitHub |
-| Build | ✅ Passing | 0 errors TypeScript |
-| Deploy | 🔄 À redéployer | Après validation refonte |
+| Code | ✅ Phase 4 livrée pour rendu | 9 projets + Contact section + responsive |
+| Config | ✅ GitHub Pages export | `output:'export'`, basePath `/portefolio`, `withBase()` helper |
+| Tests responsive | ✅ Validés | 375 / 768 / 1440 px (Playwright live) |
+| Git | ✅ Pushé sur main | `cc5c63a` dernier commit (Phase B responsive) |
+| Build | ✅ Passing CI | 12 pages SSG, 0 erreur TypeScript |
+| Deploy | ✅ LIVE | https://solanathouu.github.io/portefolio/ — workflow CI ~1 min |
+| Repo | ✅ PUBLIC | `solanathouu/portefolio` (passé de PRIVATE → PUBLIC pour Pages free tier) |
 
-**Dernière action (session 2026-05-06):** Ajout de 4 projets au portfolio (Hackathon Mirakl, Hackathon Replit SwapJob, DataGouv, Audit SEO Eugenia) → 9 projets total. Refactor du bento grid (2 cols × 6 rows asymétrique avec P6 wide + P1/P8 tall). Ajout du champ `linkedinUrl?` dans l'interface Project + bouton LinkedIn conditionnel sur ProjectDetail.
+**Dernière action (session 2026-05-15):** Audit complet du portfolio vs consignes formateur (CV en fin, photos événement Mirakl, GitHub Pages, responsive). Section Contact créée à la fin (GitHub/LinkedIn/Email/CV). 3 photos événement Mirakl uploadées par le user. Migration de Vercel-ready vers **GitHub Pages export statique** (basePath `/portefolio`, helper `withBase()`, workflow CI). Responsive mobile validé (bento → 1 col sous 768px). 3 deploys CI réussis. Site live et conforme aux consignes.
 
 **Projets (9 projets, ordre bento) :**
 - P1 (tall) **LaBonneNote** : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
@@ -335,15 +342,21 @@ portfolio/
 
 ## 🎯 Next Immediate Action
 
-**V1 livrée et pushée (commit `d44b3fd`).** Restent :
+**Site live et conforme au cahier des charges formateur** (`https://solanathouu.github.io/portefolio/`). Plus d'urgence sur le rendu. Prochaines étapes par ordre de priorité :
 
-1. **Logos manquants à finaliser** : DataGouv (placeholder en place via Marianne), LaBonneNote, Oppy — patterns prompts dans le journal de session 2026-05-06
-2. **URLs LinkedIn** à remplir dans `linkedinUrl?` quand les drafts sont publiés (Mirakl UC1, SwapJob, DataGouv)
-3. **Supprimer manuellement** `obsidian-vault/linkedin/post-hackathon-mirakl-victoire.md` (sandbox bloqué)
-4. **Compresser** `payfit-presentation.pdf` (28 Mo, trop lourd pour Vercel)
-5. **Tests responsive** mobile/tablet
-6. **Lighthouse** perf + a11y audit
-7. **Deploy Vercel**
+1. **Lighthouse audit** sur l'URL live (perf + a11y + best practices + SEO) — chercher quick wins (préchargement avatar frames, alt manquants, contrast ratio)
+2. **Compresser** `public/projects/payfit-presentation.pdf` (28 Mo → cible <2 Mo via ghostscript ou Adobe). Le repo est public, ça ralentit le clone.
+3. **Logos manquants à finaliser** : LaBonneNote (mascotte OK mais pas de logo carré), Oppy (idem mascotte), DataGouv (utilise actuellement la Marianne Marianne République Française comme placeholder)
+4. **URLs LinkedIn** à remplir dans `linkedinUrl?` quand drafts publiés (Mirakl UC1, SwapJob, DataGouv)
+5. **(Optionnel) Custom domain** : acheter un `nathanskwarek.com` (~10 €/an) puis `public/CNAME` + DNS CNAME → `solanathouu.github.io`
+6. **(Optionnel) README.md public** sur le repo pour expliquer le portfolio (le repo est public maintenant)
+
+**Pour reprendre une session :**
+```bash
+cd C:\Users\skwar\Desktop\portfolio-new
+npm run dev          # http://localhost:3000 (sans basePath en dev)
+# Push sur main → auto-deploy via .github/workflows/deploy.yml
+```
 
 ## 🆕 Visual Identity Helpers (V1)
 
@@ -434,6 +447,7 @@ Valeurs recommandées:
 
 ---
 
-**Last updated:** 2026-05-06
-**Status:** Phase 5 In Progress — 9 projets dans le bento (4 nouveaux : Mirakl, SwapJob, DataGouv, SEO-hanine), champ `linkedinUrl?` ajouté
-**Next:** Screenshots des 4 nouveaux projets dans `public/projects/`, URLs LinkedIn quand drafts publiés, test responsive, déployer
+**Last updated:** 2026-05-15
+**Status:** ✅ Livré pour rendu formateur — site live sur GitHub Pages, responsive validé 375/768/1440, conforme aux consignes (CV en fin, photos événement Mirakl, GitHub Pages, miniatures, avatar, GitHub+LinkedIn)
+**URL live:** https://solanathouu.github.io/portefolio/
+**Next:** Lighthouse audit + compresser payfit-presentation.pdf + finaliser logos LaBonneNote/Oppy/DataGouv
