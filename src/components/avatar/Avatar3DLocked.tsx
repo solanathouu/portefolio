@@ -3,6 +3,7 @@
 import { useScrollLockAnimation } from '@/lib/hooks/useScrollLockAnimation';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils/cn';
+import { withBase } from '@/lib/utils/basePath';
 
 interface Avatar3DLockedProps {
   frameCount?: number;
@@ -37,7 +38,7 @@ export default function Avatar3DLocked({
     for (let i = 0; i < frameCount; i++) {
       const img = new Image();
       const frameNumber = String(i).padStart(3, '0');
-      img.src = `/assets/avatar/frame_${frameNumber}.png`;
+      img.src = withBase(`/assets/avatar/frame_${frameNumber}.png`);
 
       img.onload = () => {
         loadedCount++;
@@ -57,7 +58,7 @@ export default function Avatar3DLocked({
   }, [frameCount]);
 
   const frameNumber = String(currentFrame).padStart(3, '0');
-  const imageSrc = `/assets/avatar/frame_${frameNumber}.png`;
+  const imageSrc = withBase(`/assets/avatar/frame_${frameNumber}.png`);
 
   return (
     <div className={cn('relative w-full h-full', className)}>

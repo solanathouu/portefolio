@@ -5,6 +5,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { SiGithub, SiLinkedin } from 'react-icons/si';
 import { HiMail, HiDocumentText } from 'react-icons/hi';
+import { withBase } from '@/lib/utils/basePath';
 
 const CONTACT_BUBBLES = [
   {
@@ -83,7 +84,7 @@ const CONTACT_BUBBLES = [
   {
     icon: HiDocumentText,
     label: 'CV',
-    url: '/cv-nathan-skwarek.pdf',
+    url: withBase('/cv-nathan-skwarek.pdf'),
     color: '#ffffff',
     finalX: -260,
     finalY: 170,

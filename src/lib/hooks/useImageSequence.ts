@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import { withBase } from '@/lib/utils/basePath';
 
 interface UseImageSequenceProps {
   frameCount: number;
@@ -39,7 +40,7 @@ export function useImageSequence({
       for (let i = 0; i < frameCount; i++) {
         const img = new Image();
         const frameNumber = String(i).padStart(3, '0');
-        img.src = `/assets/avatar/frame_${frameNumber}.png`;
+        img.src = withBase(`/assets/avatar/frame_${frameNumber}.png`);
 
         img.onload = () => {
           loadedCount++;

@@ -2,6 +2,7 @@
 
 import { useImageSequence } from '@/lib/hooks/useImageSequence';
 import { cn } from '@/lib/utils/cn';
+import { withBase } from '@/lib/utils/basePath';
 
 interface Avatar3DProps {
   frameCount?: number;
@@ -24,7 +25,7 @@ export default function Avatar3D({
 
   // Générer le path de l'image actuelle
   const frameNumber = String(currentFrame).padStart(3, '0');
-  const imageSrc = `/assets/avatar/frame_${frameNumber}.png`;
+  const imageSrc = withBase(`/assets/avatar/frame_${frameNumber}.png`);
 
   return (
     <div className={cn('relative w-full h-full', className)}>

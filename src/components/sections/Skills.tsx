@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { skills } from '@/data/skills';
 import { getSkillIcon } from '@/lib/utils/skillIcons';
+import { withBase } from '@/lib/utils/basePath';
 
 export default function Skills() {
   return (
@@ -116,10 +117,12 @@ export default function Skills() {
             );
 
             if (hasLink) {
+              const isExternal = skill.url!.startsWith('http');
+              const href = isExternal ? skill.url! : withBase(skill.url!);
               return (
                 <a
                   key={skill.name}
-                  href={skill.url}
+                  href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ textDecoration: 'none', color: 'inherit' }}

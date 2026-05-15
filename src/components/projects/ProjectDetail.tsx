@@ -20,6 +20,7 @@ import {
 } from 'react-icons/fa';
 import Image from 'next/image';
 import type { IconType } from 'react-icons';
+import { withBase } from '@/lib/utils/basePath';
 
 /* ── Tech icon mapping ── */
 const techIcons: Record<string, IconType> = {
@@ -535,7 +536,10 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                   key={idx}
                   onClick={() => {
                     if (item.linkUrl) {
-                      window.open(item.linkUrl, '_blank', 'noopener,noreferrer');
+                      const target = item.linkUrl.startsWith('http')
+                        ? item.linkUrl
+                        : withBase(item.linkUrl);
+                      window.open(target, '_blank', 'noopener,noreferrer');
                     } else {
                       setLightboxIndex(idx + 1);
                     }
@@ -552,7 +556,7 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={item.url}
+                    src={withBase(item.url)}
                     alt={item.caption || `${project.title} screenshot ${idx + 2}`}
                     style={{
                       position: 'absolute',
@@ -704,13 +708,17 @@ export default function ProjectDetail({ project, currentIndex }: ProjectDetailPr
           <div key={lightboxIndex} onClick={(e) => e.stopPropagation()}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={project.media[lightboxIndex].url}
+              src={withBase(project.media[lightboxIndex].url)}
               alt={project.media[lightboxIndex].caption || `${project.title} screenshot`}
               style={{ maxWidth: '85vw', maxHeight: '85vh', objectFit: 'contain', display: 'block', borderRadius: '12px' }}
             />
             {project.media[lightboxIndex].linkUrl && (
               <a
-                href={project.media[lightboxIndex].linkUrl}
+                href={
+                  project.media[lightboxIndex].linkUrl!.startsWith('http')
+                    ? project.media[lightboxIndex].linkUrl!
+                    : withBase(project.media[lightboxIndex].linkUrl!)
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}

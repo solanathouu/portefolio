@@ -120,6 +120,21 @@ export const projects: Project[] = [
       },
       {
         type: 'image',
+        url: '/projects/mirakl-event-1.JPG',
+        caption: 'Hackathon Mirakl — salle / équipe / ambiance',
+      },
+      {
+        type: 'image',
+        url: '/projects/mirakl-event-2.JPG',
+        caption: 'Pitch en direct chez Mirakl (12 rue de Lubeck)',
+      },
+      {
+        type: 'image',
+        url: '/projects/mirakl-event-3.JPG',
+        caption: 'Équipe sur place — Mirakl HQ',
+      },
+      {
+        type: 'image',
         url: '/projects/mirakl-1.png',
         caption: 'Leia — mascotte orbe (assistant invisible)',
       },
