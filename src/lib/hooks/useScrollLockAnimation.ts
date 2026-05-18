@@ -26,11 +26,13 @@ export function useScrollLockAnimation({
   const heroRef = useRef<HTMLElement | null>(null);
   const scrollSensitivity = 20;
 
-  // Skip rotation if already done this page load
+  // Skip rotation if already done this page load, or on mobile (touch trap)
   useEffect(() => {
-    if (rotationDone) {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (rotationDone || isMobile) {
       setCurrentFrame(frameCount - 1);
       setIsAnimationComplete(true);
+      rotationDone = true;
       onComplete?.();
     }
   }, [frameCount, onComplete]);

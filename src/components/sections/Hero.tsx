@@ -253,10 +253,10 @@ export default function Hero() {
               textShadow: '0 0 60px rgba(255, 255, 255, 0.08)',
             } as React.CSSProperties}
           >
-            <span style={{ fontSize: 'clamp(8rem, 20vw, 18rem)', display: 'block', lineHeight: 0.85 }}>
+            <span style={{ fontSize: 'clamp(3.5rem, 20vw, 18rem)', display: 'block', lineHeight: 0.85 }}>
               NATHAN
             </span>
-            <span style={{ fontSize: 'clamp(3rem, 7vw, 6.5rem)', display: 'block', lineHeight: 0.85 }}>
+            <span style={{ fontSize: 'clamp(1.5rem, 7vw, 6.5rem)', display: 'block', lineHeight: 0.85 }}>
               SKWAREK
             </span>
           </h1>
