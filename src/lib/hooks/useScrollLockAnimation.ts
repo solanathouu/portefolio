@@ -5,6 +5,8 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 // Module-level flag: survives client-side navigation, resets on hard refresh
 let rotationDone = false;
 
+export const isRotationDone = () => rotationDone;
+
 interface UseScrollLockAnimationProps {
   frameCount: number;
   onComplete?: () => void;

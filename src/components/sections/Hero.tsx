@@ -6,6 +6,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { SiGithub, SiLinkedin } from 'react-icons/si';
 import { HiMail, HiDocumentText } from 'react-icons/hi';
 import { withBase } from '@/lib/utils/basePath';
+import { isRotationDone } from '@/lib/hooks/useScrollLockAnimation';
 
 const CONTACT_BUBBLES = [
   {
@@ -113,12 +114,45 @@ function ContactBubble({ bubble, scrollProgress }: {
 }) {
   const controls = useAnimation();
   const hasTriggered = useRef(false);
+  // Freeze whether rotation was already done at mount — true on return from a project page
+  const skipExpulsion = useRef(isRotationDone());
   const Icon = bubble.icon;
+
+  // Phase 3: infinite organic float — extracted so we can call it from either path
+  const startFloat = useCallback(() => {
+    const fx = bubble.finalX;
+    const fy = bubble.finalY;
+    controls.start({
+      x: bubble.driftX.map(d => `calc(-50% + ${fx + d}px)`),
+      y: bubble.driftY.map(d => `calc(-50% + ${fy + d}px)`),
+      scale: bubble.pulseScale,
+      borderRadius: bubble.morphs,
+      transition: {
+        duration: bubble.floatDuration,
+        ease: 'easeInOut',
+        repeat: Infinity,
+      },
+    });
+  }, [bubble, controls]);
 
   useEffect(() => {
     if (scrollProgress >= bubble.threshold && !hasTriggered.current) {
       hasTriggered.current = true;
 
+      if (skipExpulsion.current) {
+        // Return visit — jump straight to final position, no expulsion animation
+        controls.set({
+          x: `calc(-50% + ${bubble.finalX}px)`,
+          y: `calc(-50% + ${bubble.finalY}px)`,
+          scale: 1,
+          opacity: 1,
+          borderRadius: '48% 52% 55% 45% / 45% 55% 48% 52%',
+        });
+        startFloat();
+        return;
+      }
+
+      // First visit — full expulsion animation
       // Phase 1: Birth at center
       controls.set({
         x: '-50%',
@@ -150,24 +184,9 @@ function ContactBubble({ bubble, scrollProgress }: {
           x: { duration: 1.8, ease: [0.2, 0.9, 0.1, 1] },
           y: { duration: 1.8, ease: [0.2, 0.9, 0.1, 1] },
         },
-      }).then(() => {
-        // Phase 3: Infinite organic float — unique per bubble
-        const fx = bubble.finalX;
-        const fy = bubble.finalY;
-        controls.start({
-          x: bubble.driftX.map(d => `calc(-50% + ${fx + d}px)`),
-          y: bubble.driftY.map(d => `calc(-50% + ${fy + d}px)`),
-          scale: bubble.pulseScale,
-          borderRadius: bubble.morphs,
-          transition: {
-            duration: bubble.floatDuration,
-            ease: 'easeInOut',
-            repeat: Infinity,
-          },
-        });
-      });
+      }).then(startFloat);
     }
-  }, [scrollProgress, bubble, controls]);
+  }, [scrollProgress, bubble, controls, startFloat]);
 
   return (
     <motion.a
@@ -198,7 +217,7 @@ function ContactBubble({ bubble, scrollProgress }: {
         textDecoration: 'none',
         color: 'rgba(255,255,255,0.8)',
         cursor: 'pointer',
-        pointerEvents: hasTriggered.current ? 'auto' : 'none',
+        pointerEvents: scrollProgress >= bubble.threshold ? 'auto' : 'none',
       }}
     >
       {(bubble.label === 'LinkedIn' || bubble.label === 'Email') ? (
