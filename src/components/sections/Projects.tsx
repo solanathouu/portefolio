@@ -8,9 +8,10 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative min-h-screen pt-16 pb-32 px-6 sm:px-10 md:px-16 lg:px-24"
+      className="relative"
+      style={{ minHeight: '100vh', padding: '64px 24px 128px' }}
     >
-      <div className="mx-auto w-11/12 max-w-6xl relative">
+      <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
