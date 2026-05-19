@@ -276,6 +276,11 @@ portfolio/
 - [x] **Repo `solanathouu/portefolio`** passé en PUBLIC, GitHub Pages activé via `gh api repos/.../pages -X POST -f build_type=workflow`
 - [x] **Tests responsive mobile/tablet/desktop** (375/768/1440) — `bento-grid` + `bento-cell` + `screenshots-grid` classes + `@media (max-width: 767px)` dans `@layer utilities` de `globals.css` (Tailwind 4 + Turbopack ignore les rules hors layer)
 - [x] **Site live** : https://solanathouu.github.io/portefolio/
+- [x] **Fix Tailwind 4 pipeline (session 2026-05-18)** : `globals.css` migré de `@tailwind base/components/utilities` (v3, silencieusement ignoré par Tailwind 4) vers `@import "tailwindcss" + @theme inline`. Restaure tous les utilities `md:`, `w-`, `h-`, `gap-` qui étaient morts en prod. Hamburger mobile passe de 3.2 × 3.2 px → 32 × 32 px (visible).
+- [x] **Fix scroll-lock mobile** : `useScrollLockAnimation` skip la rotation 360° sous 768px (touch swipes ne cumulent pas → impossible à finir en pratique). Bulles contact cachées sous 768px (positions desktop ±280 débordent en mobile).
+- [x] **Fix overflow horizontal mobile** : `<h1>NATHAN SKWAREK</h1>` `clamp()` mins réduits (8rem → 3.5rem, 3rem → 1.5rem) pour que `20vw` gagne sous 375px. Plus de scroll horizontal parasite.
+- [x] **Fix centrage Projects section** : `mx-auto w-11/12 max-w-6xl` (Tailwind classes) battu par le preflight Tailwind 4 `* { margin: 0; padding: 0 }`. Migration vers inline styles (`maxWidth: '1200px', margin: '0 auto'`) — même pattern que Skills/Contact qui utilisaient déjà inline.
+- [x] **Fix bulles contact non cliquables au retour de projet** : `pointerEvents` lié à `hasTriggered.current` (useRef, ne re-render pas) → figé à `'none'` après client-side nav. Switch vers `scrollProgress >= bubble.threshold` (state qui trigger re-renders). Bonus : au retour, `skipExpulsion.current = isRotationDone()` skip l'animation d'expulsion et jump direct à position finale + float infini.
 - [ ] Lighthouse performance audit
 - [ ] Compresser `payfit-presentation.pdf` (28 Mo)
 
@@ -283,15 +288,15 @@ portfolio/
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 4 livrée pour rendu | 9 projets + Contact section + responsive |
+| Code | ✅ Phase 4 livrée pour rendu | 9 projets + Contact section + responsive + Tailwind 4 réparé + bulles UX corrigées |
 | Config | ✅ GitHub Pages export | `output:'export'`, basePath `/portefolio`, `withBase()` helper |
-| Tests responsive | ✅ Validés | 375 / 768 / 1440 px (Playwright live) |
-| Git | ✅ Pushé sur main | `cc5c63a` dernier commit (Phase B responsive) |
+| Tests responsive | ✅ Validés | 375 / 768 / 1440 px (Playwright live + dev local) |
+| Git | ✅ Pushé sur main | `8839929` dernier commit (fix bulles contact non cliquables) |
 | Build | ✅ Passing CI | 12 pages SSG, 0 erreur TypeScript |
 | Deploy | ✅ LIVE | https://solanathouu.github.io/portefolio/ — workflow CI ~1 min |
 | Repo | ✅ PUBLIC | `solanathouu/portefolio` (passé de PRIVATE → PUBLIC pour Pages free tier) |
 
-**Dernière action (session 2026-05-15):** Audit complet du portfolio vs consignes formateur (CV en fin, photos événement Mirakl, GitHub Pages, responsive). Section Contact créée à la fin (GitHub/LinkedIn/Email/CV). 3 photos événement Mirakl uploadées par le user. Migration de Vercel-ready vers **GitHub Pages export statique** (basePath `/portefolio`, helper `withBase()`, workflow CI). Responsive mobile validé (bento → 1 col sous 768px). 3 deploys CI réussis. Site live et conforme aux consignes.
+**Dernière action (session 2026-05-18/19):** Audit Rodin responsivité mobile via Playwright. **3 bugs fatals identifiés et corrigés** : (F1) Tailwind 4 pipeline silencieusement cassée — syntaxe `@tailwind base/components/utilities` obsolète, 0 règles `h-*` / `md:` / `gap-*` générées en prod → hamburger 3.2 × 3.2 px (invisible) + nav cachée à toutes tailles. Fix via `@import "tailwindcss"` + `@theme inline`. (F2) Scroll-lock hero inutilisable en touch — `accumulatedScrollRef` reset à chaque touchstart, swipe unique de 10 000 px nécessaire pour finir la rotation. Fix : skip sous 768px. (F3) Overflow horizontal mobile 86 px — `<h1>` `clamp()` min trop grand. Fix : min réduit. **+ 2 bugs UX** : (a) section Projects collée à gauche (`mx-auto` battu par preflight Tailwind 4) → inline styles ; (b) bulles contact non cliquables au retour client-side d'un projet → `pointerEvents` lié à `scrollProgress` au lieu de `hasTriggered.current` (useRef ne re-render pas), + skip animation expulsion au retour. **3 commits pushés** : `e6a167e` (Tailwind + scroll-lock + h1), `6a23025` (Projects centered), `8839929` (bubbles fix). Site live validé sur localhost via Playwright à 375/768/1440 + nav client-side simulée.
 
 **Projets (9 projets, ordre bento) :**
 - P1 (tall) **LaBonneNote** : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
@@ -447,7 +452,7 @@ Valeurs recommandées:
 
 ---
 
-**Last updated:** 2026-05-15
-**Status:** ✅ Livré pour rendu formateur — site live sur GitHub Pages, responsive validé 375/768/1440, conforme aux consignes (CV en fin, photos événement Mirakl, GitHub Pages, miniatures, avatar, GitHub+LinkedIn)
+**Last updated:** 2026-05-19
+**Status:** ✅ Livré + corrigé — site live sur GitHub Pages, Tailwind 4 réparé, responsive validé 375/768/1440, bulles contact cliquables après nav client-side
 **URL live:** https://solanathouu.github.io/portefolio/
 **Next:** Lighthouse audit + compresser payfit-presentation.pdf + finaliser logos LaBonneNote/Oppy/DataGouv

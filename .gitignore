@@ -14,3 +14,8 @@ out/
 
 # Local audit screenshots (Playwright)
 audit-*.png
+/mobile-*.png
+/fixed-*.png
+/prod-*.png
+/projects-*.png
+/desktop-*.png
