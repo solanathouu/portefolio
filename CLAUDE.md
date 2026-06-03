@@ -288,17 +288,19 @@ portfolio/
 
 | Aspect | Status | Details |
 |--------|--------|---------|
-| Code | ✅ Phase 4 livrée pour rendu | 9 projets + Contact section + responsive + Tailwind 4 réparé + bulles UX corrigées |
+| Code | ✅ Phase 4 livrée | 10 projets (+ Hackathon Dust × Eugenia) + Contact + responsive + fond shader WebGL silk |
 | Config | ✅ GitHub Pages export | `output:'export'`, basePath `/portefolio`, `withBase()` helper |
 | Tests responsive | ✅ Validés | 375 / 768 / 1440 px (Playwright live + dev local) |
-| Git | ✅ Pushé sur main | `8839929` dernier commit (fix bulles contact non cliquables) |
-| Build | ✅ Passing CI | 12 pages SSG, 0 erreur TypeScript |
-| Deploy | ✅ LIVE | https://solanathouu.github.io/portefolio/ — workflow CI ~1 min |
+| Git | ✅ Pushé sur main | `b8dbf58` (merge fond silk) — branche `feat/background-boxes` mergée + poussée |
+| Build | ✅ Passing CI | 13 pages SSG, 0 erreur TypeScript |
+| Deploy | ✅ LIVE | https://solanathouu.github.io/portefolio/ — dernier run CI success (1m5s) |
 | Repo | ✅ PUBLIC | `solanathouu/portefolio` (passé de PRIVATE → PUBLIC pour Pages free tier) |
+
+**Dernière action (session 2026-06-03):** (1) **Section Hackathon Dust × Eugenia (P10)** ajoutée — projet *organisé* (pas participé) : orga + DA pixel art « Claude Boy », angle assumé dans `longDescription`. Cellule bento pleine largeur (ligne 7) dans `Projects.tsx`, 4 visuels optimisés web (~16 Mo → ~4,3 Mo, orientation EXIF bakée) : `dust-cover.png` (logo Dust, contain + fond crème `#F2F1EC`), `dust-affiche.png`, `dust-photo-1.jpg`, `dust-photo-2.jpg`. Commit `25480b8` (déjà sur main). (2) **Fix police titre Hero** : le `<h1>` héritait de `system-ui` qui résolvait vers une police de fallback ajoutant des trémas (« NÄTHÄN ») — diagnostiqué dans le vrai Chrome. Fix : `fontFamily: '"Helvetica Neue", Arial, "Segoe UI", Roboto, sans-serif'` (mène avec une police propre, évite `system-ui`/webfont à télécharger). (3) **Fond global remplacé** : `ParticleBackground` → **shader WebGL « silk »** (`src/components/ui/silk-shader.tsx` + wrapper `BackgroundSilk.tsx`). Itérations testées et rejetées avant : BackgroundBoxes (15 150 `motion.div` → faisait laguer l'avatar 3D), puis version CSS allégée. Le shader = un seul `<canvas>` GPU, DOM minuscule, léger sur mobile. `ContentLayer.tsx` (client, `usePathname`) applique `bg-passthrough` sur la home → la souris atteint le canvas (mousemove + ripple au clic) sans casser les liens. Mergé via `feat/background-boxes` → `main` (`b8dbf58`), déployé.
 
 **Dernière action (session 2026-05-18/19):** Audit Rodin responsivité mobile via Playwright. **3 bugs fatals identifiés et corrigés** : (F1) Tailwind 4 pipeline silencieusement cassée — syntaxe `@tailwind base/components/utilities` obsolète, 0 règles `h-*` / `md:` / `gap-*` générées en prod → hamburger 3.2 × 3.2 px (invisible) + nav cachée à toutes tailles. Fix via `@import "tailwindcss"` + `@theme inline`. (F2) Scroll-lock hero inutilisable en touch — `accumulatedScrollRef` reset à chaque touchstart, swipe unique de 10 000 px nécessaire pour finir la rotation. Fix : skip sous 768px. (F3) Overflow horizontal mobile 86 px — `<h1>` `clamp()` min trop grand. Fix : min réduit. **+ 2 bugs UX** : (a) section Projects collée à gauche (`mx-auto` battu par preflight Tailwind 4) → inline styles ; (b) bulles contact non cliquables au retour client-side d'un projet → `pointerEvents` lié à `scrollProgress` au lieu de `hasTriggered.current` (useRef ne re-render pas), + skip animation expulsion au retour. **3 commits pushés** : `e6a167e` (Tailwind + scroll-lock + h1), `6a23025` (Projects centered), `8839929` (bubbles fix). Site live validé sur localhost via Playwright à 375/768/1440 + nav client-side simulée.
 
-**Projets (9 projets, ordre bento) :**
+**Projets (10 projets, ordre bento) :**
 - P1 (tall) **LaBonneNote** : Assistant éducatif IA, RAG chatbot, 43k chunks, quiz auto, Python/FastAPI/ChromaDB/GPT-4o-mini
 - P2 **Hackathon Mirakl x Eugenia** : UC1 Agent Led Merchant, mascotte Leia (Spotlight UX), Calendar-Aware Restock Advisor, Next.js + gpt-4.1 + Whisper + n8n. Rôle CTO. Pitch 24/04/2026 chez Mirakl.
 - P3 **Tube** : App mobile métro parisien, signalements temps réel, gamification, React Native/Expo/Supabase/PostGIS
@@ -308,6 +310,7 @@ portfolio/
 - P7 **B2B IT Catalog Scraper** : Scraper Python, +8800 produits IT TD Synnex, 11 catégories, 440+ specs, CSV, zéro dépendance
 - P8 (tall) **DataGouv — Prospection B2B** : 6M entreprises FR, recherche langage naturel via Gemini, MCP DataGouv. Next.js 15 + SQLite + shadcn/ui. Score Rodin 7/10. GitHub: solanathouu/mcp-gouv
 - P9 **Audit SEO & GEO — Eugenia School** : 4 IA benchmarkées, 5 sections, score 2/10. Crawl4AI + Lighthouse + Remotion + R3F. Livrable 1199 lignes, score Rodin 7,5/10.
+- P10 (wide) **Hackathon Dust × Eugenia** : *organisé* (pas participé) — 29 mai 2026, co-brandé Dust. Rôle orga + DA pixel art « Claude Boy » (série 5 affiches A2), cravates custom, sourcing impression, logistique soirées. `role: 'Organisation & Direction Artistique'`. Source vault : `obsidian-vault/projets/_actifs/Eugenia/hackathon.md` + `affiches-hackathon-dust-prompts.md`. Visuels = 4 slots (cover logo Dust + affiche + 2 photos), placeholders restants à remplacer.
 
 **Champ `linkedinUrl?` ajouté à l'interface `Project`** — bouton LinkedIn rendu conditionnellement sur ProjectDetail (à côté de GitHub/Demo). Posts à publier puis lier : Mirakl (`vault/linkedin/post-hackathon-mirakl.md`), SwapJob, DataGouv. SEO-hanine : pas de post.
 
@@ -347,14 +350,15 @@ portfolio/
 
 ## 🎯 Next Immediate Action
 
-**Site live et conforme au cahier des charges formateur** (`https://solanathouu.github.io/portefolio/`). Plus d'urgence sur le rendu. Prochaines étapes par ordre de priorité :
+**Site live à jour** (`https://solanathouu.github.io/portefolio/`) — section Hackathon Dust + fond shader silk + fix police déployés. Prochaines étapes par ordre de priorité :
 
-1. **Lighthouse audit** sur l'URL live (perf + a11y + best practices + SEO) — chercher quick wins (préchargement avatar frames, alt manquants, contrast ratio)
-2. **Compresser** `public/projects/payfit-presentation.pdf` (28 Mo → cible <2 Mo via ghostscript ou Adobe). Le repo est public, ça ralentit le clone.
-3. **Logos manquants à finaliser** : LaBonneNote (mascotte OK mais pas de logo carré), Oppy (idem mascotte), DataGouv (utilise actuellement la Marianne Marianne République Française comme placeholder)
-4. **URLs LinkedIn** à remplir dans `linkedinUrl?` quand drafts publiés (Mirakl UC1, SwapJob, DataGouv)
-5. **(Optionnel) Custom domain** : acheter un `nathanskwarek.com` (~10 €/an) puis `public/CNAME` + DNS CNAME → `solanathouu.github.io`
-6. **(Optionnel) README.md public** sur le repo pour expliquer le portfolio (le repo est public maintenant)
+1. **Remplacer les visuels placeholder du Hackathon Dust** : `dust-photo-1/2.jpg` sont de vraies photos, mais il reste des slots à compléter si Nathan a d'autres affiches/photos de l'event (envoyer → ajouter dans `media[]` de `projects.ts` id `hackathon-dust-eugenia`).
+2. **(Fond silk — optionnel)** : ajouter le **support tactile** (ripple au tap mobile, actuellement events souris only), **plafonner le DPR** (max 2) pour alléger sur téléphones haute densité, ou passer le shader en **mode clair** (`isDark=false`). Décider aussi si on garde `ParticleBackground.tsx` (inutilisé) ou si on le supprime.
+3. **Lighthouse audit** sur l'URL live (perf + a11y + best practices + SEO) — vérifier l'impact GPU du shader sur mobile.
+4. **Compresser** `public/projects/payfit-presentation.pdf` (28 Mo → cible <2 Mo via ghostscript ou Adobe). Le repo est public, ça ralentit le clone.
+5. **Logos manquants à finaliser** : LaBonneNote (mascotte OK mais pas de logo carré), Oppy (idem mascotte), DataGouv (utilise actuellement la Marianne comme placeholder)
+6. **URLs LinkedIn** à remplir dans `linkedinUrl?` quand drafts publiés (Mirakl UC1, SwapJob, DataGouv)
+7. **(Optionnel) Custom domain** : `nathanskwarek.com` (~10 €/an) puis `public/CNAME` + DNS CNAME → `solanathouu.github.io`
 
 **Pour reprendre une session :**
 ```bash
@@ -452,7 +456,7 @@ Valeurs recommandées:
 
 ---
 
-**Last updated:** 2026-05-19
-**Status:** ✅ Livré + corrigé — site live sur GitHub Pages, Tailwind 4 réparé, responsive validé 375/768/1440, bulles contact cliquables après nav client-side
+**Last updated:** 2026-06-03
+**Status:** ✅ Livré — site live à jour : 10 projets (+ Hackathon Dust × Eugenia), fond shader WebGL « silk » (remplace ParticleBackground), fix police titre Hero (Helvetica Neue). Merge `b8dbf58` déployé (CI success).
 **URL live:** https://solanathouu.github.io/portefolio/
-**Next:** Lighthouse audit + compresser payfit-presentation.pdf + finaliser logos LaBonneNote/Oppy/DataGouv
+**Next:** Remplacer visuels placeholder Hackathon Dust + optionnel (support tactile/DPR cap/mode clair du shader) + Lighthouse audit + compresser payfit-presentation.pdf
