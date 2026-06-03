@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/layout/Header";
-import ParticleBackground from "@/components/layout/ParticleBackground";
+import BackgroundSilk from "@/components/layout/BackgroundSilk";
+import ContentLayer from "@/components/layout/ContentLayer";
 import { Space_Mono } from 'next/font/google';
 import { LoadingProvider } from '@/lib/contexts/LoadingContext';
 
@@ -32,12 +33,12 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`dark ${spaceMono.variable}`}>
       <body className="antialiased" style={{ backgroundColor: '#303030' }}>
-        <ParticleBackground />
+        <BackgroundSilk />
         <LoadingProvider>
-          <div className="relative z-[1]">
+          <ContentLayer>
             <Header />
             {children}
-          </div>
+          </ContentLayer>
         </LoadingProvider>
       </body>
     </html>

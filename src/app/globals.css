@@ -36,6 +36,21 @@ body {
   font-family: var(--font-space-mono), 'Courier New', monospace;
 }
 
+/* Fond interactif — la home laisse passer la souris vers le shader de fond
+   (mousemove + ripple au clic), mais les éléments interactifs restent cliquables. */
+.bg-passthrough {
+  pointer-events: none;
+}
+.bg-passthrough a,
+.bg-passthrough button,
+.bg-passthrough input,
+.bg-passthrough textarea,
+.bg-passthrough select,
+.bg-passthrough label,
+.bg-passthrough [role="button"] {
+  pointer-events: auto;
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
