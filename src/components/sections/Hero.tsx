@@ -267,6 +267,11 @@ export default function Hero() {
           <h1
             className="font-black tracking-tighter text-center"
             style={{
+              // On mène avec Helvetica Neue / Arial (rendu propre garanti, look Apple/glacé).
+              // On évite volontairement `-apple-system` / `system-ui` EN TÊTE car sur
+              // certains environnements ils résolvent vers une police qui ajoute des
+              // trémas sur les A (rendu « NÄTHÄN »). Pas de webfont à télécharger.
+              fontFamily: '"Helvetica Neue", Arial, "Segoe UI", Roboto, sans-serif',
               color: 'transparent',
               WebkitTextStroke: '2px rgba(255, 255, 255, 0.25)',
               textShadow: '0 0 60px rgba(255, 255, 255, 0.08)',

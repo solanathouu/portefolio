@@ -671,4 +671,73 @@ export const projects: Project[] = [
       'Score Rodin 7,5/10 — projet clos côté livrables',
     ],
   },
+  // P10 (wide) — Hackathon Dust × Eugenia (organisation + DA)
+  {
+    id: 'hackathon-dust-eugenia',
+    title: 'Hackathon Dust × Eugenia',
+    description:
+      'Organisation et direction artistique du hackathon Dust × Eugenia (29 mai 2026). Pilotage opérationnel, DA pixel art « Claude Boy », supports physiques et logistique des soirées.',
+    longDescription:
+      'Hackathon Dust × Eugenia du 29 mai 2026, co-brandé avec Dust comme partenaire principal. Je n\'y ai pas participé en tant que candidat : je l\'ai organisé, aux côtés d\'Ali et de Stéphane (directeur). Pilotage opérationnel partagé, de la définition du matériel jusqu\'à la logistique des trois soirées de la semaine.\n\nVolet direction artistique : création de la DA pixel art « Claude Boy » (chibi SD, palette temporelle matin → nuit) et de sa série de 5 affiches A2 portrait storytelling mettant en scène le trio orga et la mascotte Clio. Convergence chromatique pensée avec l\'identité Eugenia (bordeaux #7C1C1C, ocre #E8B441) et la DA dev navy. Premier déploiement IRL de cette direction artistique personal brand.\n\nVolet production & logistique : design des cravates custom bordeaux × logos tech AI monochrome ocre (Eugenia, Anthropic, OpenAI, Gemini, Dust, Mistral, Meta, Hugging Face, GitHub), sourcing des impressions (affiches, stickers, t-shirts dream team), et chiffrage des devis sécurité + nettoyage pour les soirées de la semaine.',
+    tags: ['Organisation', 'Direction Artistique', 'Pixel Art', 'Event', 'Dust'],
+    thumbnail: '/projects/dust-cover.png',
+    coverFit: 'contain',
+    coverBackground: '#F2F1EC',
+    media: [
+      {
+        type: 'image',
+        url: '/projects/dust-cover.png',
+        caption: 'Hackathon Dust × Eugenia — 29 mai 2026',
+      },
+      {
+        type: 'image',
+        url: '/projects/dust-affiche.png',
+        caption: 'DA « Claude Boy » — affiche storytelling (trio orga + mascotte Clio devant la façade Eugenia)',
+      },
+      {
+        type: 'image',
+        url: '/projects/dust-photo-1.jpg',
+        caption: 'Ambiance hackathon — amphi central sous la verrière',
+      },
+      {
+        type: 'image',
+        url: '/projects/dust-photo-2.jpg',
+        caption: 'Pitch des participants — t-shirts Eugenia',
+      },
+    ],
+    featured: false,
+    year: '2026',
+    client: 'Eugenia School × Dust',
+    role: 'Organisation & Direction Artistique',
+    technologies: [
+      {
+        category: 'Direction Artistique',
+        items: ['DA pixel art « Claude Boy »', 'Série 5 affiches A2', 'Figma post-prod'],
+      },
+      {
+        category: 'Génération visuelle',
+        items: ['ChatGPT image', 'Gemini / nano-banana', 'Pixel art chibi SD'],
+      },
+      {
+        category: 'Production physique',
+        items: ['Affiches A2', 'Cravates custom', 'Stickers', 'T-shirts dream team'],
+      },
+      {
+        category: 'Pilotage',
+        items: ['Coordination trio orga', 'Sourcing impression', 'Logistique soirées'],
+      },
+    ],
+    challenges: [
+      'Co-piloter l\'organisation d\'un hackathon co-brandé Dust à trois (Nathan, Ali, Stéphane) sur une semaine d\'événements',
+      'Créer une DA pixel art « Claude Boy » cohérente (chibi SD strict, composition unifiée anti-collage) et la décliner en 5 affiches storytelling',
+      'Faire converger la DA Claude Boy avec l\'identité Eugenia (bordeaux / ocre) et la DA dev navy',
+      'Sourcer et caler la production physique (affiches, cravates, stickers, t-shirts) dans un timing serré',
+    ],
+    outcomes: [
+      'Hackathon Dust × Eugenia tenu le 29 mai 2026 — événement bien déroulé',
+      'Premier déploiement IRL de la direction artistique « Claude Boy »',
+      'Série de 5 affiches A2 storytelling finalisée + cravates trio validées',
+      'Devis sécurité + nettoyage chiffrés et engagés pour les soirées de la semaine',
+    ],
+  },
 ];

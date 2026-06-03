@@ -52,13 +52,13 @@ export default function Projects() {
           </div>
         </motion.div>
 
-        {/* Bento Grid — 9 projets, pattern asymétrique étendu */}
+        {/* Bento Grid — 10 projets, pattern asymétrique étendu */}
         <div
           className="bento-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
-            gridTemplateRows: '300px 300px 300px 250px 300px 300px',
+            gridTemplateRows: '300px 300px 300px 250px 300px 300px 300px',
             gap: '16px',
           }}
         >
@@ -122,6 +122,13 @@ export default function Projects() {
           {projects[8] && (
             <div className="bento-cell" style={{ gridColumn: '1', gridRow: '6' }}>
               <ProjectCard project={projects[8]} index={8} />
+            </div>
+          )}
+
+          {/* P10 (wide) — full width, row 7 */}
+          {projects[9] && (
+            <div className="bento-cell" style={{ gridColumn: '1 / 3', gridRow: '7' }}>
+              <ProjectCard project={projects[9]} index={9} />
             </div>
           )}
         </div>
